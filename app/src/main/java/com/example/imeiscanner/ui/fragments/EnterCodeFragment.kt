@@ -42,7 +42,6 @@ class EnterCodeFragment(val phoneNumber: String,val id:String) : Fragment() {
 
     }
 
-
     private fun checkCode() {
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id,code)

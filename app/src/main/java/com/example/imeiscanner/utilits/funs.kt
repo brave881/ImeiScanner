@@ -1,17 +1,24 @@
 package com.example.imeiscanner.utilits
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 
-fun showToast(string: String){
+fun showToast(string: String) {
     Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_SHORT).show()
 }
 
-fun replaceFragment(fragment: Fragment){
+fun replaceFragment(fragment: Fragment) {
     MAIN_ACTIVITY
         .supportFragmentManager
         .beginTransaction()
-        .replace(R.id.data_container,fragment)
+        .replace(R.id.data_container, fragment)
         .commit()
+}
+
+fun restartActivity() {
+    val intent = Intent(MAIN_ACTIVITY, MAIN_ACTIVITY::class.java)
+    MAIN_ACTIVITY.startActivity(intent)
+    MAIN_ACTIVITY.finish()
 }

@@ -11,6 +11,7 @@ import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.replaceFragment
+import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -43,8 +44,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
                 AUTH.signInWithCredential(credential).addOnSuccessListener {
-
-                }
+                    restartActivity()
+                    showToast("Welcome")
+                }.addOnFailureListener { showToast(it.message.toString()) }
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
