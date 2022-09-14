@@ -1,5 +1,6 @@
 package com.example.imeiscanner.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,14 +10,15 @@ import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
-import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.replaceFragment
-import com.example.imeiscanner.utilits.restartActivity
-import com.example.imeiscanner.utilits.showToast
+import com.example.imeiscanner.utilits.*
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthOptions
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
@@ -24,6 +26,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var mPhoneNumber: String
+    private lateinit var signInRequest: BeginSignInRequest
+    private val showOneTapUi = true
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +42,68 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onStart() {
         super.onStart()
 
-        binding.registerBtnGoogle.setOnClickListener { }
+        binding.registerBtnGoogle.setOnClickListener {
+            signWithGoogle()
+            signIn()
+        }
         binding.registerBtnSign.setOnClickListener { sendCode() }
+    }
+
+    private fun signIn() {
+        val signInIntent = googleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_SiGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == RC_SiGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                val account = task.getResult(ApiException::class.java)!!
+                firebaseAuthWithGoogle(account.idToken!!)
+                Log.d("TAG", "on: ${account.idToken}")
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+                Log.d("TAG", "on 1: ${e.message}")
+            }
+        }
+    }
+
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        AUTH.signInWithCredential(credential).addOnSuccessListener {
+            val user = AUTH.currentUser
+            updateUi(user)
+            Log.d("TAG", "fb: ${user}")
+        }.addOnFailureListener {
+            showToast(it.message.toString())
+            Log.d("TAG", "fb1: ${it.message}")
+            updateUi(null)
+        }
+    }
+
+    private fun updateUi(user: FirebaseUser?) {
+
+    }
+
+    private fun signWithGoogle() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+
+        googleSignInClient = GoogleSignIn.getClient(MAIN_ACTIVITY, gso)
+
+
+//        signInRequest = BeginSignInRequest.Builder().setGoogleIdTokenRequestOptions(
+//            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
+//                .setSupported(true)
+//                .setServerClientId(getString(R.string.default_web_client_id))
+//                .setFilterByAuthorizedAccounts(true)
+//                .build()
+//        ).build()
+
     }
 
     private fun sendCode() {
