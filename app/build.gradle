@@ -7,7 +7,7 @@ plugins {
 android {
 
     buildFeatures {
-        viewBinding true
+        viewBinding  true
     }
     compileSdk 32
 

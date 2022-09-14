@@ -3,7 +3,7 @@
 
     <style name="register_edit_text_style">
         <item name="maxLines">1</item>
-        <item name="android:textColorHint">@color/colorTextBlue</item>
+        <item name="android:textColorHint">#8A72787A</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/register_input_phoneNumber_text_size</item>
         <item name="android:layout_width">@dimen/register_input_phone_number_width</item>

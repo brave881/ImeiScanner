@@ -7,4 +7,7 @@
     <string name="register_btn_sign_text">Sign In</string>
     <string name="register_or_text">or</string>
     <string name="register_enterPhoneNumber_text">Enter Phone Number!</string>
+    <string name="entercode_enterphone_text">Enter code</string>
+    <string name="enter_code_toast_text">Please enter phone number!</string>
+    <string name="input_code">Input code</string>
 </resources>
