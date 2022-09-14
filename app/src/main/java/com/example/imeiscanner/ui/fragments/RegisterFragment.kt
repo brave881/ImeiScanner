@@ -47,6 +47,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d("TAG", "onVerificationCompleted:$credential")
+                AUTH.signInWithCredential(credential).addOnSuccessListener {
+
+                }
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
@@ -75,7 +78,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun enterCode() {
 
     }
-
 
 
     private fun options(phoneNumber: String) {
