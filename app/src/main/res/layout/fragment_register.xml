@@ -41,25 +41,27 @@
         app:layout_constraintTop_toBottomOf="@id/register_text_mobileApp" />
 
     <TextView
+        android:id="@+id/register_btn_sign"
+        style="@style/register_btn_sign_style"
         android:text="@string/register_btn_sign_text"
         android:textColor="@color/colorAccent"
-        android:id="@+id/register_btn_sign"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_input_phone_number"
-        style="@style/register_btn_sign_style" />
+        app:layout_constraintTop_toBottomOf="@id/register_input_phone_number" />
+
     <TextView
         android:id="@+id/register_or_text"
+        style="@style/register_or_text_style"
         android:text="@string/register_or_text"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_btn_sign"
-        style="@style/register_or_text_style" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_btn_sign" />
+
     <ImageView
-        app:layout_constraintTop_toBottomOf="@id/register_or_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/register_google_icon_style"
         android:src="@drawable/google_icon"
-        style="@style/register_google_icon_style" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_or_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
