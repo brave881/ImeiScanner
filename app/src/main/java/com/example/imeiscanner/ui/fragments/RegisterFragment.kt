@@ -65,6 +65,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+             replaceFragment(EnterCodeFragment(phoneNumber,verificationId))
                 Log.d("TAG", "onCodeSent:$verificationId")
             }
         }

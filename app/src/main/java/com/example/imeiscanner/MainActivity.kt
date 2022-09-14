@@ -16,10 +16,8 @@ class MainActivity : AppCompatActivity() {
         AUTH = FirebaseAuth.getInstance()
 
         replaceFragment(RegisterFragment())
-        if (AUTH.currentUser != null){
-        }else{
+
 
         }
-    }
 
 }

@@ -13,11 +13,13 @@ import com.example.imeiscanner.database.AUTH
 
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 
 
-class EnterCodeFragment(val phoneNumber: String) : Fragment() {
+class EnterCodeFragment(val phoneNumber: String,val id:String) : Fragment() {
     private lateinit var binding: FragmentEnterCodeBinding
     override fun onStart() {
         super.onStart()
@@ -42,6 +44,11 @@ class EnterCodeFragment(val phoneNumber: String) : Fragment() {
 
 
     private fun checkCode() {
+        val code = binding.registerInputCode.text.toString()
+        val credential = PhoneAuthProvider.getCredential(id,code)
+        AUTH.signInWithCredential(credential).addOnSuccessListener {
+           showToast("calisiyor obe")
+        }
 
     }
 
