@@ -24,6 +24,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private lateinit var phoneNumber: String
 
 
     override fun onCreateView(
@@ -39,36 +40,32 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onStart()
 
         binding.registerBtnGoogle.setOnClickListener { }
-        val phoneNumber = binding.registerInputPhoneNumber.text.toString()
-        binding.registerBtnSign.setOnClickListener { replaceFragment(EnterCodeFragment(phoneNumber)) }
-        options(phoneNumber)
+
+        phoneNumber = binding.registerInputPhoneNumber.text.toString()
+
 
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d("TAG", "onVerificationCompleted:$credential")
+
                 AUTH.signInWithCredential(credential).addOnSuccessListener {
 
                 }
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Log.w("TAG", "onVerificationFailed", e)
-
-                if (e is FirebaseAuthInvalidCredentialsException) {
-                } else if (e is FirebaseTooManyRequestsException) {
-                }
-
+                Log.w("TAG", "onVerificationFailed: ${e.message}")
             }
 
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-             replaceFragment(EnterCodeFragment(phoneNumber,verificationId))
+                replaceFragment(EnterCodeFragment(phoneNumber, verificationId))
                 Log.d("TAG", "onCodeSent:$verificationId")
             }
         }
+        binding.registerBtnSign.setOnClickListener {  options(phoneNumber) }
         if (phoneNumber.isNotEmpty()) {
             enterCode()
         } else {
