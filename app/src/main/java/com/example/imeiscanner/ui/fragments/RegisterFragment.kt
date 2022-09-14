@@ -25,6 +25,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onStart() {
         super.onStart()
 
+        binding.registerBtnGoogle.setOnClickListener {  }
         binding.registerBtnSign.setOnClickListener { sendCode() }
     }
 

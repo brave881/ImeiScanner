@@ -58,6 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/register_btn_sign" />
 
     <ImageView
+        android:id="@+id/register_btn_google"
         style="@style/register_google_icon_style"
         android:src="@drawable/google_icon"
         app:layout_constraintEnd_toEndOf="parent"
