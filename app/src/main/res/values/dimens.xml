@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="normal_text_size">20sp</dimen>
+    <dimen name="register_input_phone_number_width">290dp</dimen>
+    <dimen name="register_input_phone_number_height">45dp</dimen>
+</resources>

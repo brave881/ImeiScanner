@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Imei Scanner</string>
+    <string name="register_text_mobileApp">Mobile App</string>
+    <string name="register_text_phoneNumber">Phone Number</string>
 </resources>
