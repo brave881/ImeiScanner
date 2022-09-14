@@ -38,7 +38,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onStart()
 
         binding.registerBtnGoogle.setOnClickListener { }
+        binding.registerBtnSign.setOnClickListener { sendCode() }
+    }
 
+    private fun sendCode() {
+        if (binding.registerInputPhoneNumber.text.isNotEmpty()) {
+            options()
+        } else {
+            showToast(getString(R.string.enter_code_toast_text))
+        }
+    }
+
+    private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -60,15 +71,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 replaceFragment(EnterCodeFragment(mPhoneNumber, verificationId))
             }
         }
-        binding.registerBtnSign.setOnClickListener { sendCode() }
-    }
-
-    private fun sendCode() {
-        if (binding.registerInputPhoneNumber.text.isNotEmpty()) {
-            options()
-        } else {
-            showToast(getString(R.string.enter_code_toast_text))
-        }
+        return callbacks
     }
 
     private fun options() {
@@ -77,7 +80,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
             .setActivity(MAIN_ACTIVITY)                 // Activity (for callback binding)
-            .setCallbacks(callbacks)                    // OnVerificationStateChangedCallbacks
+            .setCallbacks(getCallbacks())                    // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
