@@ -3,10 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/yunus/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/edittext_style.xml" value="0.3045" />
-        <entry key="..\:/Users/yunus/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/yunus/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_enter_code.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/yunus/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/register_fragment.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/edittex_style.xml" value="0.132" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/edittext_style.xml" value="0.1335" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/sign_style.xml" value="0.132" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/register_fragment.xml" value="0.22" />
       </map>
     </option>
   </component>

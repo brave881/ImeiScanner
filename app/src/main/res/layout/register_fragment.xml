@@ -33,10 +33,33 @@
 
     <EditText
         android:id="@+id/register_input_phone_number"
+        style="@style/register_edit_text_style"
+        android:layout_marginTop="150dp"
         android:hint="@string/register_text_phoneNumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_text_mobileApp"
-        style="@style/register_edittext_style" />
+        app:layout_constraintTop_toBottomOf="@id/register_text_mobileApp" />
+
+    <TextView
+        android:text="@string/register_btn_sign_text"
+        android:textColor="@color/colorAccent"
+        android:id="@+id/register_btn_sign"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_input_phone_number"
+        style="@style/register_btn_sign_style" />
+    <TextView
+        android:id="@+id/register_or_text"
+        android:text="@string/register_or_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_btn_sign"
+        style="@style/register_or_text_style" />
+    <ImageView
+        app:layout_constraintTop_toBottomOf="@id/register_or_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/google_icon"
+        style="@style/register_google_icon_style" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
