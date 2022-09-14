@@ -13,8 +13,6 @@ import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.replaceFragment
 import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
@@ -24,8 +22,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private lateinit var phoneNumber: String
-
+    private lateinit var mPhoneNumber: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +37,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onStart()
 
         binding.registerBtnGoogle.setOnClickListener { }
-
-        phoneNumber = binding.registerInputPhoneNumber.text.toString()
-
 
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
@@ -61,26 +55,24 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                replaceFragment(EnterCodeFragment(phoneNumber, verificationId))
-                Log.d("TAG", "onCodeSent:$verificationId")
+                replaceFragment(EnterCodeFragment(mPhoneNumber, verificationId))
             }
         }
-        binding.registerBtnSign.setOnClickListener {  options(phoneNumber) }
-        if (phoneNumber.isNotEmpty()) {
-            enterCode()
+        binding.registerBtnSign.setOnClickListener { sendCode() }
+    }
+
+    private fun sendCode() {
+        if (binding.registerInputPhoneNumber.text.isNotEmpty()) {
+            options()
         } else {
             showToast(getString(R.string.enter_code_toast_text))
         }
     }
 
-    private fun enterCode() {
-
-    }
-
-
-    private fun options(phoneNumber: String) {
+    private fun options() {
+        mPhoneNumber = binding.registerInputPhoneNumber.text.toString()
         val options = PhoneAuthOptions.newBuilder(AUTH)
-            .setPhoneNumber(phoneNumber)                // Phone number to verify
+            .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
             .setActivity(MAIN_ACTIVITY)                 // Activity (for callback binding)
             .setCallbacks(callbacks)                    // OnVerificationStateChangedCallbacks
