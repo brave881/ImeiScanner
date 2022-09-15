@@ -127,7 +127,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-    private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+        private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
