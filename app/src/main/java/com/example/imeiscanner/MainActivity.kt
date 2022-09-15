@@ -3,12 +3,14 @@ package com.example.imeiscanner
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.ui.fragments.RegisterFragment
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.replaceFragment
 import com.example.imeiscanner.utilits.restartActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         MAIN_ACTIVITY = this
         AUTH = FirebaseAuth.getInstance()
+        REF_DATABASE_ROOT= FirebaseDatabase.getInstance().reference
 
         initFunctions()
     }

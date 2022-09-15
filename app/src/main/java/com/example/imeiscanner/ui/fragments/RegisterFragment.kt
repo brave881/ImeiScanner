@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
 import com.example.imeiscanner.utilits.*
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -85,7 +86,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun updateUi(user: FirebaseUser?) {
+        val uid=user?.uid
 
+        REF_DATABASE_ROOT.child()
     }
 
     private fun signWithGoogle() {
