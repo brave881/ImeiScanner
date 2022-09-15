@@ -151,6 +151,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         return callbacks
     }
 
+
     private fun options() {
         mPhoneNumber = binding.registerInputPhoneNumber.text.toString()
         val options = PhoneAuthOptions.newBuilder(AUTH)
