@@ -44,6 +44,8 @@
         android:id="@+id/register_btn_sign"
         style="@style/register_btn_sign_style"
         android:text="@string/register_btn_sign_text"
+        android:clickable="true"
+        android:focusable="true"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
