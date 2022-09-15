@@ -70,6 +70,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         AUTH.signInWithCredential(credential).addOnSuccessListener {
