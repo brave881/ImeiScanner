@@ -65,5 +65,7 @@ dependencies {
 
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
 
+    implementation "com.mikepenz:materialdrawer:7.0.0"
+
 
 }
