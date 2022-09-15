@@ -96,7 +96,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val mapUser = mutableMapOf<String, Any>()
         mapUser["$NODE_GOOGLE_USERS/$uid"] = dataMap
 
-        REF_DATABASE_ROOT.updateChildren(mapUser)
+        REF_DATABASE_ROOT.setValue(dataMap)
     }
 
     private fun signWithGoogle() {

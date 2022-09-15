@@ -10,4 +10,6 @@
     <string name="entercode_enterphone_text">Enter code</string>
     <string name="enter_code_toast_text">Please enter phone number!</string>
     <string name="input_code">Input code</string>
+    <string name="register_input_name">Input Name</string>
+    <string name="register_enter_name">Enter Name</string>
 </resources>

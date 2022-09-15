@@ -8,32 +8,75 @@
     tools:context=".ui.fragments.EnterCodeFragment">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/top_margin_20dp"
-        android:text="@string/entercode_enterphone_text"
-        app:layout_constraintBottom_toTopOf="@+id/register_input_code"
-        app:layout_constraintEnd_toEndOf="@+id/register_input_code"
-        app:layout_constraintStart_toStartOf="@+id/register_input_code" />
-
-    <EditText
-        android:id="@+id/register_input_code"
-        style="@style/register_edit_text_style"
-        android:hint="@string/input_code"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enter_code_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/enter_code_next_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/next_forward"
-        android:layout_margin="@dimen/top_margin_20dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/top_margin_20dp"
+            android:text="@string/entercode_enterphone_text"
+            app:layout_constraintBottom_toTopOf="@+id/register_input_code"
+            app:layout_constraintEnd_toEndOf="@+id/register_input_code"
+            app:layout_constraintStart_toStartOf="@+id/register_input_code" />
+
+        <EditText
+            android:id="@+id/register_input_code"
+            style="@style/register_edit_text_style"
+            android:hint="@string/input_code"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enter_name_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/top_margin_20dp"
+            android:text="@string/register_enter_name"
+            app:layout_constraintBottom_toTopOf="@+id/register_input_name"
+            app:layout_constraintEnd_toEndOf="@+id/register_input_name"
+            app:layout_constraintStart_toStartOf="@+id/register_input_name" />
+
+        <EditText
+            android:id="@+id/register_input_name"
+            style="@style/register_edit_text_style"
+            android:hint="@string/register_input_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/enter_name_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/top_margin_20dp"
+            android:src="@drawable/next_forward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
