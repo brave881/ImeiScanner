@@ -9,12 +9,21 @@ fun showToast(string: String) {
     Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_SHORT).show()
 }
 
-fun replaceFragment(fragment: Fragment) {
-    MAIN_ACTIVITY
-        .supportFragmentManager
-        .beginTransaction()
-        .replace(R.id.data_container, fragment)
-        .commit()
+fun replaceFragment(fragment: Fragment,addStack:Boolean=true) {
+    if (addStack) {
+        MAIN_ACTIVITY
+            .supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.data_container, fragment)
+            .commit()
+    }else{
+        MAIN_ACTIVITY
+            .supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.data_container, fragment)
+            .commit()
+    }
 }
 
 fun restartActivity() {

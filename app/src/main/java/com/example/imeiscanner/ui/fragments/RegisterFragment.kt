@@ -75,6 +75,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val user = AUTH.currentUser
             updateUi(user)
+            restartActivity()
             Log.d("TAG", "fb: ${user}")
         }.addOnFailureListener {
             showToast(it.message.toString())
