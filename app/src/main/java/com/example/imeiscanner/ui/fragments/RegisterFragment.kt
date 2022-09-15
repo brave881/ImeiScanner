@@ -8,8 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.AUTH
-import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
 import com.example.imeiscanner.utilits.*
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
@@ -86,9 +85,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun updateUi(user: FirebaseUser?) {
-        val uid=user?.uid
+        val uid = user?.uid
+        val dataMap = mutableMapOf<String, Any>()
 
-        REF_DATABASE_ROOT.child()
+        dataMap[CHILD_ID] = user!!.uid
+        dataMap[CHILD_EMAIL] = user.email.toString()
+        dataMap[CHILD_FULLNAME] = user.displayName.toString()
+        dataMap[CHILD_PHOTO_URL] = user.photoUrl.toString()
+
+        val mapUser = mutableMapOf<String, Any>()
+        mapUser["$NODE_GOOGLE_USERS/$uid"] = dataMap
+
+        REF_DATABASE_ROOT.updateChildren(mapUser)
     }
 
     private fun signWithGoogle() {
