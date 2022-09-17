@@ -5,9 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 
 import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.GOOGLE_MODEL
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.ActivityMainBinding
 import com.example.imeiscanner.databinding.FragmentMainBinding
+import com.example.imeiscanner.models.GoogleModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.ui.fragments.RegisterFragment
 import com.example.imeiscanner.utilits.AppDrawer
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         MAIN_ACTIVITY = this
         AUTH = FirebaseAuth.getInstance()
+        GOOGLE_MODEL= GoogleModel()
         REF_DATABASE_ROOT= FirebaseDatabase.getInstance().reference
 
         initFields()

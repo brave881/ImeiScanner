@@ -75,29 +75,14 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val user = AUTH.currentUser
-            updateUi(user)
+            addGoogleUserToFirebase(user)
             restartActivity()
             Log.d("TAG", "fb: ${user}")
         }.addOnFailureListener {
             showToast(it.message.toString())
             Log.d("TAG", "fb1: ${it.message}")
-            updateUi(null)
+            addGoogleUserToFirebase(null)
         }
-    }
-
-    private fun updateUi(user: FirebaseUser?) {
-        val uid = user?.uid
-        val dataMap = mutableMapOf<String, Any>()
-
-        dataMap[CHILD_ID] = user!!.uid
-        dataMap[CHILD_EMAIL] = user.email.toString()
-        dataMap[CHILD_FULLNAME] = user.displayName.toString()
-        dataMap[CHILD_PHOTO_URL] = user.photoUrl.toString()
-
-        val mapUser = mutableMapOf<String, Any>()
-        mapUser["$NODE_GOOGLE_USERS/$uid"] = dataMap
-
-        REF_DATABASE_ROOT.setValue(dataMap)
     }
 
     private fun signWithGoogle() {
