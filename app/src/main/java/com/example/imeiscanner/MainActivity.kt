@@ -21,9 +21,9 @@ import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mToolbar: Toolbar
+    lateinit var mToolbar: Toolbar
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mAppDrawer: AppDrawer
+    lateinit var mAppDrawer: AppDrawer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         initFields()
         initFunctions()
+        mAppDrawer.create()
+
     }
 
     private fun initFields() {
