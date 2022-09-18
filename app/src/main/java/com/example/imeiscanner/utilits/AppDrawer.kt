@@ -7,13 +7,14 @@ import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_LOCKED_CLOSED
 import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
-import com.example.imeiscanner.MainActivity
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.GOOGLE_MODEL
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.ui.fragments.AboutFragment
 import com.example.imeiscanner.ui.fragments.FavouritesFragment
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.ui.fragments.SettingsFragment
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthProvider
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -33,7 +34,7 @@ class AppDrawer {
 
     fun create() {
         initLoader()
-        createHeaderGoogle()
+        createHeader()
         createDrawer()
         mDrawerLayout = mDrawer.drawerLayout
     }
@@ -106,13 +107,12 @@ class AppDrawer {
         }
     }
 
-
-    private fun createHeaderGoogle() {
+    private fun createHeader() {
         mCurrentProfile = ProfileDrawerItem()
-            .withName(GOOGLE_MODEL.fullname)
-            .withEmail(GOOGLE_MODEL.email)
-            .withIcon(GOOGLE_MODEL.photoUrl)
             .withIdentifier(200)
+            .withName(USER_MODEL.fullname)
+            .withIcon(USER_MODEL.photoUrl)
+            .withEmail(USER_MODEL.phoneOrEmail)
         mHeader = AccountHeaderBuilder()
             .withActivity(MAIN_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
@@ -127,5 +127,4 @@ class AppDrawer {
             }
         })
     }
-
 }

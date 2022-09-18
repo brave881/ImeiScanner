@@ -18,9 +18,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private lateinit var rv: RecyclerView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding=FragmentMainBinding.inflate(inflater,container,false)
         return binding.root
     }
 

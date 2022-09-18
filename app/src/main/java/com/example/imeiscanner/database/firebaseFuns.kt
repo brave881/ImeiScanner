@@ -1,6 +1,9 @@
 package com.example.imeiscanner.database
 
+import com.example.imeiscanner.models.UserModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.FirebaseDatabase
 
 fun addGoogleUserToFirebase(user: FirebaseUser?) {
     val uid = user?.uid
@@ -19,7 +22,15 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 }
 
 fun setGoogleUsersData(user: FirebaseUser?) {
-    GOOGLE_MODEL.email = user?.email.toString()
-    GOOGLE_MODEL.fullname = user?.displayName.toString()
-    GOOGLE_MODEL.photoUrl = user?.photoUrl.toString()
+    USER_MODEL.phoneOrEmail = user?.email.toString()
+    USER_MODEL.fullname = user?.displayName.toString()
+    USER_MODEL.photoUrl = user?.photoUrl.toString()
+}
+
+fun initFirebase() {
+    AUTH = FirebaseAuth.getInstance()
+    USER_MODEL = UserModel()
+    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    CURRENT_USER = AUTH.currentUser?.uid.toString()
+    CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
 }

@@ -54,6 +54,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             datemap[CHILD_PHONE] = phoneNumber
             datemap[CHILD_ID] = uid
 
+
             REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                 .setValue(datemap)
                 .addOnSuccessListener {
@@ -70,7 +71,9 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
     private fun inputName() {
         binding.enterNameNextBtn.setOnClickListener {
             val name = binding.registerInputName.text.toString()
-            if (name.isNotEmpty())
+            if (name.isNotEmpty()) {
+                USER_MODEL.fullname = name
+                USER_MODEL.phoneOrEmail = phoneNumber
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                     .child(CHILD_FULLNAME).setValue(name)
                     .addOnSuccessListener { restartActivity() }
