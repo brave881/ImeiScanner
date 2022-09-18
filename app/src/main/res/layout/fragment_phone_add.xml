@@ -1,9 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".ui.fragments.PhoneAddFragment">
+
+
+    <EditText
+        android:id="@+id/phone_add_phone_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/phone_add_phone_imei_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/barcode_scanner"
+        android:hint="Imei 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_add_phone_name" />
+
+    <EditText
+        android:id="@+id/phone_add_phone_imei_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/barcode_scanner"
+        android:hint="Imei 2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_add_phone_imei_1" />
+
+
+    <EditText
+        android:id="@+id/phone_add_phone_serial_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/barcode_scanner"
+        android:hint="Serial Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/phone_add_phone_imei_2" />
+
+
+    <EditText
+        android:id="@+id/phone_add_phone_memory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Memory"
+        app:layout_constraintEnd_toStartOf="@id/phone_add_phone_battery"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_serial_number" />
+
+    <EditText
+        android:id="@+id/phone_add_phone_battery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Battery state"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phone_add_phone_memory"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_serial_number" />
+
+    <EditText
+        android:id="@+id/phone_add_phone_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Price"
+        app:layout_constraintEnd_toStartOf="@id/btn_date_use"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_memory" />
+
+    <TextView
+        android:id="@+id/btn_date_use"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="       26/09/2022"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/phone_add_phone_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phone_add_phone_price"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_battery" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
