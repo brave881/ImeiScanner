@@ -60,7 +60,7 @@
 
         <EditText
             android:id="@+id/register_input_name"
-            style="@style/register_edit_text_style"
+            style="@style/register_inputName_style"
             android:hint="@string/register_input_name"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

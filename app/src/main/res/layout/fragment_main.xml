@@ -8,6 +8,7 @@
     tools:ignore="MissingDefaultResource">
 
     <TextView
+        android:id="@+id/tv"
         android:text="main fragment"
         android:textSize="50sp"
         android:layout_width="match_parent"
