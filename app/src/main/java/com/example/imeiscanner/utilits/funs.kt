@@ -1,15 +1,21 @@
 package com.example.imeiscanner.utilits
 
 import android.content.Intent
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
 
 fun showToast(string: String) {
     Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_SHORT).show()
 }
 
-fun replaceFragment(fragment: Fragment,addStack:Boolean=true) {
+fun ImageView.photoDownloadAndSet(url: String) {
+    Glide.with(this).load(url).fitCenter().into(this)
+}
+
+fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
     if (addStack) {
         MAIN_ACTIVITY
             .supportFragmentManager
@@ -17,7 +23,7 @@ fun replaceFragment(fragment: Fragment,addStack:Boolean=true) {
             .addToBackStack(null)
             .replace(R.id.data_container, fragment)
             .commit()
-    }else{
+    } else {
         MAIN_ACTIVITY
             .supportFragmentManager
             .beginTransaction()

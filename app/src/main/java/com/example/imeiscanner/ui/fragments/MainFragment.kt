@@ -5,22 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.databinding.FragmentMainBinding
-import com.example.imeiscanner.utilits.replaceFragment
 
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var rv: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+    ): View? {
+        binding=FragmentMainBinding.inflate(inflater,container,false)
         return binding.root
     }
 
@@ -45,4 +42,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
 
+
+    override fun onResume() {
+        super.onResume()
+
+        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
+    }
 }

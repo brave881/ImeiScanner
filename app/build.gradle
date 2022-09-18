@@ -74,5 +74,8 @@ dependencies {
     implementation 'com.github.Mursaat:AnimatedGradientTextView:v0.0.6'
 
 
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
 
 }
