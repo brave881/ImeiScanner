@@ -54,7 +54,6 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             datemap[CHILD_PHONE] = phoneNumber
             datemap[CHILD_ID] = uid
 
-
             REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                 .setValue(datemap)
                 .addOnSuccessListener {

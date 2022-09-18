@@ -67,5 +67,12 @@ dependencies {
 
     implementation "com.mikepenz:materialdrawer:7.0.0"
 
+    //circle image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // gradient
+    implementation 'com.github.Mursaat:AnimatedGradientTextView:v0.0.6'
+
+
 
 }
