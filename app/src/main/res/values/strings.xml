@@ -12,4 +12,5 @@
     <string name="input_code">Input code</string>
     <string name="register_input_name">Input Name</string>
     <string name="register_enter_name">Enter Name</string>
+    <string name="fullname_is_empty">Fullname is empty!</string>
 </resources>
