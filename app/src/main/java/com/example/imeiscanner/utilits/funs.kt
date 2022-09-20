@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
+import com.example.imeiscanner.database.AUTH
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 fun showToast(string: String) {
     Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_SHORT).show()
@@ -37,3 +39,12 @@ fun restartActivity() {
     MAIN_ACTIVITY.startActivity(intent)
     MAIN_ACTIVITY.finish()
 }
+
+fun updatePhoneUserName(name: String) {
+    val prof= userProfileChangeRequest {
+        displayName=name
+    }
+    AUTH.currentUser!!.updateProfile(prof)
+    restartActivity()
+}
+

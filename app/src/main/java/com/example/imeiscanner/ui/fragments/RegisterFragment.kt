@@ -70,11 +70,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val user = AUTH.currentUser
+            Log.d(TAG, "firebaseAuthWithGoogle: ${user?.email}")
             addGoogleUserToFirebase(user)
             restartActivity()
             Log.d("TAG", "fb: ${user}")
@@ -112,7 +112,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-        private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+    private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {

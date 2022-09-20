@@ -2,6 +2,7 @@ package com.example.imeiscanner.utilits
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,6 +14,7 @@ import com.example.imeiscanner.ui.fragments.AboutFragment
 import com.example.imeiscanner.ui.fragments.FavouritesFragment
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.ui.fragments.SettingsFragment
+import com.google.android.gms.auth.api.Auth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider
 import com.mikepenz.materialdrawer.AccountHeader
@@ -34,6 +36,7 @@ class AppDrawer {
 
     fun create() {
         initLoader()
+        initProfile()
         createHeader()
         createDrawer()
         mDrawerLayout = mDrawer.drawerLayout
@@ -107,12 +110,32 @@ class AppDrawer {
         }
     }
 
+    private fun initProfile(): ProfileDrawerItem {
+        AUTH.currentUser.let {
+            for (profile in it!!.providerData) {
+                when (profile.providerId) {
+                    GoogleAuthProvider.PROVIDER_ID -> {
+                        mCurrentProfile = ProfileDrawerItem()
+                            .withIdentifier(200)
+                            .withName(AUTH.currentUser?.displayName)
+                            .withEmail(AUTH.currentUser?.email)
+                            .withIcon(AUTH.currentUser?.photoUrl.toString())
+                    }
+                    PhoneAuthProvider.PROVIDER_ID -> {
+                        mCurrentProfile = ProfileDrawerItem()
+                            .withIdentifier(200)
+                            .withName(AUTH.currentUser?.displayName)
+                            .withEmail(AUTH.currentUser?.phoneNumber)
+                            .withIcon(AUTH.currentUser?.photoUrl.toString())
+
+                    }
+                }
+            }
+        }
+        return mCurrentProfile
+    }
+
     private fun createHeader() {
-        mCurrentProfile = ProfileDrawerItem()
-            .withIdentifier(200)
-            .withName(USER_MODEL.fullname)
-            .withIcon(USER_MODEL.photoUrl)
-            .withEmail(USER_MODEL.phoneOrEmail)
         mHeader = AccountHeaderBuilder()
             .withActivity(MAIN_ACTIVITY)
             .withHeaderBackground(R.drawable.header)
