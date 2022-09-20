@@ -70,7 +70,6 @@ dependencies {
     //circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-
     // glide for image
     implementation 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
@@ -78,6 +77,6 @@ dependencies {
 
     // TODO : Qr scanner library for scanner barcode
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
-
+//
 
 }

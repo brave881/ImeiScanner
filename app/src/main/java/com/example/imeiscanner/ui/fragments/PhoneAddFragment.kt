@@ -15,6 +15,7 @@ import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
 import com.example.imeiscanner.utilits.QrScanner
 import com.example.imeiscanner.utilits.showToast
 import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import java.util.*
 
@@ -26,17 +27,15 @@ class PhoneAddFragment : Fragment() {
     private var imei1: Int = 1
     private var imei2: Int = 2
     private var serialNum: Int = 3
-    private lateinit var result: String
-    private  var barcodeLauncher = registerForActivityResult(ScanContract()) { resultt ->
+    private var result: String = ""
+    private var barcodeLauncher = registerForActivityResult(ScanContract()) { resultt ->
         if (resultt.contents == null) {
             showToast("Cancelled")
         } else {
-              result = resultt.contents
-              resultt.originalIntent
-
+            result = resultt.contents
+            showToast(resultt.contents)
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
