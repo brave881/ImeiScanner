@@ -77,7 +77,6 @@ class PhoneAddFragment : Fragment() {
         datePickerDialog.show()
     }
 
-
     fun initFunctions() {
         scanOptions()
     }
@@ -113,5 +112,4 @@ class PhoneAddFragment : Fragment() {
         options.setBarcodeImageEnabled(true)
         options.setOrientationLocked(false)
     }
-
 }
