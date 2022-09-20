@@ -74,7 +74,7 @@ class AppDrawer {
                     .withIdentifier(101)
                     .withName("Favourites")
                     .withSelectable(false)
-                    .withIconTintingEnabled(true)
+                    .withIconTintingEnabled(false)
                     .withIcon(R.drawable.ic_star),
                 PrimaryDrawerItem()
                     .withIdentifier(102)

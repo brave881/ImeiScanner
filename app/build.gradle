@@ -77,7 +77,6 @@ dependencies {
 
 
     // TODO : Qr scanner library for scanner barcode
-
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 
 

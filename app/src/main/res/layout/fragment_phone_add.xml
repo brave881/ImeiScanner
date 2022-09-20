@@ -72,12 +72,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Price"
-        app:layout_constraintEnd_toStartOf="@id/btn_date_use"
+        app:layout_constraintEnd_toStartOf="@id/btn_date"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_memory" />
 
     <TextView
-        android:id="@+id/btn_date_use"
+        android:id="@+id/btn_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="       26/09/2022"
