@@ -28,7 +28,7 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
     mapUser["$NODE_USERS/$uid"] = dataMap
 
     val mapUserGoogle = mutableMapOf<String, Any>()
-    mapUserGoogle["$NODE_GOOGLE_USERS/${user.email}"] = dataMap
+    mapUserGoogle["$NODE_GOOGLE_USERS/$uid"] = dataMap
 
     REF_DATABASE_ROOT.updateChildren(mapUser)
     REF_DATABASE_ROOT.updateChildren(mapUserGoogle)
@@ -76,12 +76,12 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER_EMAIL)
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_USER_PHONE)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_USER)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
 

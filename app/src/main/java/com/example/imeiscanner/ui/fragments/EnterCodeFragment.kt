@@ -51,10 +51,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             dataMap[CHILD_PHONE] = phoneNumber
             dataMap[CHILD_ID] = uid
 
-            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).setValue(dataMap)
-                .addOnFailureListener { showToast(it.message.toString()) }
-
-            REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
+            REF_DATABASE_ROOT.child(NODE_PHONES).child(CURRENT_USER)
                 .setValue(dataMap)
                 .addOnSuccessListener {
                     binding.enterCodeContainer.visibility = View.GONE
