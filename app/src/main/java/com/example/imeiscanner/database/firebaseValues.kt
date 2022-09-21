@@ -1,12 +1,14 @@
 package com.example.imeiscanner.database
 
+import com.example.imeiscanner.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 
 lateinit var AUTH: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
-lateinit var CURRENT_USER: String
-lateinit var CURRENT_PROVIDER_ID: String
+lateinit var CURRENT_USER:String
+lateinit var USER:UserModel
+lateinit var CURRENT_PROVIDER_ID:String
 
 const val NODE_PHONE_USERS = "phone_users"
 const val NODE_GOOGLE_USERS = "google_users"
@@ -33,5 +35,3 @@ const val CHILD_FULLNAME = "fullname"
 const val CHILD_EMAIL = "email"
 const val CHILD_PHOTO_URL = "photoUrl"
 const val CHILD_TYPE = "type"
-
-

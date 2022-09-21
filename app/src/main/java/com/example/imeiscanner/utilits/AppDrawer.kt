@@ -2,7 +2,6 @@ package com.example.imeiscanner.utilits
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
@@ -13,10 +12,7 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.ui.fragments.AboutFragment
 import com.example.imeiscanner.ui.fragments.FavouritesFragment
 import com.example.imeiscanner.ui.fragments.MainFragment
-import com.example.imeiscanner.ui.fragments.SettingsFragment
-import com.google.android.gms.auth.api.Auth
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.PhoneAuthProvider
+import com.example.imeiscanner.ui.fragments.settings.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -111,26 +107,19 @@ class AppDrawer {
     }
 
     private fun initProfile(): ProfileDrawerItem {
-        AUTH.currentUser.let {
-            for (profile in it!!.providerData) {
-                when (profile.providerId) {
-                    GoogleAuthProvider.PROVIDER_ID -> {
-                        mCurrentProfile = ProfileDrawerItem()
-                            .withIdentifier(200)
-                            .withName(AUTH.currentUser?.displayName)
-                            .withEmail(AUTH.currentUser?.email)
-                            .withIcon(AUTH.currentUser?.photoUrl.toString())
-                    }
-                    PhoneAuthProvider.PROVIDER_ID -> {
-                        mCurrentProfile = ProfileDrawerItem()
-                            .withIdentifier(200)
-                            .withName(AUTH.currentUser?.displayName)
-                            .withEmail(AUTH.currentUser?.phoneNumber)
-                            .withIcon(AUTH.currentUser?.photoUrl.toString())
 
-                    }
-                }
-            }
+        if (authGoogleOrPhone() == GOOGLE) {
+            mCurrentProfile = ProfileDrawerItem()
+                .withIdentifier(200)
+                .withName(USER.name)
+                .withEmail(USER.email)
+                .withIcon(USER.photoUrl)
+        } else {
+            mCurrentProfile = ProfileDrawerItem()
+                .withIdentifier(200)
+                .withName(USER.name)
+                .withEmail(USER.phone)
+                .withIcon(USER.photoUrl)
         }
         return mCurrentProfile
     }

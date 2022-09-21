@@ -57,6 +57,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onResume() {
         super.onResume()
         initFields()
+        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }

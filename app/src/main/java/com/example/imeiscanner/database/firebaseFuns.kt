@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.widget.EditText
+import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.replaceFragment
 import com.example.imeiscanner.utilits.showToast
@@ -8,7 +9,9 @@ import com.example.imeiscanner.utilits.toStringEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 
 fun addGoogleUserToFirebase(user: FirebaseUser?) {
     val uid = user?.uid
@@ -35,6 +38,19 @@ fun initFirebase() {
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     CURRENT_USER = AUTH.currentUser?.uid.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
+    USER = UserModel()
+}
+
+fun authGoogleOrPhone(): String {
+    AUTH.currentUser.let {
+        for (profile in it!!.providerData) {
+            when (profile.providerId) {
+                GoogleAuthProvider.PROVIDER_ID -> return "google"
+                PhoneAuthProvider.PROVIDER_ID -> return "phone"
+            }
+        }
+        return ""
+    }
 }
 
 fun setValuesToFireBase(dateMap: HashMap<String, Any>) {

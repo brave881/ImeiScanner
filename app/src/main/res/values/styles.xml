@@ -48,4 +48,18 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
+    <style name="settings_log_out_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorSecondary</item>
+        <item name="android:textSize">@dimen/large_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="settings_log_out_image_style">
+        <item name="android:layout_width">@dimen/settings_log_out_image_width</item>
+        <item name="android:layout_height">@dimen/settings_log_out_image_height</item>
+        <item name="android:layout_marginStart">@dimen/top_margin_20dp</item>
+    </style>
 </resources>

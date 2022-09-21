@@ -6,5 +6,6 @@
     <color name="colorTextBlue">#036B93</color>
     <color name="colorBlueBcBLue">#027394</color>
     <color name="black">#FF000000</color>
+    <color name="colorGray">#EAE6E6</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
