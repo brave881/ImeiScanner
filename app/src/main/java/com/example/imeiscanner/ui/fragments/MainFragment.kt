@@ -25,7 +25,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private var listItems = listOf<PhoneDataModel>()
     private lateinit var adapter: Adapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,8 +32,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
-
-
 
     private fun initFields() {
         rv = binding.rvMainFragment
@@ -63,6 +60,4 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
     }
-
-
 }

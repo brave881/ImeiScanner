@@ -26,12 +26,14 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         binding.registerInputCode.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val code = binding.registerInputCode.text.toString()
                 if (code.length == 6) {
                     checkCode()
                 }
             }
+
             override fun afterTextChanged(p0: Editable?) {
             }
         })
@@ -48,6 +50,9 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             val dataMap = hashMapOf<String, Any>()
             dataMap[CHILD_PHONE] = phoneNumber
             dataMap[CHILD_ID] = uid
+
+            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).setValue(dataMap)
+                .addOnFailureListener { showToast(it.message.toString()) }
 
             REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                 .setValue(dataMap)
@@ -66,7 +71,11 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         binding.enterNameNextBtn.setOnClickListener {
             val name = binding.registerInputName.text.toString()
             if (name.isNotEmpty()) {
-               updatePhoneUserName(name)
+                updatePhoneUserName(name)
+
+                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+                    .setValue(name).addOnFailureListener { showToast(it.message.toString()) }
+
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                     .child(CHILD_FULLNAME).setValue(name)
                     .addOnSuccessListener { restartActivity() }
@@ -79,7 +88,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
         return binding.root
     }
