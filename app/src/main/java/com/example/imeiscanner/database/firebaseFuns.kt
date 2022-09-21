@@ -1,5 +1,10 @@
 package com.example.imeiscanner.database
 
+import android.widget.EditText
+import com.example.imeiscanner.ui.fragments.MainFragment
+import com.example.imeiscanner.utilits.replaceFragment
+import com.example.imeiscanner.utilits.showToast
+import com.example.imeiscanner.utilits.toStringEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -30,4 +35,16 @@ fun initFirebase() {
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     CURRENT_USER = AUTH.currentUser?.uid.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
+}
+
+fun setValuesToFireBase(dateMap: HashMap<String, Any>) {
+    val key = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).push().key
+    if (key != null) {
+        REF_DATABASE_ROOT
+            .child(NODE_PHONE_DATA_INFO)
+            .child(key)
+            .setValue(dateMap)
+            .addOnSuccessListener { replaceFragment(MainFragment()) }
+            .addOnFailureListener { showToast(it.toString()) }
+    }
 }

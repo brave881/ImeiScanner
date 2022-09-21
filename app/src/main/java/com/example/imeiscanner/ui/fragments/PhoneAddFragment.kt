@@ -71,7 +71,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         dateMap[CHILD_PHONE_ADDED_DATE] = date
         dateMap[CHILD_PHONE_PRICE] = toStringEditText(price)
         checkImeiFill(dateMap)
-        setValuesToFireBase(dateMap, name)
+        setValuesToFireBase(dateMap)
     }
 
 

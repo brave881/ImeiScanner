@@ -1,12 +1,12 @@
 package com.example.imeiscanner.models
 
 data class PhoneDataModel(
-    var name: String = "",
-    var imei1: String = "",
-    var imei2: String = "",
-    var serialNum: String = "",
-    var price: String = "",
-    var date: String = "",
-    var battery: String = "",
-    var memory: String = "",
+    var phone_name: String = "",
+    var phone_imei1: String = "",
+    var phone_imei2: String = "",
+    var phone_serial_number: String = "",
+    var phone_added_date: String = "",
+    var phone_battery_info: String = "",
+    var phone_price: String = "",
+    var phone_memory: String = "",
 )

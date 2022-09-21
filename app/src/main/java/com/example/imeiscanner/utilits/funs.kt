@@ -85,14 +85,7 @@ fun scanOptions(options: ScanOptions) {
     options.setOrientationLocked(false)
 }
 
-fun setValuesToFireBase(dateMap: HashMap<String, Any>, name: EditText) {
-    REF_DATABASE_ROOT
-        .child(NODE_PHONE_DATA_INFO)
-        .child(toStringEditText(name))
-        .setValue(dateMap)
-        .addOnSuccessListener { replaceFragment(MainFragment()) }
-        .addOnFailureListener { showToast(it.toString()) }
-}
+
 
 fun toStringEditText(e: EditText): String {
     return e.text.toString()

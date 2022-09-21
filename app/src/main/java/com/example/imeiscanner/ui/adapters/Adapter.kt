@@ -5,18 +5,22 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.imeiscanner.databinding.ItemProductsBinding
-import com.example.imeiscanner.models.ProductItemModel
+import com.example.imeiscanner.models.PhoneDataModel
 
 class Adapter : RecyclerView.Adapter<Adapter.VH>() {
 
-    private val list = ArrayList<ProductItemModel>()
-    var setOnClickItem: ((ProductItemModel) -> Unit)? = null
+    private val listItems = ArrayList<PhoneDataModel>()
+    var setOnClickItem: ((PhoneDataModel) -> Unit)? = null
 
     class VH(val binding: ItemProductsBinding) : ViewHolder(binding.root) {
-        fun bind(pim: ProductItemModel) {
-            binding.tvNameProduct.text = pim.pName
-            binding.tvTimeProduct.text = pim.pTime
-            binding.tvSerialNumber.text = pim.pSerialNumber
+        fun bind(pim: PhoneDataModel) {
+            binding.tvNameProduct.text = pim.phone_name
+            binding.tvTimeProduct.text = pim.phone_added_date
+            if (pim.phone_serial_number.isNotEmpty())
+                binding.tvSerialNumber.text = pim.phone_serial_number
+            else if (pim.phone_imei1.isNotEmpty())
+                binding.tvSerialNumber.text = pim.phone_imei1
+            else binding.tvSerialNumber.text = pim.phone_imei2
         }
     }
 
@@ -26,18 +30,24 @@ class Adapter : RecyclerView.Adapter<Adapter.VH>() {
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(list[position])
+        holder.bind(listItems[position])
         holder.binding.mainListItemContainer.setOnClickListener {
-            setOnClickItem?.invoke(list[position])
+            setOnClickItem?.invoke(listItems[position])
         }
     }
 
+    fun initData(list: List<PhoneDataModel>) {
+        listItems.clear()
+        listItems.addAll(list)
+        notifyDataSetChanged()
+    }
 
-    fun setOnClickItem(setOnClickItem: ((ProductItemModel) -> Unit)?) {
+
+    fun setOnClickItem(setOnClickItem: ((PhoneDataModel) -> Unit)?) {
         this.setOnClickItem = setOnClickItem
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = listItems.size
 
 
 }
