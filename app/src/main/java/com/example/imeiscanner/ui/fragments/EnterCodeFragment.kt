@@ -18,6 +18,8 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
     private lateinit var binding: FragmentEnterCodeBinding
+
+
     override fun onStart() {
         super.onStart()
 

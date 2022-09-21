@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 
-class BaseFragment(val layout: Int) : Fragment() {
+open class BaseFragment(val layout: Int) : Fragment() {
 
     private lateinit var mRootView: View
 
@@ -21,7 +21,6 @@ class BaseFragment(val layout: Int) : Fragment() {
 
     override fun onStart() {
         super.onStart()
-
         MAIN_ACTIVITY.mAppDrawer.disableDrawer()
     }
 

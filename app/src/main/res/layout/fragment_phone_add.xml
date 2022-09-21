@@ -9,6 +9,8 @@
 
 
     <EditText
+        android:clickable="true"
+        android:focusable="true"
         android:id="@+id/phone_add_phone_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,35 +20,69 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+
+        android:clickable="true"
+        android:focusable="true"
         android:id="@+id/phone_add_phone_imei_1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/barcode_scanner"
         android:hint="Imei 1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_imei_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_add_phone_name" />
 
-    <EditText
-        android:id="@+id/phone_add_phone_imei_2"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/btn_imei_1"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/barcode_scanner"
-        android:hint="Imei 2"
+        android:src="@drawable/barcode_scanner"
+        app:layout_constraintBottom_toTopOf="@+id/phone_add_phone_imei_2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/phone_add_phone_imei_1"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_name" />
+
+    <EditText
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/phone_add_phone_imei_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Imei 2"
+        app:layout_constraintEnd_toStartOf="@id/btn_imei_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_add_phone_imei_1" />
+
+    <ImageView
+        android:id="@+id/btn_imei_2"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/barcode_scanner"
+        app:layout_constraintBottom_toTopOf="@+id/phone_add_phone_serial_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/phone_add_phone_imei_2"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_imei_1" />
 
 
     <EditText
         android:id="@+id/phone_add_phone_serial_number"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:drawableEnd="@drawable/barcode_scanner"
         android:hint="Serial Number"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_serial_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/phone_add_phone_imei_2" />
+
+    <ImageView
+        android:id="@+id/btn_serial_number"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/barcode_scanner"
+        app:layout_constraintBottom_toTopOf="@+id/phone_add_phone_battery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/phone_add_phone_serial_number"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_imei_2" />
+
+
 
 
     <EditText
@@ -86,6 +122,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/phone_add_phone_price"
         app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_battery" />
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phone_add_phone_price" />
 
 
 
