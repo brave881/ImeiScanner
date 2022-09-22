@@ -11,6 +11,8 @@ open class BaseFragment(val layout: Int) : Fragment() {
 
     private lateinit var mRootView: View
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
