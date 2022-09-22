@@ -44,7 +44,6 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         val credential = PhoneAuthProvider.getCredential(id, code)
 
         AUTH.signInWithCredential(credential).addOnSuccessListener {
-            showToast("calisiyor obe")
             val uid = AUTH.currentUser?.uid.toString()
 
             val dataMap = hashMapOf<String, Any>()
@@ -52,15 +51,15 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             dataMap[CHILD_ID] = uid
             dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
 
-            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).setValue(dataMap)
+            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).setValue(dataMap)
                 .addOnFailureListener { showToast(it.message.toString()) }
 
-            REF_DATABASE_ROOT.child(NODE_PHONES).child(CURRENT_USER)
+            REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                 .setValue(dataMap)
                 .addOnSuccessListener {
                     binding.enterCodeContainer.visibility = View.GONE
                     binding.enterNameContainer.visibility = View.VISIBLE
-                    inputName()
+                    inputName(uid)
                 }
                 .addOnFailureListener {
                     showToast(it.toString())
@@ -68,13 +67,14 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         }
     }
 
-    private fun inputName() {
+    private fun inputName(uid:String) {
         binding.enterNameNextBtn.setOnClickListener {
             val name = binding.registerInputName.text.toString()
             if (name.isNotEmpty()) {
                 updatePhoneUserName(name)
 
-                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                    .child(CHILD_FULLNAME)
                     .setValue(name).addOnFailureListener { showToast(it.message.toString()) }
 
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
