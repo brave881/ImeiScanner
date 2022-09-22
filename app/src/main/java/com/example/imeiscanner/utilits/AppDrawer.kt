@@ -108,7 +108,7 @@ class AppDrawer {
 
     private fun initProfile(): ProfileDrawerItem {
 
-        if (authGoogleOrPhone() == GOOGLE) {
+        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             mCurrentProfile = ProfileDrawerItem()
                 .withIdentifier(200)
                 .withName(USER.name)
@@ -138,5 +138,13 @@ class AppDrawer {
                 imageView.photoDownloadAndSet(uri.toString())  //kelyabturgan imageviewga urini rasmiini qo'yadi
             }
         })
+    }
+
+    fun updateHeader() {
+        mCurrentProfile.withName(USER.name).withIcon(USER.photoUrl)
+
+        if (userGoogleOrPhone() == PHONE_PROVIDER_ID)
+            mCurrentProfile.withEmail(USER.phone)
+        mHeader.updateProfile(mCurrentProfile)
     }
 }

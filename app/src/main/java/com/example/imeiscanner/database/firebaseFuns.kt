@@ -3,15 +3,15 @@ package com.example.imeiscanner.database
 import android.widget.EditText
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
-import com.example.imeiscanner.utilits.replaceFragment
-import com.example.imeiscanner.utilits.showToast
-import com.example.imeiscanner.utilits.toStringEditText
+import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+
 
 fun addGoogleUserToFirebase(user: FirebaseUser?) {
     val uid = user?.uid
@@ -36,12 +36,15 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
     CURRENT_USER = AUTH.currentUser?.uid.toString()
+    CURRENT_USER_EMAIL = AUTH.currentUser?.email.toString()
+    CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
-    USER = UserModel()
+    USER = UserModel2()
 }
 
-fun authGoogleOrPhone(): String {
+fun userGoogleOrPhone(): String {
     AUTH.currentUser.let {
         for (profile in it!!.providerData) {
             when (profile.providerId) {
@@ -64,3 +67,34 @@ fun setValuesToFireBase(dateMap: HashMap<String, Any>) {
             .addOnFailureListener { showToast(it.toString()) }
     }
 }
+
+inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_PHOTO_URL).setValue(url)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+
+    when (userGoogleOrPhone()) {
+        GOOGLE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER)
+                .child(CHILD_PHOTO_URL)
+                .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
+        }
+        PHONE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_USER)
+                .child(CHILD_PHOTO_URL)
+                .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
+
+        }
+    }
+}
+
+inline fun getUrlFromStorage(path: StorageReference, crossinline function: (String) -> Unit) {
+    path.downloadUrl.addOnSuccessListener { function(it.toString()) }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline function: () -> Unit) {
+    path.putFile(uri).addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+

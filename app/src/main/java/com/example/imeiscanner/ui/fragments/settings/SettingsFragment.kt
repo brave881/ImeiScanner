@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageView
+import com.canhub.cropper.options
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.USER
-import com.example.imeiscanner.database.authGoogleOrPhone
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
 import com.example.imeiscanner.ui.fragments.BaseFragment
-import com.example.imeiscanner.utilits.GOOGLE
-import com.example.imeiscanner.utilits.photoDownloadAndSet
-import com.example.imeiscanner.utilits.replaceFragment
+import com.example.imeiscanner.utilits.*
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -34,19 +35,57 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun initClicks() {
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
-        binding.settingsUserPhotoChange.setOnClickListener { replaceFragment(ChangeUserPhotoFragment()) }
-        if (authGoogleOrPhone() == GOOGLE) {
+        binding.settingsUserPhotoChange.setOnClickListener { changePhoto() }
+        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
     }
 
     private fun initFields() {
         binding.settingsUserName.text = USER.name
+        binding.settingsUserNameChange.text = USER.name
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
-        if (authGoogleOrPhone() == GOOGLE) {
+        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             binding.settingsUserEmailORPhone.text = USER.email
         } else {
             binding.settingsUserEmailORPhone.text = USER.phone
+            binding.settingsPhoneChange.text = USER.phone
+            binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
+        }
+        binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
+        binding.settingsLogOutBtn.setOnClickListener { logOut() }
+    }
+
+    private fun logOut() {
+        AUTH.signOut()
+    }
+
+    private fun changePhoto() {
+        cropImage.launch(
+            options {
+                setGuidelines(CropImageView.Guidelines.ON)
+                setCropShape(CropImageView.CropShape.OVAL)
+                setRequestedSize(600, 600)
+                setAspectRatio(1, 1)
+            }
+        )
+    }
+
+    private val cropImage = registerForActivityResult(CropImageContract()) { result ->
+        val uri = result.originalUri
+        val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE).child(CURRENT_USER)
+
+        if (uri != null) {
+            putFileToStorage(path, uri) {
+                getUrlFromStorage(path) { task ->
+                    putUserPhotoUrlToDatabase(task) {
+                        binding.settingsUserPhoto.photoDownloadAndSet(task)
+                        USER.photoUrl = task
+                        showToast("Image Changed!")
+                        MAIN_ACTIVITY.mAppDrawer.updateHeader()
+                    }
+                }
+            }
         }
     }
 }
