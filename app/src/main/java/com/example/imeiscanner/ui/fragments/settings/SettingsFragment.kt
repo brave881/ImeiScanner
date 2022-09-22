@@ -12,6 +12,7 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
 import com.example.imeiscanner.ui.fragments.BaseFragment
 import com.example.imeiscanner.utilits.*
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -73,6 +74,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         USER.photoUrl = task
                         showToast("Image Changed!")
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
+
                     }
                 }
             }

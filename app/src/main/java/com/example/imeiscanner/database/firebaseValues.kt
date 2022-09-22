@@ -1,6 +1,6 @@
 package com.example.imeiscanner.database
 
-import com.example.imeiscanner.models.UserModel
+import com.example.imeiscanner.models.UserModel2
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.storage.StorageReference
@@ -11,7 +11,7 @@ lateinit var REF_STORAGE_ROOT: StorageReference
 lateinit var CURRENT_USER:String
 lateinit var CURRENT_USER_EMAIL:String
 lateinit var CURRENT_USER_PHONE:String
-lateinit var USER:UserModel
+lateinit var USER:UserModel2
 lateinit var CURRENT_PROVIDER_ID:String
 
 const val NODE_PHONE_USERS = "phone_users"

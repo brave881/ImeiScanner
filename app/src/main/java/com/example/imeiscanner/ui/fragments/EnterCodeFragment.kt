@@ -50,6 +50,10 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             val dataMap = hashMapOf<String, Any>()
             dataMap[CHILD_PHONE] = phoneNumber
             dataMap[CHILD_ID] = uid
+            dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
+
+            REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).setValue(dataMap)
+                .addOnFailureListener { showToast(it.message.toString()) }
 
             REF_DATABASE_ROOT.child(NODE_PHONES).child(CURRENT_USER)
                 .setValue(dataMap)
