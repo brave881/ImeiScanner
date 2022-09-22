@@ -2,6 +2,7 @@ package com.example.imeiscanner.utilits
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.drawerlayout.widget.DrawerLayout
@@ -94,7 +95,6 @@ class AppDrawer {
                     return false
                 }
             }).build()
-
     }
 
     private fun clickToItem(position: Int) {
@@ -142,7 +142,6 @@ class AppDrawer {
 
     fun updateHeader() {
         mCurrentProfile.withName(USER.name).withIcon(USER.photoUrl)
-
         if (userGoogleOrPhone() == PHONE_PROVIDER_ID)
             mCurrentProfile.withEmail(USER.phone)
         mHeader.updateProfile(mCurrentProfile)

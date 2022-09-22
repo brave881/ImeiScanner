@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
+import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult

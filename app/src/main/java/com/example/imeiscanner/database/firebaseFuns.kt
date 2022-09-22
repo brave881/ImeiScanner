@@ -1,7 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
-import com.example.imeiscanner.models.UserModel2
+import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.FirebaseAuth
@@ -41,7 +41,7 @@ fun initFirebase() {
     CURRENT_USER_EMAIL = AUTH.currentUser?.email.toString()
     CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
-    USER = UserModel2()
+    USER = UserModel()
 }
 
 fun userGoogleOrPhone(): String {
@@ -83,7 +83,6 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_USER)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
-
         }
     }
 }
@@ -97,4 +96,3 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
     path.putFile(uri).addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
-

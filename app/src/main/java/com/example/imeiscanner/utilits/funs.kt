@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -50,14 +51,6 @@ fun restartActivity() {
     MAIN_ACTIVITY.finish()
 }
 
-fun updatePhoneUserName(name: String) {
-    val prof = userProfileChangeRequest {
-        displayName = name
-    }
-    AUTH.currentUser!!.updateProfile(prof)
-    restartActivity()
-}
-
 @SuppressLint("SetTextI18n")
 fun showDatePicker(binding: FragmentPhoneAddBinding, context: Context): String {
     val calendar = Calendar.getInstance()
@@ -85,12 +78,29 @@ fun scanOptions(options: ScanOptions) {
     options.setOrientationLocked(false)
 }
 
-
-
 fun toStringEditText(e: EditText): String {
     return e.text.toString()
 }
 
+fun updateUserPhotoUrl(url: String) {
+    val profile = userProfileChangeRequest {
+        photoUri = Uri.parse(url)
+    }
+    AUTH.currentUser?.updateProfile(profile)
+}
+
+fun updatePhoneUserName(name: String) {
+    val prof = userProfileChangeRequest {
+        displayName = name
+    }
+    AUTH.currentUser!!.updateProfile(prof)
+    restartActivity()
+}
+
+fun logOut() {
+    AUTH.signOut()
+    restartActivity()
+}
 
 
 
