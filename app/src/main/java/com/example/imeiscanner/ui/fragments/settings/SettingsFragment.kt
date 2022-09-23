@@ -10,9 +10,8 @@ import com.canhub.cropper.options
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
-import com.example.imeiscanner.ui.fragments.BaseFragment
+import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -43,6 +42,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun initFields() {
         binding.settingsUserName.text = USER.name
+        binding.settingsPhoneChange.text= USER.email
         binding.settingsUserNameChange.text = USER.name
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
@@ -54,10 +54,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsLogOutBtn.setOnClickListener { logOut() }
-    }
-
-    private fun logOut() {
-        AUTH.signOut()
     }
 
     private fun changePhoto() {
@@ -80,9 +76,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                 getUrlFromStorage(path) { task ->
                     putUserPhotoUrlToDatabase(task) {
                         binding.settingsUserPhoto.photoDownloadAndSet(task)
-                        USER.photoUrl = task
                         showToast("Image Changed!")
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
+                        updateUserPhotoUrl(task)
                     }
                 }
             }

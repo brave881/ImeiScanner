@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.fragments.base
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -25,5 +25,4 @@ open class BaseFragment(val layout: Int) : Fragment() {
         super.onStart()
         MAIN_ACTIVITY.mAppDrawer.disableDrawer()
     }
-
 }

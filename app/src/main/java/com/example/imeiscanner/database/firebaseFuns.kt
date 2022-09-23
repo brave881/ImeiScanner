@@ -1,6 +1,6 @@
 package com.example.imeiscanner.database
 
-import android.widget.EditText
+import android.net.Uri
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -41,7 +41,7 @@ fun initFirebase() {
     CURRENT_USER_EMAIL = AUTH.currentUser?.email.toString()
     CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
-    USER = UserModel2()
+    USER = UserModel()
 }
 
 fun userGoogleOrPhone(): String {
