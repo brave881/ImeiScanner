@@ -33,7 +33,7 @@ open class BaseChangeFragment(layout: Int) : Fragment(layout) {
         return true
     }
 
-    private fun change() {
+    open fun change() {
 
     }
 }

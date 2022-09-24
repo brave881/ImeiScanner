@@ -5,17 +5,19 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.AUTH
-import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
-import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
+import com.example.imeiscanner.models.USSERMODDEL
+import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.journeyapps.barcodescanner.ScanOptions
@@ -91,14 +93,25 @@ fun updateUserPhotoUrl(url: String) {
     MAIN_ACTIVITY.mAppDrawer.updateHeader()
 }
 
-fun updatePhoneUserName(name: String) {
+fun updateUserName(name: String) {
     val prof = userProfileChangeRequest {
         displayName = name
     }
     AUTH.currentUser!!.updateProfile(prof)
-    restartActivity()
 }
+fun updateName(textView: TextView) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER)
+        .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+            Log.d("yyyy", "dataSnapshot ${dataSnapshot.value} ${dataSnapshot.childrenCount}")
+            NEW_USER = dataSnapshot.getValue(USSERMODDEL::class.java) ?: USSERMODDEL()
+            textView.text = NEW_USER.name
+            Log.d("yyyy", "updateName: ${(dataSnapshot.getValue(UserModel::class.java) ?: UserModel()).name}")
+            Log.d("yyyy", "updateName: ${NEW_USER.name}")
 
+//            val item = dataSnapshot.children.map { it.getValue(UserModel::class.java) ?: UserModel() }
+
+        })
+}
 fun logOut() {
     AUTH.signOut()
     restartActivity()

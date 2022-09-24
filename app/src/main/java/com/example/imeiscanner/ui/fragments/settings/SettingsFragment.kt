@@ -29,6 +29,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         super.onResume()
         initFields()
         initClicks()
+        updateName(binding.settingsUserName)
     }
 
     private fun initClicks() {

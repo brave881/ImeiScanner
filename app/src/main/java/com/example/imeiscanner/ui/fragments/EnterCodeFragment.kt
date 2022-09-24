@@ -3,7 +3,6 @@ package com.example.imeiscanner.ui.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,6 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 
 class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
     private lateinit var binding: FragmentEnterCodeBinding
@@ -71,7 +69,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         binding.enterNameNextBtn.setOnClickListener {
             val name = binding.registerInputName.text.toString()
             if (name.isNotEmpty()) {
-                updatePhoneUserName(name)
+                updateUserName(name)
 
                 REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
                     .child(CHILD_FULLNAME)

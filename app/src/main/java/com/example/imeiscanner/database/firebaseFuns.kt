@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
+import com.example.imeiscanner.models.USSERMODDEL
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -41,7 +42,9 @@ fun initFirebase() {
     CURRENT_USER_EMAIL = AUTH.currentUser?.email.toString()
     CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
+    NEW_USER = USSERMODDEL()
     USER = UserModel()
+    CHILD_PHONE= USER.phone
 }
 
 fun userGoogleOrPhone(): String {
@@ -80,7 +83,7 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_USER)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CHILD_PHONE)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
 
@@ -96,5 +99,26 @@ inline fun getUrlFromStorage(path: StorageReference, crossinline function: (Stri
 inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline function: () -> Unit) {
     path.putFile(uri).addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun setUsernameToDatabase(username: String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+        .setValue(username).addOnSuccessListener {
+            showToast("Name Changed!")
+//            updateUserName(username)
+            MAIN_ACTIVITY.supportFragmentManager.popBackStack()
+            MAIN_ACTIVITY.mAppDrawer.updateHeader()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+
+    when (userGoogleOrPhone()) {
+        GOOGLE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+                .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
+        }
+        PHONE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CHILD_PHONE).child(CHILD_FULLNAME)
+                .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
+        }
+    }
 }
 

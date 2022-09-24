@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         initFields()
         initFirebase()
         initFunctions()
+
     }
 
     private fun initFields() {

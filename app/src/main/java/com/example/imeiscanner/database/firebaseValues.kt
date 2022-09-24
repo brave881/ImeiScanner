@@ -1,5 +1,6 @@
 package com.example.imeiscanner.database
 
+import com.example.imeiscanner.models.USSERMODDEL
 import com.example.imeiscanner.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -8,11 +9,13 @@ import com.google.firebase.storage.StorageReference
 lateinit var AUTH: FirebaseAuth
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var REF_STORAGE_ROOT: StorageReference
-lateinit var CURRENT_USER:String
-lateinit var CURRENT_USER_EMAIL:String
-lateinit var CURRENT_USER_PHONE:String
-lateinit var USER:UserModel
-lateinit var CURRENT_PROVIDER_ID:String
+lateinit var CURRENT_USER: String
+lateinit var CURRENT_USER_EMAIL: String
+lateinit var CURRENT_USER_PHONE: String
+lateinit var USER: UserModel
+lateinit var NEW_USER: USSERMODDEL
+lateinit var CURRENT_PROVIDER_ID: String
+lateinit var CHILD_PHONE:String
 
 const val NODE_PHONE_USERS = "phone_users"
 const val NODE_GOOGLE_USERS = "google_users"
@@ -21,6 +24,7 @@ const val NODE_USERNAMES = "usernames"
 const val NODE_PHONES = "phone_users"
 
 const val FOLDER_PROFILE_IMAGE = "profile_image"
+
 //data phones
 const val NODE_PHONE_DATA_INFO = "phone_data_info"
 const val CHILD_PHONE_NAME = "phone_name"
@@ -34,7 +38,6 @@ const val CHILD_PHONE_MEMORY = "phone_memory"
 // end data phones
 
 const val CHILD_ID = "id"
-const val CHILD_PHONE = "phone"
 const val CHILD_USERNAME = "username"
 const val CHILD_FULLNAME = "fullname"
 const val CHILD_EMAIL = "email"

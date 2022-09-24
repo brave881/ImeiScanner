@@ -46,7 +46,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         if (!imei1Boolean) dateMap[CHILD_IMEI1] = toStringEditText(imei1)
         if (!imei2Boolean) dateMap[CHILD_IMEI2] = toStringEditText(imei2)
         if (!imei3Boolean) dateMap[CHILD_SERIAL_NUMBER] = toStringEditText(serialNumber)
-        val a :Float =
+//        val a :Float =
     }
 
     private fun qrScan() {

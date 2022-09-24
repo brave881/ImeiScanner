@@ -33,7 +33,6 @@ class MainFragment : Fragment() {
     private var mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
     private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, PhonesHolder>
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,10 +41,8 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onResume() {
         super.onResume()
-        initFields()
         hideKeyboard()
         rv = binding.rvMainFragment
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
@@ -110,7 +107,6 @@ class MainFragment : Fragment() {
                 refItems.addListenerForSingleValueEvent(refItemListener)
                 mapListener[refItems] = refItemListener
             }
-
         }
         rv.adapter = adapter
         adapter.startListening()
@@ -127,6 +123,4 @@ class MainFragment : Fragment() {
             holder.imei.text = item[position].phone_imei1
         else holder.imei.text = item[position].phone_imei2
     }
-
-
 }
