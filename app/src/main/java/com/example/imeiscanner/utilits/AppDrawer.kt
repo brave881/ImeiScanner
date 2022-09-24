@@ -44,6 +44,7 @@ class AppDrawer {
         MAIN_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         mDrawerLayout.setDrawerLockMode(LOCK_MODE_UNLOCKED)
         MAIN_ACTIVITY.mToolbar.setNavigationOnClickListener { mDrawer.openDrawer() }
+        mDrawer.actionBarDrawerToggle!!.syncState() ///synxron ishlashiga yordam beradi
     }
 
     fun disableDrawer() {

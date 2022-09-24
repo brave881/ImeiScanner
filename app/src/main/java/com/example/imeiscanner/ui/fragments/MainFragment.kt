@@ -55,7 +55,6 @@ class MainFragment : Fragment() {
         mapListener.forEach {
             it.key.removeEventListener(it.value)
         }
-
     }
 
     class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
@@ -65,7 +64,6 @@ class MainFragment : Fragment() {
         val item: CardView = view.findViewById(R.id.main_list_item_container)
 
     }
-
 
     private fun initRecyclerView() {
         refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO)

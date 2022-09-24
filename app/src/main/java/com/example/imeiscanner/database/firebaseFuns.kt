@@ -3,7 +3,6 @@ package com.example.imeiscanner.database
 import android.net.Uri
 import android.widget.EditText
 import android.util.Log
-import com.example.imeiscanner.R
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -104,11 +103,11 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun updateFullnameFromDatabase(username: String) {
+fun updateFullnameFromDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
-        .setValue(username).addOnSuccessListener {
+        .setValue(fullname).addOnSuccessListener {
             showToast("Name Changed!")
-//            updateUserName(username)
+            updateUserName(fullname)
             MAIN_ACTIVITY.supportFragmentManager.popBackStack()
             MAIN_ACTIVITY.mAppDrawer.updateHeader()
         }.addOnFailureListener { showToast(it.message.toString()) }
@@ -116,11 +115,11 @@ fun updateFullnameFromDatabase(username: String) {
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
             REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
-                .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
+                .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).child(CHILD_FULLNAME)
-                .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
+                .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
     }
 }
