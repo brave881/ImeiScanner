@@ -1,6 +1,6 @@
 package com.example.imeiscanner.database
 
-import com.example.imeiscanner.models.USSERMODDEL
+
 import com.example.imeiscanner.models.UserModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -13,7 +13,6 @@ lateinit var CURRENT_USER: String
 lateinit var CURRENT_USER_EMAIL: String
 lateinit var CURRENT_USER_PHONE: String
 lateinit var USER: UserModel
-lateinit var NEW_USER: USSERMODDEL
 lateinit var CURRENT_PROVIDER_ID: String
 lateinit var CHILD_PHONE:String
 

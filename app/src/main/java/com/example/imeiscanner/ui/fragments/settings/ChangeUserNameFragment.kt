@@ -26,12 +26,12 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
 
     override fun onResume() {
         super.onResume()
-
         binding.stChangeUsernameInput.setText(USER.name)
     }
 
     override fun change() {
         val username = binding.stChangeUsernameInput.text.toString()
+        USER.name = username
         if (username.isEmpty()) {
             showToast(getString(R.string.Username_is_empty_toast))
         } else setUsernameToDatabase(username)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.databinding.FragmentEditBinding
+import com.example.imeiscanner.utilits.DATA_FROM_PHONE_INFO_FRAGMENT
 
 
 class EditFragment : Fragment() {
@@ -26,7 +27,12 @@ class EditFragment : Fragment() {
     }
 
     private fun installItemsToEditTexts() {
-        
+        parentFragmentManager.setFragmentResultListener(
+            DATA_FROM_PHONE_INFO_FRAGMENT,
+            this
+        ) { requestKey, result ->
+
+        }
     }
 
 }

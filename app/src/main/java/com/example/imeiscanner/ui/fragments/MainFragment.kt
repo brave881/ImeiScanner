@@ -13,10 +13,7 @@ import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.AppValueEventListener
-import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.hideKeyboard
-import com.example.imeiscanner.utilits.replaceFragment
+import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -99,8 +96,8 @@ class MainFragment : Fragment() {
                 }
                 holder.item.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putSerializable("position", items[position])
-                    parentFragmentManager.setFragmentResult("data_from_main_fragment",bundle)
+                    bundle.putSerializable(POSITION_ITEM, items[position])
+                    parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT,bundle)
                     replaceFragment(PhoneInfoFragment())
                 }
 

@@ -37,7 +37,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     private var barcodeLauncher = registerForActivityResult(ScanContract()) { resultt ->
         if (resultt.contents == null) {
-            showToast("Cancelled")
+            showToast(getString(R.string.cancelled_from_barcode))
         } else {
             installResultForET(resultt)
         }
@@ -46,7 +46,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         if (!imei1Boolean) dateMap[CHILD_IMEI1] = toStringEditText(imei1)
         if (!imei2Boolean) dateMap[CHILD_IMEI2] = toStringEditText(imei2)
         if (!imei3Boolean) dateMap[CHILD_SERIAL_NUMBER] = toStringEditText(serialNumber)
-//        val a :Float =
     }
 
     private fun qrScan() {

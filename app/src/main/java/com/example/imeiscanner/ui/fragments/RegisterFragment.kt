@@ -94,13 +94,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         googleSignInClient = GoogleSignIn.getClient(MAIN_ACTIVITY, gso)
 
 
-//        signInRequest = BeginSignInRequest.Builder().setGoogleIdTokenRequestOptions(
-//            BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-//                .setSupported(true)
-//                .setServerClientId(getString(R.string.default_web_client_id))
-//                .setFilterByAuthorizedAccounts(true)
-//                .build()
-//        ).build()
+
 
     }
 

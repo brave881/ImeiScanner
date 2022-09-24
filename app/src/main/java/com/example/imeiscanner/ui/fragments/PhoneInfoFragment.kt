@@ -1,7 +1,6 @@
 package com.example.imeiscanner.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +8,9 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.databinding.FragmentEditPhoneDataBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
+import com.example.imeiscanner.utilits.DATA_FROM_PHONE_INFO_FRAGMENT
+import com.example.imeiscanner.utilits.DATA_FROM_MAIN_FRAGMENT
+import com.example.imeiscanner.utilits.POSITION_ITEM
 import com.example.imeiscanner.utilits.replaceFragment
 
 
@@ -30,24 +32,23 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
         super.onResume()
         installData()
         changeToEdit()
-
     }
 
     private fun changeToEdit() {
         binding.btnEdit.setOnClickListener {
             val bundle = Bundle()
-            bundle.putSerializable("items", items)
-            parentFragmentManager.setFragmentResult("data_from_editPhone_fragment", bundle)
+            bundle.putSerializable(POSITION_ITEM, items)
+            parentFragmentManager.setFragmentResult(DATA_FROM_PHONE_INFO_FRAGMENT, bundle)
             replaceFragment(EditFragment())
         }
     }
 
     private fun installData() {
         parentFragmentManager.setFragmentResultListener(
-            "data_from_main_fragment",
+            DATA_FROM_MAIN_FRAGMENT,
             this
         ) { requestKey, result ->
-            items = result.getSerializable("position") as PhoneDataModel
+            items = result.getSerializable(POSITION_ITEM) as PhoneDataModel
             binding.tvPhoneName.text = items.phone_name
             binding.tvPhoneSerialNumber.text = items.phone_serial_number
             binding.tvPhoneImei1.text = items.phone_imei1
@@ -56,10 +57,7 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
             binding.tvPhoneMemory.text = items.phone_memory
             binding.tvPhoneBatteryState.text = items.phone_battery_info
             binding.tvPhonePrice.text = items.phone_price
-            Log.d(
-                "editphonefragment",
-                "installData: ${items.phone_name} ${items.phone_imei1} ${items.phone_imei2}"
-            )
+
         }
 
     }

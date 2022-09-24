@@ -15,6 +15,7 @@
     <string name="fullname_is_empty">Fullname is empty!</string>
     <string name="settings_account_text">Account</string>
     <string name="settings_log_out_text">Log Out</string>
-    <string name="username_text">Username</string>
-    <string name="Username_is_empty_toast">Username is Empty!</string>
+    <string name="cancelled_from_barcode">Cancelled</string>
+    <string name="Username_is_empty_toast">Username is empty</string>
+    <string name="username_text">111</string>
 </resources>
