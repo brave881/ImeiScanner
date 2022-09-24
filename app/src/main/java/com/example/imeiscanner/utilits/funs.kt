@@ -49,8 +49,8 @@ fun restartActivity() {
     MAIN_ACTIVITY.finish()
 }
 
-@SuppressLint("SetTextI18n")
-fun showDatePicker(binding: FragmentPhoneAddBinding, context: Context): String {
+
+fun showDatePicker(context: Context): String {
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -59,7 +59,6 @@ fun showDatePicker(binding: FragmentPhoneAddBinding, context: Context): String {
 
     val datePickerDialog = DatePickerDialog(
         context, { _, year1, month1, dayOfMonth ->
-            binding.btnDate.text = "$dayOfMonth/${month1 + 1}/$year1"
             res = "$dayOfMonth/${month1 + 1}/$year1"
         }, year, month, day
     )
@@ -88,26 +87,8 @@ fun updateUserPhotoUrl(url: String) {
     MAIN_ACTIVITY.mAppDrawer.updateHeader()
 }
 
-fun updateUserName(name: String) {
-    val prof = userProfileChangeRequest {
-        displayName = name
-    }
-    AUTH.currentUser!!.updateProfile(prof)
-}
 
-/*fun updateName(textView: TextView) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER)
-        .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-            Log.d("yyyy", "dataSnapshot ${dataSnapshot.value} ${dataSnapshot.childrenCount}")
-            USER = dataSnapshot.getValue(UserModel::class.java) ?: UserModel()
-            textView.text = USER.name
-            Log.d("yyyy", "updateName: ${(dataSnapshot.getValue(UserModel::class.java) ?: UserModel()).name}")
-            Log.d("yyyy", "updateName: ${USER.name}")
 
-//            val item = dataSnapshot.children.map { it.getValue(UserModel::class.java) ?: UserModel() }
-
-        })
-}*/
 fun logOut() {
     AUTH.signOut()
     restartActivity()

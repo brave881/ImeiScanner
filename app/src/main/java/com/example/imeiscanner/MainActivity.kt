@@ -29,9 +29,7 @@ class MainActivity : AppCompatActivity() {
             initFields()
             initFunctions()
         }
-
     }
-
 
     private fun initFields() {
         mToolbar = binding.mainToolbar
@@ -47,5 +45,4 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(RegisterFragment(), false)
         }
     }
-
 }

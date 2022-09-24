@@ -10,11 +10,13 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.scanOptions
+import com.example.imeiscanner.utilits.showDatePicker
+import com.example.imeiscanner.utilits.showToast
+import com.example.imeiscanner.utilits.toStringEditText
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
-import java.nio.channels.FileLock
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -33,6 +35,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     private var imei1Boolean: Boolean = false
     private var imei2Boolean: Boolean = false
     private var imei3Boolean: Boolean = false
+    private var dateMap = hashMapOf<String, Any>()
 
 
     private var barcodeLauncher = registerForActivityResult(ScanContract()) { resultt ->
@@ -66,17 +69,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     }
 
-    private fun addDatabaseImei() {
-        val dateMap = hashMapOf<String, Any>()
-        dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
-        dateMap[CHILD_BATTERY_INFO] = toStringEditText(batteryInfo)
-        dateMap[CHILD_PHONE_MEMORY] = toStringEditText(memory)
-        dateMap[CHILD_PHONE_ADDED_DATE] = date
-        dateMap[CHILD_PHONE_PRICE] = toStringEditText(price)
-        checkImeiFill(dateMap)
-        setValuesToFireBase(dateMap)
-    }
-
 
     private fun installResultForET(resultt: ScanIntentResult) {
         val result = resultt.contents
@@ -94,9 +86,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     }
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPhoneAddBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -127,7 +117,11 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
             if (imei1.text.toString().isNotEmpty() or imei2.text.toString()
                     .isNotEmpty() or serialNumber.text.toString().isNotEmpty()
             ) {
-                addDatabaseImei()
+                dateMap = addDatabaseImei(
+                    dateMap, name, batteryInfo, memory, date, price
+                )
+                checkImeiFill(dateMap)
+                setValuesToFireBase(dateMap)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -145,7 +139,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     private fun dateInstall() {
         binding.btnDate.setOnClickListener {
-            date = showDatePicker(binding, requireContext())
+            date = showDatePicker(requireContext())
         }
 
         if (date.isEmpty()) {

@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
+import android.widget.EditText
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -130,3 +131,18 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 
+fun addDatabaseImei(
+    dateMap: HashMap<String, Any>,
+    name: EditText,
+    batteryInfo: EditText,
+    memory: EditText,
+    date: String,
+    price: EditText,
+): HashMap<String, Any> {
+    dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
+    dateMap[CHILD_BATTERY_INFO] = toStringEditText(batteryInfo)
+    dateMap[CHILD_PHONE_MEMORY] = toStringEditText(memory)
+    dateMap[CHILD_PHONE_ADDED_DATE] = date
+    dateMap[CHILD_PHONE_PRICE] = toStringEditText(price)
+    return dateMap
+}

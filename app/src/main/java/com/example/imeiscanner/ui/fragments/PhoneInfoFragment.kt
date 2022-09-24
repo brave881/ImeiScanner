@@ -57,7 +57,6 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
             binding.tvPhoneMemory.text = items.phone_memory
             binding.tvPhoneBatteryState.text = items.phone_battery_info
             binding.tvPhonePrice.text = items.phone_price
-
         }
 
     }
