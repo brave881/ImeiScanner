@@ -1,17 +1,17 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.fragments.register
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
-
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.restartActivity
+import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.auth.PhoneAuthProvider
 
 class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
@@ -69,7 +69,10 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
         binding.enterNameNextBtn.setOnClickListener {
             val name = binding.registerInputName.text.toString()
             if (name.isNotEmpty()) {
-                updateUserName(name)
+//                updateUserName(name)
+
+
+                USER.fullname = name
 
                 REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
                     .child(CHILD_FULLNAME)
@@ -77,7 +80,10 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
 
                 REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
                     .child(CHILD_FULLNAME).setValue(name)
-                    .addOnSuccessListener { restartActivity() }
+                    .addOnSuccessListener {
+                        showToast(getString(R.string.welcome))
+                        restartActivity()
+                    }
                     .addOnFailureListener { showToast(it.toString()) }
             } else showToast(getString(R.string.fullname_is_empty))
         }

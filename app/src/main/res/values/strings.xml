@@ -18,4 +18,5 @@
     <string name="cancelled_from_barcode">Cancelled</string>
     <string name="Username_is_empty_toast">Username is empty</string>
     <string name="username_text">111</string>
+    <string name="welcome">Welcome!</string>
 </resources>

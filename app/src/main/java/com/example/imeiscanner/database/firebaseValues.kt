@@ -14,7 +14,6 @@ lateinit var CURRENT_USER_EMAIL: String
 lateinit var CURRENT_USER_PHONE: String
 lateinit var USER: UserModel
 lateinit var CURRENT_PROVIDER_ID: String
-lateinit var CHILD_PHONE:String
 
 const val NODE_PHONE_USERS = "phone_users"
 const val NODE_GOOGLE_USERS = "google_users"
@@ -36,6 +35,7 @@ const val CHILD_PHONE_PRICE = "phone_price"
 const val CHILD_PHONE_MEMORY = "phone_memory"
 // end data phones
 
+const val CHILD_PHONE:String="phone"
 const val CHILD_ID = "id"
 const val CHILD_USERNAME = "username"
 const val CHILD_FULLNAME = "fullname"

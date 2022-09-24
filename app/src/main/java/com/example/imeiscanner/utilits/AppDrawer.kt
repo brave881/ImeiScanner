@@ -111,15 +111,16 @@ class AppDrawer {
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             mCurrentProfile = ProfileDrawerItem()
                 .withIdentifier(200)
-                .withName(USER.name)
+                .withName(USER.fullname)
                 .withEmail(USER.email)
                 .withIcon(USER.photoUrl)
         } else {
             mCurrentProfile = ProfileDrawerItem()
                 .withIdentifier(200)
-                .withName(USER.name)
+                .withName(USER.fullname)
                 .withEmail(USER.phone)
                 .withIcon(USER.photoUrl)
+            Log.d("AppDrawer", "initProfile:-> ${USER.fullname} ${USER.phone}")
         }
         return mCurrentProfile
     }
@@ -141,7 +142,7 @@ class AppDrawer {
     }
 
     fun updateHeader() {
-        mCurrentProfile.withName(USER.name).withIcon(USER.photoUrl)
+        mCurrentProfile.withName(USER.fullname).withIcon(USER.photoUrl)
         if (userGoogleOrPhone() == PHONE_PROVIDER_ID)
             mCurrentProfile.withEmail(USER.phone)
         mHeader.updateProfile(mCurrentProfile)

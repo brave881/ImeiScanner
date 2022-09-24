@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.USER
+import com.example.imeiscanner.database.setUsernameToDatabase
 import com.example.imeiscanner.databinding.FragmentChangeUserNameBinding
-import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.base.BaseChangeFragment
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.showToast
 
 class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_name) {
 
@@ -26,15 +25,17 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
 
     override fun onResume() {
         super.onResume()
-        binding.stChangeUsernameInput.setText(USER.name)
+        binding.stChangeUsernameInput.setText(USER.fullname)
     }
 
     override fun change() {
         val username = binding.stChangeUsernameInput.text.toString()
-        USER.name = username
         if (username.isEmpty()) {
             showToast(getString(R.string.Username_is_empty_toast))
-        } else setUsernameToDatabase(username)
+        } else {
+            setUsernameToDatabase(username)
+            USER.fullname = username
+        }
 
     }
 

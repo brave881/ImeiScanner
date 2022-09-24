@@ -42,7 +42,6 @@ fun initFirebase() {
     CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
     USER = UserModel()
-    CHILD_PHONE= USER.phone
 }
 
 fun userGoogleOrPhone(): String {
@@ -81,7 +80,7 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CHILD_PHONE)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
 
@@ -114,9 +113,20 @@ fun setUsernameToDatabase(username: String) {
                 .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CHILD_PHONE).child(CHILD_FULLNAME)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).child(CHILD_FULLNAME)
                 .setValue(username).addOnFailureListener { showToast(it.message.toString()) }
         }
     }
+}
+
+inline fun initUser(crossinline function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            USER = it.getValue(UserModel::class.java) ?: UserModel()
+            if (USER.fullname.isEmpty()) {
+                USER.fullname = CURRENT_USER
+            }
+            function()
+        })
 }
 

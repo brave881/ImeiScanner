@@ -47,7 +47,7 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
         parentFragmentManager.setFragmentResultListener(
             DATA_FROM_MAIN_FRAGMENT,
             this
-        ) { requestKey, result ->
+        ) { _, result ->
             items = result.getSerializable(POSITION_ITEM) as PhoneDataModel
             binding.tvPhoneName.text = items.phone_name
             binding.tvPhoneSerialNumber.text = items.phone_serial_number

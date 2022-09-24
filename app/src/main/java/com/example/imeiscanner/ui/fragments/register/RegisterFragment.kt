@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.fragments.register
 
 import android.content.Intent
 import android.os.Bundle
@@ -92,9 +92,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(MAIN_ACTIVITY, gso)
-
-
-
 
     }
 

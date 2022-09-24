@@ -42,7 +42,6 @@ class MainFragment : Fragment() {
         super.onResume()
         hideKeyboard()
         rv = binding.rvMainFragment
-        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }

@@ -41,9 +41,9 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     private fun initFields() {
-        binding.settingsUserName.text = USER.name
+        binding.settingsUserName.text = USER.fullname
         binding.settingsPhoneChange.text = USER.email
-        binding.settingsUserNameChange.text = USER.name
+        binding.settingsUserNameChange.text = USER.fullname
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             binding.settingsUserEmailORPhone.text = USER.email
@@ -79,6 +79,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         showToast("Image Changed!")
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
                         updateUserPhotoUrl(task)
+                        USER.photoUrl=task
                     }
                 }
             }
