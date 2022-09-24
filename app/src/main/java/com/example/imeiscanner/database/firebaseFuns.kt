@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
+import android.util.Log
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -8,7 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -128,5 +131,11 @@ inline fun initUser(crossinline function: () -> Unit) {
             }
             function()
         })
+}
+
+fun deleteUser() {
+    Firebase.auth.currentUser!!.delete().addOnSuccessListener { showToast("Account Deleted") }
+        .addOnFailureListener { Log.d("qwer", "deleteUser: ${it.message.toString()}") }
+    logOut()
 }
 

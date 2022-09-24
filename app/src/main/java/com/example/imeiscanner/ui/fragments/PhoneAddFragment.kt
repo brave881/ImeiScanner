@@ -142,7 +142,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         scanOptions(options)
     }
 
-
     private fun dateInstall() {
         binding.btnDate.setOnClickListener {
             date = showDatePicker(binding, requireContext())

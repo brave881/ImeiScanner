@@ -1,9 +1,9 @@
 package com.example.imeiscanner.ui.fragments.settings
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
@@ -12,10 +12,14 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
+import com.google.android.gms.auth.api.Auth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private lateinit var binding: FragmentSettingsBinding
+    private lateinit var dialogBuilder: AlertDialog.Builder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,15 +31,17 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
+        setHasOptionsMenu(true)
         initFields()
         initClicks()
+        dialogBuilder = AlertDialog.Builder(MAIN_ACTIVITY)
 //        updateName(binding.settingsUserName)
     }
 
     private fun initClicks() {
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsUserPhotoChange.setOnClickListener { changePhoto() }
-        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
+        if (userGoogleOrPhone() == PHONE_PROVIDER_ID) {
             binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
     }
@@ -79,10 +85,32 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         showToast("Image Changed!")
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
                         updateUserPhotoUrl(task)
-                        USER.photoUrl=task
+                        USER.photoUrl = task
                     }
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings_delete_user -> showAlertDialog()
+        }
+        return true
+    }
+
+    private fun showAlertDialog() {
+        dialogBuilder.setTitle(getString(R.string.delete_account_dialog))
+            .setMessage(getString(R.string.alert_dialog_message))
+            .setPositiveButton(getString(R.string.cancel)) { dialogIntereface, it ->
+                deleteUser()
+            }
+            .setNegativeButton(getString(R.string.delete_text)) { dialogInterface, it ->
+                dialogInterface.cancel()
+            }.show()
     }
 }
