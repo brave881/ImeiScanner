@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imeiscanner.R
 import com.example.imeiscanner.databinding.FragmentChangeUserNameBinding
+import com.example.imeiscanner.ui.fragments.base.BaseChangeFragment
 
-class ChangeUserNameFragment : Fragment(R.layout.fragment_change_user_name) {
+class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_name) {
 
     private lateinit var binding: FragmentChangeUserNameBinding
 

@@ -14,6 +14,7 @@ import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.adapters.Adapter
 import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.hideKeyboard
 import com.example.imeiscanner.utilits.replaceFragment
 
 
@@ -54,6 +55,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onResume() {
         super.onResume()
         initFields()
+        hideKeyboard()
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
