@@ -10,17 +10,19 @@ import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.auth.PhoneAuthProvider
 
 class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
-    private lateinit var binding: FragmentEnterCodeBinding
 
+    private lateinit var binding: FragmentEnterCodeBinding
 
     override fun onStart() {
         super.onStart()
 
+        MAIN_ACTIVITY.title=phoneNumber
         binding.registerInputCode.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }

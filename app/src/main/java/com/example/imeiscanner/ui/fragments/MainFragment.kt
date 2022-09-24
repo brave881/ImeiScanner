@@ -40,12 +40,12 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         hideKeyboard()
         rv = binding.rvMainFragment
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
-        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initRecyclerView()
     }
 
