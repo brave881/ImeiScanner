@@ -25,7 +25,7 @@ fun showToast(string: String) {
 }
 
 fun ImageView.photoDownloadAndSet(url: String) {
-    Glide.with(this).load(url).fitCenter().into(this)
+    Glide.with(this).load(url).fitCenter().centerCrop().into(this)
 }
 
 fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {

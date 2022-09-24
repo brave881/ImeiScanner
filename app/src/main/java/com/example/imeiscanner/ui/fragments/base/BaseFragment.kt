@@ -9,9 +9,7 @@ import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 
 open class BaseFragment(val layout: Int) : Fragment() {
 
-     lateinit var mRootView: View
-
-
+    private lateinit var mRootView: View
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +23,4 @@ open class BaseFragment(val layout: Int) : Fragment() {
         super.onStart()
         MAIN_ACTIVITY.mAppDrawer.disableDrawer()
     }
-
-
-
 }

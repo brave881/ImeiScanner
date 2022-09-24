@@ -26,11 +26,16 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+        MAIN_ACTIVITY.title = getString(R.string.setttings)
         initFields()
         initClicks()
 //        updateName(binding.settingsUserName)
     }
 
+    override fun onStop() {
+        super.onStop()
+        MAIN_ACTIVITY.title= getString(R.string.app_name)
+    }
     private fun initClicks() {
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsUserPhotoChange.setOnClickListener { changePhoto() }
@@ -87,7 +92,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
+        MAIN_ACTIVITY.menuInflater.inflate(R.menu.settings_action_menu, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
