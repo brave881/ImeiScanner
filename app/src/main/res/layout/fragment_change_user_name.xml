@@ -6,5 +6,8 @@
     tools:context=".ui.fragments.settings.ChangeUserNameFragment">
 
 
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
