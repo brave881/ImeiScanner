@@ -82,7 +82,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                         binding.settingsUserPhoto.photoDownloadAndSet(task)
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
                         USER.photoUrl = task
-//                        updateUserPhotoUrl(task)
+                        updateUserPhotoUrl(task)
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
                         showToast(getString(R.string.image_changed))
                     }

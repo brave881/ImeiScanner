@@ -32,9 +32,7 @@ class MainActivity : AppCompatActivity() {
             initFields()
             initFunctions()
         }
-
     }
-
 
     private fun initFields() {
         mToolbar = binding.mainToolbar

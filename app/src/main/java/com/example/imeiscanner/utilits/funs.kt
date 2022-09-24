@@ -97,19 +97,6 @@ fun updateUserName(name: String) {
     AUTH.currentUser!!.updateProfile(prof)
 }
 
-/*fun updateName(textView: TextView) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER)
-        .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-            Log.d("yyyy", "dataSnapshot ${dataSnapshot.value} ${dataSnapshot.childrenCount}")
-            USER = dataSnapshot.getValue(UserModel::class.java) ?: UserModel()
-            textView.text = USER.name
-            Log.d("yyyy", "updateName: ${(dataSnapshot.getValue(UserModel::class.java) ?: UserModel()).name}")
-            Log.d("yyyy", "updateName: ${USER.name}")
-
-//            val item = dataSnapshot.children.map { it.getValue(UserModel::class.java) ?: UserModel() }
-
-        })
-}*/
 fun logOut() {
     AUTH.signOut()
     restartActivity()
