@@ -105,7 +105,7 @@
 
         <TextView
             android:id="@+id/settings_phone_change"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/app_margin"
             android:textColor="@color/black"

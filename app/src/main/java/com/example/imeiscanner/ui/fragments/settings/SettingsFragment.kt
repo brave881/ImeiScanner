@@ -1,9 +1,7 @@
 package com.example.imeiscanner.ui.fragments.settings
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
@@ -27,6 +25,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
+        setHasOptionsMenu(true)
         initFields()
         initClicks()
 //        updateName(binding.settingsUserName)
@@ -35,7 +34,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun initClicks() {
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsUserPhotoChange.setOnClickListener { changePhoto() }
-        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
+        if (userGoogleOrPhone() == PHONE_PROVIDER_ID) {
             binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
     }
@@ -53,7 +52,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
-        binding.settingsLogOutBtn.setOnClickListener { logOut() }
+        binding.settingsLogOutBtn.setOnClickListener { logOutDialog() }
     }
 
     private fun changePhoto() {
@@ -76,13 +75,25 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
                 getUrlFromStorage(path) { task ->
                     putUserPhotoUrlToDatabase(task) {
                         binding.settingsUserPhoto.photoDownloadAndSet(task)
-                        showToast("Image Changed!")
                         MAIN_ACTIVITY.mAppDrawer.updateHeader()
-                        updateUserPhotoUrl(task)
-                        USER.photoUrl=task
+                        USER.photoUrl = task
+//                        updateUserPhotoUrl(task)
+                        MAIN_ACTIVITY.mAppDrawer.updateHeader()
+                        showToast(getString(R.string.image_changed))
                     }
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings_delete_user -> accountDeleteDialog()
+        }
+        return true
     }
 }
