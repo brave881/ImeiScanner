@@ -16,4 +16,5 @@
     <dimen name="large_text_size">20sp</dimen>
     <dimen name="settings_log_out_image_width">40dp</dimen>
     <dimen name="settings_log_out_image_height">40dp</dimen>
+    <dimen name="margin_10_dp">10dp</dimen>
 </resources>

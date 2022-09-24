@@ -1,5 +1,7 @@
 package com.example.imeiscanner.models
 
+import java.io.Serializable
+
 data class PhoneDataModel(
     var phone_name: String = "",
     var phone_imei1: String = "",
@@ -9,4 +11,4 @@ data class PhoneDataModel(
     var phone_battery_info: String = "",
     var phone_price: String = "",
     var phone_memory: String = "",
-)
+): Serializable

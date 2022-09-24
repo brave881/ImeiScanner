@@ -88,6 +88,7 @@ fun updateUserPhotoUrl(url: String) {
         photoUri = Uri.parse(url)
     }
     AUTH.currentUser?.updateProfile(profile)
+    MAIN_ACTIVITY.mAppDrawer.updateHeader()
 }
 
 fun updatePhoneUserName(name: String) {

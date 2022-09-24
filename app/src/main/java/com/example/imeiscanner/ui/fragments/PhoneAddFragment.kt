@@ -14,6 +14,7 @@ import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import java.nio.channels.FileLock
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,6 +46,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         if (!imei1Boolean) dateMap[CHILD_IMEI1] = toStringEditText(imei1)
         if (!imei2Boolean) dateMap[CHILD_IMEI2] = toStringEditText(imei2)
         if (!imei3Boolean) dateMap[CHILD_SERIAL_NUMBER] = toStringEditText(serialNumber)
+        val a :Float =
     }
 
     private fun qrScan() {
@@ -57,6 +59,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
             barcodeLauncher.launch(options)
             imei2Boolean = true
         }
+
         binding.btnSerialNumber.setOnClickListener {
             barcodeLauncher.launch(options)
             imei3Boolean = true
