@@ -10,7 +10,7 @@
                 android:id="@+id/settings_delete_user"
                 android:icon="@drawable/ic_baseline_delete_24"
                 android:title="@string/delete_account"
-                app:showAsAction="never" />
+                app:showAsAction="never"/>
         </menu>
     </item>
 </menu>

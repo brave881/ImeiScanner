@@ -24,4 +24,8 @@
     <string name="alert_dialog_message">Are you sure? Your profile and related account information will be deleted our program.</string>
     <string name="cancel">Cancel</string>
     <string name="delete_text">Delete</string>
+    <string name="log_out_dialog_text">Log Out!</string>
+    <string name="log_out_dialog_message">Are you sure You want to log out?</string>
+    <string name="log_out_text">Log Out</string>
+    <string name="image_changed">Image Changed!</string>
 </resources>

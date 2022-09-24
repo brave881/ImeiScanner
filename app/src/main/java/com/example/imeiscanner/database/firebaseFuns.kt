@@ -2,6 +2,7 @@ package com.example.imeiscanner.database
 
 import android.net.Uri
 import android.util.Log
+import com.example.imeiscanner.R
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -38,6 +39,7 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
+    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
     CURRENT_USER = AUTH.currentUser?.uid.toString()
@@ -86,7 +88,6 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
-
         }
     }
 }
@@ -101,13 +102,12 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun setUsernameToDatabase(username: String) {
+fun updateFullnameFromDatabase(username: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
         .setValue(username).addOnSuccessListener {
             showToast("Name Changed!")
 //            updateUserName(username)
             MAIN_ACTIVITY.supportFragmentManager.popBackStack()
-            MAIN_ACTIVITY.mAppDrawer.updateHeader()
         }.addOnFailureListener { showToast(it.message.toString()) }
 
     when (userGoogleOrPhone()) {
@@ -139,3 +139,17 @@ fun deleteUser() {
     logOut()
 }
 
+fun deleteUserFromDatabase() {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+
+    when (userGoogleOrPhone()) {
+        GOOGLE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER).removeValue()
+                .addOnFailureListener { showToast(it.message.toString()) }
+        }
+        PHONE_PROVIDER_ID -> {
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).removeValue()
+        }
+    }
+}

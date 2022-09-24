@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.deleteUser
+import com.example.imeiscanner.database.deleteUserFromDatabase
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.journeyapps.barcodescanner.ScanOptions
@@ -85,7 +87,7 @@ fun updateUserPhotoUrl(url: String) {
         photoUri = Uri.parse(url)
     }
     AUTH.currentUser?.updateProfile(profile)
-    MAIN_ACTIVITY.mAppDrawer.updateHeader()
+
 }
 
 fun updateUserName(name: String) {
@@ -119,6 +121,28 @@ fun hideKeyboard() {
     imm.hideSoftInputFromWindow(MAIN_ACTIVITY.window.decorView.windowToken, 0)
 }
 
+fun accountDeleteDialog() {
+    DIALOG_BUILDER.setTitle(R.string.delete_account_dialog)
+        .setMessage(R.string.alert_dialog_message)
+        .setNegativeButton(R.string.cancel) { dialogIntereface, it ->
+            dialogIntereface.cancel()
+        }
+        .setPositiveButton(R.string.delete_text) { dialogInterface, it ->
+            deleteUserFromDatabase()
+            deleteUser()
+        }.show()
+}
+
+fun logOutDialog() {
+    DIALOG_BUILDER.setTitle(R.string.log_out_dialog_text)
+        .setMessage(R.string.log_out_dialog_message)
+        .setPositiveButton(R.string.log_out_text) { dialogInterFace, it ->
+            logOut()
+        }
+        .setNegativeButton(R.string.cancel) { dialogInterFace, it ->
+            dialogInterFace.cancel()
+        }.show()
+}
 
 
 
