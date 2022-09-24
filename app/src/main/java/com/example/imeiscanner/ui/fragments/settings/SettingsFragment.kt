@@ -27,7 +27,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
-
         initFields()
         initClicks()
     }
@@ -42,7 +41,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private fun initFields() {
         binding.settingsUserName.text = USER.name
-        binding.settingsPhoneChange.text= USER.email
+        binding.settingsPhoneChange.text = USER.email
         binding.settingsUserNameChange.text = USER.name
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {

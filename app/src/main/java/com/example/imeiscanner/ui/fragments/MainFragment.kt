@@ -14,10 +14,8 @@ import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.adapters.Adapter
 import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.hideKeyboard
 import com.example.imeiscanner.utilits.replaceFragment
-import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
 
 
 class MainFragment : Fragment(R.layout.fragment_main) {
@@ -39,8 +37,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         return binding.root
     }
 
-
-
     private fun initFields() {
         rv = binding.rvMainFragment
         adapter = Adapter()
@@ -61,6 +57,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onResume() {
         super.onResume()
+        initFields()
+        hideKeyboard()
         rv = binding.rvMainFragment
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         binding.btnOpenPhoneFragment.setOnClickListener {
