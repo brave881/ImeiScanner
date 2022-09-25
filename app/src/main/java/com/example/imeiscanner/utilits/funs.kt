@@ -52,7 +52,7 @@ fun restartActivity() {
 }
 
 @SuppressLint("SetTextI18n")
-fun showDatePicker(binding: FragmentPhoneAddBinding, context: Context): String {
+fun showDatePicker( context: Context): String {
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -61,7 +61,6 @@ fun showDatePicker(binding: FragmentPhoneAddBinding, context: Context): String {
 
     val datePickerDialog = DatePickerDialog(
         context, { _, year1, month1, dayOfMonth ->
-            binding.btnDate.text = "$dayOfMonth/${month1 + 1}/$year1"
             res = "$dayOfMonth/${month1 + 1}/$year1"
         }, year, month, day
     )

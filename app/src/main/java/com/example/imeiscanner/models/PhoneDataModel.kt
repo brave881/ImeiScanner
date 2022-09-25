@@ -3,6 +3,7 @@ package com.example.imeiscanner.models
 import java.io.Serializable
 
 data class PhoneDataModel(
+    var id: String = "",
     var phone_name: String = "",
     var phone_imei1: String = "",
     var phone_imei2: String = "",

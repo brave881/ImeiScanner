@@ -114,18 +114,17 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     private fun saveDate() {
         binding.btnSave.setOnClickListener {
-            if (imei1.text.toString().isNotEmpty() or imei2.text.toString()
-                    .isNotEmpty() or serialNumber.text.toString().isNotEmpty()
-            ) {
+            if (imei1.text.toString().isNotEmpty()) {
+
                 dateMap = addDatabaseImei(
                     dateMap, name, batteryInfo, memory, date, price
                 )
                 checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap)
+                setValuesToFireBase(dateMap, imei1.text.toString())
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Please enter SerialNumber or Imei1 or Imei2",
+                    "Please enter Imei1",
                     Toast.LENGTH_LONG
                 ).show()
             }
@@ -147,6 +146,4 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
             date = sdf.format(calendar.time)
         }
     }
-
-
 }

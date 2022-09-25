@@ -20,7 +20,7 @@ import java.util.*
 
 
 class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
-    /* private lateinit var binding: FragmentEditBinding
+    /*private lateinit var binding: FragmentEditBinding
      private lateinit var date: TextView
      private lateinit var imei1: EditText
      private lateinit var imei2: EditText
@@ -128,6 +128,76 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         }
     }
 
+
+
+    override fun onStart() {
+        super.onStart()
+        dateInstall()
+        initFields()
+        installItemsToEditTexts()
+        initFunctions()
+        qrScan()
+        saveDate()
+    }
+
+
+    private fun initFields() {
+        options = ScanOptions()
+        imei1 = binding.phoneEditPhoneImei1
+        imei2 = binding.phoneEditPhoneImei2
+        serialNumber = binding.phoneEditPhoneSerialNumber
+        battery = binding.phoneEditPhoneBattery
+        price = binding.phoneEditPhonePrice
+        memory = binding.phoneEditPhoneMemory
+        name = binding.phoneEditPhoneName
+    }
+
+    private fun saveDate() {
+        binding.btnEditSave.setOnClickListener {
+            if (imei1.text.toString().isNotEmpty()
+            ) {
+                dateMap = addDatabaseImei(dateMap, name, battery, memory, date, price)
+                checkImeiFill(dateMap)
+                updateChildren(dateMap)
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Please input Imei 1",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
+
+    private fun updateChildren(dateMap: HashMap<String, Any>) {
+//        val refPhones = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!
+//        val all = hashMapOf<String, Any>()
+//        all[refPhones] = dateMap
+        REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
+            .child(REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!)
+            .updateChildren(dateMap)
+            .addOnFailureListener { showToast(it.toString()) }
+            .addOnSuccessListener { replaceFragment(MainFragment()) }
+    }
+
+    private fun initFunctions() {
+        scanOptions(options)
+    }
+
+
+    private fun dateInstall() {
+        binding.btnDate.setOnClickListener {
+            date = showDatePicker(requireContext())
+        }
+
+        if (date.isEmpty()) {
+            val calendar = Calendar.getInstance()
+            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
+            date = sdf.format(calendar.time)
+        }
+    }
+
+    /// scanner block
     private fun qrScan() {
         binding.btnImei1.setOnClickListener {
             barcodeLauncher.launch(options)
@@ -162,7 +232,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         }
     }
 
-
+    // end scanner block
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -170,74 +240,6 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
     ): View {
         binding = FragmentEditBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        dateInstall()
-        initFields()
-        installItemsToEditTexts()
-        initFunctions()
-        qrScan()
-        saveDate()
-    }
-
-
-    private fun initFields() {
-        imei1 = binding.phoneEditPhoneImei1
-        imei2 = binding.phoneEditPhoneImei2
-        serialNumber = binding.phoneEditPhoneSerialNumber
-        battery = binding.phoneEditPhoneBattery
-        price = binding.phoneEditPhonePrice
-        memory = binding.phoneEditPhoneMemory
-        name = binding.phoneEditPhoneName
-    }
-
-    private fun saveDate() {
-        binding.btnSave.setOnClickListener {
-            if (imei1.text.toString().isNotEmpty() or imei2.text.toString()
-                    .isNotEmpty() or serialNumber.text.toString().isNotEmpty()
-            ) {
-                dateMap = addDatabaseImei(dateMap, name, battery, memory, date, price)
-                checkImeiFill(dateMap)
-                updateChildren(dateMap)
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please enter SerialNumber or Imei1 or Imei2",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
-
-    private fun updateChildren(dateMap: HashMap<String, Any>) {
-        val key = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).push().key
-        if (key != null) {
-            REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO)
-                .child(key).updateChildren(dateMap)
-                .addOnSuccessListener { replaceFragment(MainFragment()) }
-                .addOnFailureListener { showToast(it.toString()) }
-        }
-
-
-    }
-
-    private fun initFunctions() {
-        scanOptions(options)
-    }
-
-
-    private fun dateInstall() {
-        binding.btnDate.setOnClickListener {
-            date = showDatePicker(requireContext())
-        }
-
-        if (date.isEmpty()) {
-            val calendar = Calendar.getInstance()
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
-            date = sdf.format(calendar.time)
-        }
     }
 
 }

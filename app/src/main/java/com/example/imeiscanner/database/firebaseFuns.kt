@@ -1,8 +1,8 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
-import android.widget.EditText
 import android.util.Log
+import android.widget.EditText
 import com.example.imeiscanner.R
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
@@ -62,16 +62,19 @@ fun userGoogleOrPhone(): String {
     }
 }
 
-fun setValuesToFireBase(dateMap: HashMap<String, Any>) {
-    val key = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).push().key
-    if (key != null) {
+fun setValuesToFireBase(dateMap: HashMap<String, Any>,imei1:String) {
+//    val key = REF_DATABASE_ROOT
+//        .child(NODE_PHONE_DATA_INFO)
+//        .child(CURRENT_USER).push().key
+//    if (key != null) {
         REF_DATABASE_ROOT
             .child(NODE_PHONE_DATA_INFO)
-            .child(key)
+            .child(CURRENT_USER)
+            .child(imei1)
             .setValue(dateMap)
             .addOnSuccessListener { replaceFragment(MainFragment()) }
             .addOnFailureListener { showToast(it.toString()) }
-    }
+
 }
 
 inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Unit) {
@@ -104,7 +107,7 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun updateFullnameFromDatabase(fullname: String) {
+fun updateFullNameFromDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
         .setValue(fullname).addOnSuccessListener {
             showToast("Name Changed!")
@@ -151,6 +154,7 @@ fun addDatabaseImei(
     dateMap[CHILD_PHONE_PRICE] = toStringEditText(price)
     return dateMap
 }
+
 fun deleteUser() {
     Firebase.auth.currentUser!!.delete().addOnSuccessListener { showToast("Account Deleted") }
         .addOnFailureListener { Log.d("qwer", "deleteUser: ${it.message.toString()}") }
