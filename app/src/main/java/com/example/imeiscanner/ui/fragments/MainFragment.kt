@@ -160,9 +160,9 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val search:SearchView=item.actionView as SearchView
-        search.isIconified=true
-        search.isSubmitButtonEnabled=true
+//        search.isIconified=true
 
+        search.isSubmitButtonEnabled
 
         search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
