@@ -2,6 +2,7 @@ package com.example.imeiscanner.database
 
 import android.net.Uri
 import android.util.Log
+import com.example.imeiscanner.R
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -151,4 +152,30 @@ fun deleteUserFromDatabase() {
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).removeValue()
         }
     }
+}
+
+fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
+    val dataMap = hashMapOf<String, Any>()
+    if (name.isNotEmpty()) {
+        dataMap[CHILD_FULLNAME] = name
+    }
+    dataMap[CHILD_PHONE] = phoneNumber
+    dataMap[CHILD_ID] = uid
+    dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
+
+    REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+        .addListenerForSingleValueEvent(AppValueEventListener {
+
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(phoneNumber).updateChildren(dataMap)
+                .addOnFailureListener { showToast(it.message.toString()) }
+                .addOnSuccessListener {
+
+                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
+                        .addOnFailureListener { showToast(it.message.toString()) }
+                        .addOnSuccessListener {
+                            restartActivity()
+                            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
+                        }
+                }
+        })
 }

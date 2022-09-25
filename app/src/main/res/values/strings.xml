@@ -18,7 +18,6 @@
     <string name="cancelled_from_barcode">Cancelled</string>
     <string name="Username_is_empty_toast">Username is empty</string>
     <string name="username_text">Fullname</string>
-    <string name="welcome">Welcome!</string>
     <string name="delete_account">Delete Account</string>
     <string name="delete_account_dialog">Delete Account!</string>
     <string name="alert_dialog_message">Are you sure? Your profile and related account information will be deleted our program.</string>
@@ -29,4 +28,5 @@
     <string name="log_out_text">Log Out</string>
     <string name="image_changed">Image Changed!</string>
     <string name="setttings">Settings</string>
+    <string name="welcome">Welcome</string>
 </resources>
