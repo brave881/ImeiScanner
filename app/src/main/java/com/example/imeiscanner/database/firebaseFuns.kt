@@ -62,15 +62,11 @@ fun userGoogleOrPhone(): String {
     }
 }
 
-fun setValuesToFireBase(dateMap: HashMap<String, Any>,imei1:String) {
-//    val key = REF_DATABASE_ROOT
-//        .child(NODE_PHONE_DATA_INFO)
-//        .child(CURRENT_USER).push().key
-//    if (key != null) {
+fun setValuesToFireBase(dateMap: HashMap<String, Any>,id:String) {
         REF_DATABASE_ROOT
             .child(NODE_PHONE_DATA_INFO)
             .child(CURRENT_USER)
-            .child(imei1)
+            .child(id)
             .setValue(dateMap)
             .addOnSuccessListener { replaceFragment(MainFragment()) }
             .addOnFailureListener { showToast(it.toString()) }
@@ -140,6 +136,7 @@ inline fun initUser(crossinline function: () -> Unit) {
 }
 
 fun addDatabaseImei(
+    id:String,
     dateMap: HashMap<String, Any>,
     name: EditText,
     batteryInfo: EditText,
@@ -147,6 +144,7 @@ fun addDatabaseImei(
     date: String,
     price: EditText,
 ): HashMap<String, Any> {
+    dateMap[CHILD_PHONE_ID] = id
     dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
     dateMap[CHILD_BATTERY_INFO] = toStringEditText(batteryInfo)
     dateMap[CHILD_PHONE_MEMORY] = toStringEditText(memory)

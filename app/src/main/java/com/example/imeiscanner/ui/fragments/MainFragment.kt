@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseReference
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-
     private companion object
 
     val LOG = "MainFragment"
@@ -33,7 +32,6 @@ class MainFragment : Fragment() {
     //    private lateinit var refItems: DatabaseReference
 //    private lateinit var refItemListener: AppValueEventListener
     private lateinit var refPhoneData: DatabaseReference
-    private lateinit var items: List<PhoneDataModel>
 
     //    private var mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
     private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, PhonesHolder>
@@ -92,12 +90,18 @@ class MainFragment : Fragment() {
                 model: PhoneDataModel) {
                 Log.d(LOG, "onBindViewHolder: ${model.phone_imei1}")
                 val referenceItem =
-                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).child(model.phone_imei1)
+                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
+                        .child(model.id)
+                var item = PhoneDataModel()
 
-                initItems(holder, model)
+                referenceItem.addValueEventListener(AppValueEventListener {
+                    item = it.getPhoneModel()
+                    initItems(holder, item)
+                })
+
                 holder.item.setOnClickListener {
                     val bundle = Bundle()
-                    bundle.putSerializable(POSITION_ITEM, items[position])
+                    bundle.putSerializable(POSITION_ITEM, item)
                     parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT, bundle)
                     replaceFragment(PhoneInfoFragment())
                 }

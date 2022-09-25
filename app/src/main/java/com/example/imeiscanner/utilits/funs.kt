@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -16,7 +17,9 @@ import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.deleteUser
 import com.example.imeiscanner.database.deleteUserFromDatabase
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
+import com.example.imeiscanner.models.PhoneDataModel
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DataSnapshot
 import com.journeyapps.barcodescanner.ScanOptions
 import java.util.*
 
@@ -52,20 +55,22 @@ fun restartActivity() {
 }
 
 @SuppressLint("SetTextI18n")
-fun showDatePicker( context: Context): String {
+fun showDatePicker( context: Context,tv:TextView) {
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
     val day = calendar.get(Calendar.DAY_OF_MONTH)
-    var res = ""
 
     val datePickerDialog = DatePickerDialog(
         context, { _, year1, month1, dayOfMonth ->
-            res = "$dayOfMonth/${month1 + 1}/$year1"
+            tv.text = "$dayOfMonth/${month1 + 1}/$year1"
         }, year, month, day
     )
     datePickerDialog.show()
-    return res
+}
+
+fun DataSnapshot.getPhoneModel():PhoneDataModel{
+    return getValue(PhoneDataModel::class.java) ?: PhoneDataModel()
 }
 
 fun scanOptions(options: ScanOptions) {

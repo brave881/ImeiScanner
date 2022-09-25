@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
@@ -15,8 +16,6 @@ import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
@@ -87,10 +86,11 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
     private lateinit var imei2: EditText
     private lateinit var serialNumber: EditText
     private lateinit var price: EditText
-    private var date: String = ""
+    private lateinit var dateView: TextView
     private lateinit var battery: EditText
     private lateinit var memory: EditText
     private lateinit var name: EditText
+    private lateinit var phoneId: String
     private var imei1Boolean: Boolean = false
     private var imei2Boolean: Boolean = false
     private var imei3Boolean: Boolean = false
@@ -117,7 +117,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
             this
         ) { _, result ->
             val item = result.getSerializable(POSITION_ITEM) as PhoneDataModel
-            date = item.phone_added_date
+            dateView.text = item.phone_added_date
             imei1.setText(item.phone_imei1)
             imei2.setText(item.phone_imei2)
             serialNumber.setText(item.phone_serial_number)
@@ -125,6 +125,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
             price.setText(item.phone_price)
             memory.setText(item.phone_memory)
             name.setText(item.phone_name)
+            phoneId = item.id
         }
     }
 
@@ -150,15 +151,26 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         price = binding.phoneEditPhonePrice
         memory = binding.phoneEditPhoneMemory
         name = binding.phoneEditPhoneName
+        dateView = binding.btnDate
+
     }
 
     private fun saveDate() {
         binding.btnEditSave.setOnClickListener {
             if (imei1.text.toString().isNotEmpty()
             ) {
-                dateMap = addDatabaseImei(dateMap, name, battery, memory, date, price)
+                dateMap = addDatabaseImei(
+                    phoneId,
+                    dateMap,
+                    name,
+                    battery,
+                    memory,
+                    dateView.text.toString(),
+                    price
+                )
                 checkImeiFill(dateMap)
-                updateChildren(dateMap)
+                //TODO poidyot
+                setValuesToFireBase(dateMap, phoneId)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -169,16 +181,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         }
     }
 
-    private fun updateChildren(dateMap: HashMap<String, Any>) {
-//        val refPhones = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!
-//        val all = hashMapOf<String, Any>()
-//        all[refPhones] = dateMap
-        REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
-            .child(REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!)
-            .updateChildren(dateMap)
-            .addOnFailureListener { showToast(it.toString()) }
-            .addOnSuccessListener { replaceFragment(MainFragment()) }
-    }
+
 
     private fun initFunctions() {
         scanOptions(options)
@@ -187,14 +190,14 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
 
     private fun dateInstall() {
         binding.btnDate.setOnClickListener {
-            date = showDatePicker(requireContext())
+            showDatePicker(requireContext(), dateView)
         }
 
-        if (date.isEmpty()) {
-            val calendar = Calendar.getInstance()
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
-            date = sdf.format(calendar.time)
-        }
+//        if (date.isEmpty()) {
+//            val calendar = Calendar.getInstance()
+//            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
+//            date = sdf.format(calendar.time)
+//        }
     }
 
     /// scanner block

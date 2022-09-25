@@ -1,10 +1,12 @@
 package com.example.imeiscanner.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
@@ -17,6 +19,7 @@ import com.example.imeiscanner.utilits.toStringEditText
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,7 +31,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     private lateinit var imei2: EditText
     private lateinit var serialNumber: EditText
     private lateinit var price: EditText
-    private var date: String = ""
+    private lateinit var date: TextView
     private lateinit var batteryInfo: EditText
     private lateinit var memory: EditText
     private lateinit var name: EditText
@@ -100,6 +103,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         saveDate()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun initFields() {
         options = ScanOptions()
         imei1 = binding.phoneAddPhoneImei1
@@ -109,6 +113,10 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         price = binding.phoneAddPhonePrice
         name = binding.phoneAddPhoneName
         batteryInfo = binding.phoneAddPhoneBattery
+        val d= Calendar.getInstance()
+        val currentDateTimeString = SimpleDateFormat("dd/MM/yyyy").format(d.time)
+        date = binding.btnDate
+        date.text = currentDateTimeString
 
     }
 
@@ -116,11 +124,19 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         binding.btnSave.setOnClickListener {
             if (imei1.text.toString().isNotEmpty()) {
 
+                val id =
+                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!
                 dateMap = addDatabaseImei(
-                    dateMap, name, batteryInfo, memory, date, price
+                    id,
+                    dateMap,
+                    name,
+                    batteryInfo,
+                    memory,
+                    date.text.toString(),
+                    price
                 )
                 checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap, imei1.text.toString())
+                setValuesToFireBase(dateMap, id)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -137,13 +153,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     private fun dateInstall() {
         binding.btnDate.setOnClickListener {
-            date = showDatePicker(requireContext())
-        }
-
-        if (date.isEmpty()) {
-            val calendar = Calendar.getInstance()
-            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
-            date = sdf.format(calendar.time)
+            showDatePicker(requireContext(), date)
         }
     }
 }
