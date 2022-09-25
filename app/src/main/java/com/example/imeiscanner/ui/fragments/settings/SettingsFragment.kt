@@ -1,7 +1,12 @@
 package com.example.imeiscanner.ui.fragments.settings
 
+import android.Manifest
+import android.Manifest.permission.CAMERA
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import com.canhub.cropper.CropImageContract
 import com.canhub.cropper.CropImageView
 import com.canhub.cropper.options
@@ -14,6 +19,7 @@ import com.example.imeiscanner.utilits.*
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private lateinit var binding: FragmentSettingsBinding
+    private val CAMERA_SELF_PERMISSION = ContextCompat.checkSelfPermission(MAIN_ACTIVITY, CAMERA)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +40,20 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onStop() {
         super.onStop()
-        MAIN_ACTIVITY.title= getString(R.string.app_name)
+        MAIN_ACTIVITY.title = getString(R.string.app_name)
     }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if (it) changePhoto()
+        }
+
     private fun initClicks() {
+        binding.settingsUserPhotoChange.setOnClickListener {
+            if (CAMERA_SELF_PERMISSION == PackageManager.PERMISSION_GRANTED) changePhoto()
+            else requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+        }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
-        binding.settingsUserPhotoChange.setOnClickListener { changePhoto() }
         if (userGoogleOrPhone() == PHONE_PROVIDER_ID) {
             binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
@@ -101,4 +116,5 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
         return true
     }
+
 }
