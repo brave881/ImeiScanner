@@ -2,6 +2,10 @@ package com.example.imeiscanner
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.imeiscanner.database.AUTH
@@ -48,4 +52,18 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(RegisterFragment(), false)
         }
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        MAIN_ACTIVITY.menuInflater.inflate(R.menu.search_menu, menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when (item.itemId) {
+//            R.id.menu_search_btn -> {
+//
+//            }
+//        }
+//        return true
+//    }
 }

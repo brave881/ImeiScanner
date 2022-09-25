@@ -1,12 +1,14 @@
 package com.example.imeiscanner.ui.fragments
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
@@ -24,6 +26,8 @@ import com.google.firebase.database.DatabaseReference
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+    private lateinit var searchView:SearchView
+
     private companion object
 
     val LOG = "MainFragment"
@@ -32,6 +36,7 @@ class MainFragment : Fragment() {
     //    private lateinit var refItems: DatabaseReference
 //    private lateinit var refItemListener: AppValueEventListener
     private lateinit var refPhoneData: DatabaseReference
+    private lateinit var items: List<PhoneDataModel>
 
     //    private var mapListener = hashMapOf<DatabaseReference, AppValueEventListener>()
     private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, PhonesHolder>
@@ -46,6 +51,7 @@ class MainFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         hideKeyboard()
         rv = binding.rvMainFragment
@@ -87,7 +93,8 @@ class MainFragment : Fragment() {
             override fun onBindViewHolder(
                 holder: PhonesHolder,
                 position: Int,
-                model: PhoneDataModel) {
+                model: PhoneDataModel
+            ) {
                 Log.d(LOG, "onBindViewHolder: ${model.phone_imei1}")
                 val referenceItem =
                     REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
@@ -125,4 +132,56 @@ class MainFragment : Fragment() {
             holder.imei.text = item.phone_imei1
         else holder.imei.text = item.phone_imei2
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_menu,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+        //        activity?.menuInflater?.inflate(R.menu.search_menu, menu)
+
+//        val menuItem:MenuItem=menu.findItem(R.id.menu_search_btn)
+//        searchView= menuItem.actionView as SearchView
+//        searchView.isIconified=true
+//
+//        val searchManger:SearchManager=activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        searchView.setSearchableInfo(searchManger.getSearchableInfo(requireActivity().componentName))
+//        searchView.setOnQueryTextListener(object :androidx.appcompat.widget.SearchView.OnQueryTextListener{
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                TODO("Not yet implemented")
+//            }
+//
+//        })
+
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val search:SearchView=item.actionView as SearchView
+        search.isIconified=true
+        search.isSubmitButtonEnabled=true
+
+
+        search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+        })
+//        when (item.itemId) {
+//
+//            R.id.menu_search_btn -> {
+//
+//
+//            }
+//        }
+        return true
+    }
+
 }
