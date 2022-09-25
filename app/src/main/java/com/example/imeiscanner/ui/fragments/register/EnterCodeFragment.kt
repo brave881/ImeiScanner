@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
+import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.auth.PhoneAuthProvider
 
@@ -22,7 +22,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        MAIN_ACTIVITY.title=phoneNumber
+        MAIN_ACTIVITY.title = phoneNumber
         binding.registerInputCode.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
@@ -45,50 +45,26 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
 
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val uid = AUTH.currentUser?.uid.toString()
-
-            val dataMap = hashMapOf<String, Any>()
-            dataMap[CHILD_PHONE] = phoneNumber
-            dataMap[CHILD_ID] = uid
-            dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
-
-            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).setValue(dataMap)
-                .addOnFailureListener { showToast(it.message.toString()) }
-
-            REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
-                .setValue(dataMap)
-                .addOnSuccessListener {
-                    binding.enterCodeContainer.visibility = View.GONE
-                    binding.enterNameContainer.visibility = View.VISIBLE
-                    inputName(uid)
-                }
-                .addOnFailureListener {
-                    showToast(it.toString())
-                }
+            signAndCheckUserHasExist(uid)
         }
     }
 
-    private fun inputName(uid:String) {
-        binding.enterNameNextBtn.setOnClickListener {
-            val name = binding.registerInputName.text.toString()
-            if (name.isNotEmpty()) {
-//                updateUserName(name)
-
-
-                USER.fullname = name
-
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
-                    .child(CHILD_FULLNAME)
-                    .setValue(name).addOnFailureListener { showToast(it.message.toString()) }
-
-                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber)
-                    .child(CHILD_FULLNAME).setValue(name)
-                    .addOnSuccessListener {
-                        showToast(getString(R.string.welcome))
-                        restartActivity()
+    private fun signAndCheckUserHasExist(uid: String) {
+        REF_DATABASE_ROOT.child(NODE_USERS)
+            .addListenerForSingleValueEvent(AppValueEventListener {
+                if (it.hasChild(uid)) {
+                    signInWithPhone(uid, phoneNumber)
+                } else {
+                    binding.enterCodeContainer.visibility = View.GONE
+                    binding.enterNameContainer.visibility = View.VISIBLE
+                    binding.enterNameNextBtn.setOnClickListener {
+                        val name = binding.registerInputName.text.toString()
+                        if (name.isNotEmpty()) {
+                            signInWithPhone(uid, phoneNumber, name)
+                        } else showToast(getString(R.string.fullname_is_empty))
                     }
-                    .addOnFailureListener { showToast(it.toString()) }
-            } else showToast(getString(R.string.fullname_is_empty))
-        }
+                }
+            })
     }
 
     override fun onCreateView(
