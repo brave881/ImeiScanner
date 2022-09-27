@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.EditText
 import com.example.imeiscanner.R
+import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.utilits.*
@@ -43,7 +44,7 @@ fun initFirebase() {
     AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
-    CURRENT_USER = AUTH.currentUser?.uid.toString()
+    CURRENT_UID = AUTH.currentUser?.uid.toString()
     CURRENT_USER_EMAIL = AUTH.currentUser?.email.toString()
     CURRENT_USER_PHONE = AUTH.currentUser?.phoneNumber.toString()
     CURRENT_PROVIDER_ID = AUTH.currentUser?.providerId.toString()
@@ -62,25 +63,25 @@ fun userGoogleOrPhone(): String {
     }
 }
 
-fun setValuesToFireBase(dateMap: HashMap<String, Any>,id:String) {
-        REF_DATABASE_ROOT
-            .child(NODE_PHONE_DATA_INFO)
-            .child(CURRENT_USER)
-            .child(id)
-            .setValue(dateMap)
-            .addOnSuccessListener { replaceFragment(MainFragment()) }
-            .addOnFailureListener { showToast(it.toString()) }
+fun setValuesToFireBase(dateMap: HashMap<String, Any>, id: String) {
+    REF_DATABASE_ROOT
+        .child(NODE_PHONE_DATA_INFO)
+        .child(CURRENT_UID)
+        .child(id)
+        .setValue(dateMap)
+        .addOnSuccessListener { replaceFragment(MainFragment()) }
+        .addOnFailureListener { showToast(it.toString()) }
 
 }
 
 inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Unit) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_PHOTO_URL).setValue(url)
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_PHOTO_URL).setValue(url)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER)
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
@@ -104,7 +105,7 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
 }
 
 fun updateFullNameFromDatabase(fullname: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
         .setValue(fullname).addOnSuccessListener {
             showToast("Name Changed!")
             updateUserName(fullname)
@@ -114,7 +115,7 @@ fun updateFullNameFromDatabase(fullname: String) {
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER).child(CHILD_FULLNAME)
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
                 .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
@@ -125,18 +126,18 @@ fun updateFullNameFromDatabase(fullname: String) {
 }
 
 inline fun initUser(crossinline function: () -> Unit) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER)
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
         .addListenerForSingleValueEvent(AppValueEventListener {
             USER = it.getValue(UserModel::class.java) ?: UserModel()
             if (USER.fullname.isEmpty()) {
-                USER.fullname = CURRENT_USER
+                USER.fullname = CURRENT_UID
             }
             function()
         })
 }
 
 fun addDatabaseImei(
-    id:String,
+    id: String,
     dateMap: HashMap<String, Any>,
     name: EditText,
     batteryInfo: EditText,
@@ -160,12 +161,12 @@ fun deleteUser() {
 }
 
 fun deleteUserFromDatabase() {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_USER).removeValue()
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_USER).removeValue()
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID).removeValue()
                 .addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
@@ -198,4 +199,31 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
                         }
                 }
         })
+}
+
+fun addFavourites(item: PhoneDataModel) {
+    val ref = "$NODE_FAVOURITES/$CURRENT_UID/${item.id}"
+    val dataMap = hashMapOf<String, Any>()
+    dataMap[CHILD_ID] = item.id
+    dataMap[CHILD_PHONE_ADDED_DATE] = item.phone_added_date
+    dataMap[CHILD_BATTERY_INFO] = item.phone_battery_info
+    dataMap[CHILD_IMEI1] = item.phone_imei1
+    dataMap[CHILD_IMEI2] = item.phone_imei2
+    dataMap[CHILD_PHONE_MEMORY] = item.phone_memory
+    dataMap[CHILD_PHONE_NAME] = item.phone_name
+    dataMap[CHILD_PHONE_PRICE] = item.phone_price
+    dataMap[CHILD_SERIAL_NUMBER] = item.phone_serial_number
+
+    val map = hashMapOf<String, Any>()
+    map[ref] = dataMap
+    REF_DATABASE_ROOT.updateChildren(map)
+        .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_added)) }
+        .addOnFailureListener { showToast(it.message.toString()) }
+
+}
+
+fun deleteFavouritesValue(value: String) {
+    REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).child(value).removeValue()
+        .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_deleted_toast)) }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

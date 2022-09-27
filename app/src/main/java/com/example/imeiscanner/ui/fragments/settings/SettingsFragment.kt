@@ -88,7 +88,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     private val cropImage = registerForActivityResult(CropImageContract()) { result ->
         val uri = result.originalUri
-        val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE).child(CURRENT_USER)
+        val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE).child(CURRENT_UID)
 
         if (uri != null) {
             putFileToStorage(path, uri) {

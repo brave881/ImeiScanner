@@ -30,4 +30,6 @@
     <string name="setttings">Settings</string>
     <string name="welcome">Welcome</string>
     <string name="search">Search</string>
+    <string name="favourites_added">Added</string>
+    <string name="favourites_deleted_toast">Deleted</string>
 </resources>

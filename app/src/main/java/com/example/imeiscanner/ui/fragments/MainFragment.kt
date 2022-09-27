@@ -6,10 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.CHILD_IMEI1
-import com.example.imeiscanner.database.CURRENT_USER
-import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
-import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.adapters.MainAdapter
@@ -48,6 +45,7 @@ class MainFragment : Fragment() {
             replaceFragment(PhoneAddFragment())
         }
         initRecyclerView()
+
     }
 
 
@@ -62,7 +60,7 @@ class MainFragment : Fragment() {
 
 
     private fun initRecyclerView() {
-        refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
+        refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
         val options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(refPhoneData, PhoneDataModel::class.java).build()
 
@@ -80,7 +78,7 @@ class MainFragment : Fragment() {
 
     private fun mySearch(text: String) {
 
-        val query = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER)
+        val query = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
 
         options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(
@@ -100,7 +98,7 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val search: SearchView = item.actionView as SearchView
-        search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 mySearch(query!!)
                 return false

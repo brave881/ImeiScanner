@@ -2,28 +2,49 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/container_items"
+    android:layout_width="match_parent"
     android:layout_height="80dp">
 
     <androidx.cardview.widget.CardView
-        android:clickable="true"
         android:id="@+id/main_list_item_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/register_or_margin_5dp"
+        android:clickable="true"
         android:elevation="25dp"
+        android:focusable="true"
         app:cardCornerRadius="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:focusable="true">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/background_product">
+            <ImageView
+                android:visibility="visible"
+                android:id="@+id/item_star_off_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/top_margin_20dp"
+                android:src="@drawable/ic_star_off"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:visibility="invisible"
+                android:id="@+id/item_star_on_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="@dimen/top_margin_20dp"
+                android:src="@drawable/ic_star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -57,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
                 android:text="856203478567586"
-                android:textSize="20dp"
                 android:textColor="@color/black"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_product_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name_product" />
@@ -67,10 +88,10 @@
             <TextView
                 android:id="@+id/tv_time_product"
                 android:layout_width="wrap_content"
-                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
                 android:text="26/02/2022"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

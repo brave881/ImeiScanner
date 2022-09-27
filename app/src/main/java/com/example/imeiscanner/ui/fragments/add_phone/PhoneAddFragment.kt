@@ -99,7 +99,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         initFields()
         initFunctions()
         qrScan()
-        saveDate()
+        binding.btnSave.setOnClickListener { saveDate()}
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -119,11 +119,9 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     }
 
     private fun saveDate() {
-        binding.btnSave.setOnClickListener {
             if (imei1.text.toString().isNotEmpty()) {
-
                 val id =
-                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_USER).push().key!!
+                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
                 dateMap = addDatabaseImei(
                     id,
                     dateMap,
@@ -142,7 +140,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        }
     }
 
     private fun initFunctions() {

@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.adapters
+package com.example.imeiscanner.ui.favourites
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,33 +10,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.AppValueEventListener
+import com.example.imeiscanner.utilits.getPhoneModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool: Boolean = true) :
-    FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
+class FavouritesAdapter(val options: FirebaseRecyclerOptions<PhoneDataModel>) :
+    FirebaseRecyclerAdapter<PhoneDataModel, FavouritesAdapter.Holder>(options) {
 
-    inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
+
+    inner class Holder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
         val imei: TextView = view.findViewById(R.id.tv_serial_number)
         val date: TextView = view.findViewById(R.id.tv_time_product)
         val item: CardView = view.findViewById(R.id.main_list_item_container)
         val star_on: ImageView = view.findViewById(R.id.item_star_on_btn)
         val star_off: ImageView = view.findViewById(R.id.item_star_off_btn)
-
     }
 
-    private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
-
     private fun initItems(
-        holder: PhonesHolder, item: PhoneDataModel
+        holder: Holder, item: PhoneDataModel
     ) {
-        holder.star_off.setOnClickListener {
-            holder.star_on.visibility = View.VISIBLE
-            holder.star_off.visibility = View.GONE
-            addFavourites(item)
-        }
         holder.star_on.setOnClickListener {
             holder.star_on.visibility = View.GONE
             holder.star_off.visibility = View.VISIBLE
@@ -51,44 +46,25 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         else holder.imei.text = item.phone_imei2
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhonesHolder {
-        return PhonesHolder(
+
+    fun itemOnCLickListener(v: (PhoneDataModel) -> Unit) {
+        itemClickListener = v
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_products, parent, false)
         )
     }
 
-    fun itemOnClickListener(v: (PhoneDataModel) -> Unit) {
-        itemClickListener = v
-    }
-
-    override fun onBindViewHolder(
-        holder: PhonesHolder,
-        position: Int,
-        model: PhoneDataModel
-    ) {
-
+    override fun onBindViewHolder(holder: Holder, position: Int, model: PhoneDataModel) {
         var item = PhoneDataModel()
-        val referenceItem =
-            REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
-                .child(model.id)
-////////////////////////////
-        if (bool) {
-            referenceItem.addValueEventListener(AppValueEventListener {
+        REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).child(model.id)
+            .addValueEventListener(AppValueEventListener {
                 item = it.getPhoneModel()
                 initItems(holder, item)
             })
-        } else {
-            referenceItem.addChildEventListener(AppChildEventListener {
-                item = it.getPhoneModel()
-                initItems(holder, item)
-            })
-        }
-/////////////////////////////
-
-        holder.item.setOnClickListener {
-            itemClickListener?.invoke(item)
-        }
-
+        holder.item.setOnClickListener { itemClickListener?.invoke(item) }    ///
     }
 }

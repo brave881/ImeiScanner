@@ -16,6 +16,7 @@ import com.example.imeiscanner.utilits.replaceFragment
 
 
 class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
+
     private lateinit var items: PhoneDataModel
 
     private lateinit var binding: FragmentEditPhoneDataBinding
@@ -27,7 +28,6 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
         binding = FragmentEditPhoneDataBinding.inflate(inflater, container, false)
         return binding.root
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -61,6 +61,4 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
         }
 
     }
-
-
 }

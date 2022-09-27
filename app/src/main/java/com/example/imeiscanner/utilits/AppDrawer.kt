@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout.LOCK_MODE_UNLOCKED
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.ui.fragments.AboutFragment
-import com.example.imeiscanner.ui.fragments.FavouritesFragment
+import com.example.imeiscanner.ui.favourites.FavouritesFragment
 import com.example.imeiscanner.ui.fragments.MainFragment
 import com.example.imeiscanner.ui.fragments.settings.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
