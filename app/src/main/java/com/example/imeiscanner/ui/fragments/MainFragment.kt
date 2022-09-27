@@ -2,6 +2,7 @@ package com.example.imeiscanner.ui.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
@@ -45,9 +46,7 @@ class MainFragment : Fragment() {
             replaceFragment(PhoneAddFragment())
         }
         initRecyclerView()
-
     }
-
 
     fun initFields() {
         rv = binding.rvMainFragment

@@ -1,5 +1,8 @@
 package com.example.imeiscanner.ui.adapters
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,8 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool: Boolean = true) :
     FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
+    private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
+
     inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
         val imei: TextView = view.findViewById(R.id.tv_serial_number)
@@ -24,10 +29,7 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         val item: CardView = view.findViewById(R.id.main_list_item_container)
         val star_on: ImageView = view.findViewById(R.id.item_star_on_btn)
         val star_off: ImageView = view.findViewById(R.id.item_star_off_btn)
-
     }
-
-    private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
 
     private fun initItems(
         holder: PhonesHolder, item: PhoneDataModel
@@ -35,11 +37,13 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         holder.star_off.setOnClickListener {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
+            SH_P_EDITOR.putBoolean(item.id, true).apply()
             addFavourites(item)
         }
         holder.star_on.setOnClickListener {
             holder.star_on.visibility = View.GONE
             holder.star_off.visibility = View.VISIBLE
+            SH_P_EDITOR.putBoolean(item.id, false).apply()
             deleteFavouritesValue(item.id)
         }
         holder.name.text = item.phone_name
@@ -67,6 +71,10 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         position: Int,
         model: PhoneDataModel
     ) {
+        if (getItemState(model.id)) {
+            holder.star_on.visibility = View.VISIBLE
+            holder.star_off.visibility = View.GONE
+        }
 
         var item = PhoneDataModel()
         val referenceItem =
@@ -85,7 +93,6 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
             })
         }
 /////////////////////////////
-
         holder.item.setOnClickListener {
             itemClickListener?.invoke(item)
         }

@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -135,5 +136,6 @@ fun logOutDialog() {
         }.show()
 }
 
-
-
+fun getItemState(itemId: String): Boolean {
+    return SHARED_PREFERENCES.getBoolean(itemId, false)
+}

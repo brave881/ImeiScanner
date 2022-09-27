@@ -2,10 +2,14 @@ package com.example.imeiscanner.utilits
 
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import com.example.imeiscanner.MainActivity
 
 lateinit var MAIN_ACTIVITY: MainActivity
 lateinit var DIALOG_BUILDER: AlertDialog.Builder
+lateinit var SHARED_PREFERENCES: SharedPreferences
+lateinit var SH_P_EDITOR: SharedPreferences.Editor
 const val RC_SiGN_IN = 1
 const val TAG = "TAG"
 const val GOOGLE_PROVIDER_ID = "google"
