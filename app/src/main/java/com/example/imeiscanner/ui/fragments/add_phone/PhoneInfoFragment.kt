@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.fragments.add_phone
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.example.imeiscanner.R
 import com.example.imeiscanner.databinding.FragmentEditPhoneDataBinding
 import com.example.imeiscanner.models.PhoneDataModel
+import com.example.imeiscanner.ui.fragments.EditFragment
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.DATA_FROM_PHONE_INFO_FRAGMENT
 import com.example.imeiscanner.utilits.DATA_FROM_MAIN_FRAGMENT

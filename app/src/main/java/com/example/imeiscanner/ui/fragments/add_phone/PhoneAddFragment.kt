@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.fragments.add_phone
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,7 +19,6 @@ import com.example.imeiscanner.utilits.toStringEditText
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,7 +116,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         val currentDateTimeString = SimpleDateFormat("dd/MM/yyyy").format(d.time)
         date = binding.btnDate
         date.text = currentDateTimeString
-
     }
 
     private fun saveDate() {
