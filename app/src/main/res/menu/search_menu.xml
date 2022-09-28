@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-        <item
-            android:id="@+id/menu_scanner_btn"
-            android:icon="@drawable/ic_qr_code_scanner"
-            app:showAsAction="ifRoom"
-            app:actionViewClass="android.widget.Button"
-            android:title="@string/scan_code_menu_item" />
-        <item
-            android:id="@+id/menu_search_btn"
-            android:icon="@drawable/ic_search"
-            android:title="@string/search"
-            app:showAsAction="ifRoom"
-            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+    <item
+        android:id="@+id/menu_scanner_btn"
+        android:icon="@drawable/ic_qr_code_scanner"
+        app:actionViewClass="android.widget.ImageView"
+        android:title="@string/scan_code_menu_item"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_search_btn"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_sort_btn"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="ifRoom"
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/menu_first_oldest"
+                android:checkable="true"
+                android:title="@string/oldest_first_text"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/menu_first_newest"
+                android:checkable="true"
+                android:title="@string/newest_first_text"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 </menu>

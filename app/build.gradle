@@ -7,7 +7,7 @@ plugins {
 android {
 
     buildFeatures {
-        viewBinding  true
+        viewBinding true
     }
     compileSdk 32
 
@@ -84,5 +84,5 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
-
+    implementation 'com.google.android.material:material:1.4.0'
 }

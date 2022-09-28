@@ -33,4 +33,8 @@
     <string name="favourites_added">Added</string>
     <string name="favourites_deleted_toast">Deleted</string>
     <string name="scan_code_menu_item">Scan code</string>
+    <string name="sort_text">Sort</string>
+    <string name="filter_text">Filter</string>
+    <string name="oldest_first_text">Oldest First</string>
+    <string name="newest_first_text">Newest First</string>
 </resources>

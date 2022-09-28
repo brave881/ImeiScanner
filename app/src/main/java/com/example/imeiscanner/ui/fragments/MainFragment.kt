@@ -1,10 +1,14 @@
 package com.example.imeiscanner.ui.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.CHILD_IMEI1
@@ -25,15 +29,22 @@ import com.journeyapps.barcodescanner.ScanOptions
 
 
 class MainFragment : Fragment() {
+
+    private lateinit var oldestBtn: MenuItem
+    private lateinit var newestBtn: MenuItem
+    private lateinit var searchWithQRCode: MenuItem
     private lateinit var binding: FragmentMainBinding
     private val LOG = "MainFragment"
     private lateinit var rv: RecyclerView
     private lateinit var refPhoneData: DatabaseReference
     private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>
-    private lateinit var scannerButton: Button
+    private lateinit var scannerButton: ImageView
     private lateinit var scanOptions: ScanOptions
     private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
     private lateinit var searchView: SearchView
+    private lateinit var linerLayoutManager: LinearLayoutManager
+    private var sortState: Boolean = true
+
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
             showToast(getString(R.string.cancelled_from_barcode))
@@ -54,6 +65,7 @@ class MainFragment : Fragment() {
         super.onResume()
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
+        initSort()
         initFields()
         hideKeyboard()
         binding.btnOpenPhoneFragment.setOnClickListener {
@@ -62,9 +74,22 @@ class MainFragment : Fragment() {
         initRecyclerView()
     }
 
+    private fun initSort() {
+        linerLayoutManager = LinearLayoutManager(MAIN_ACTIVITY)
+        if (sortState) {
+            //engyangi qo'shilganini birinchi ko'rsatadi
+            linerLayoutManager.reverseLayout = true
+            linerLayoutManager.stackFromEnd = true
+        } else {
+            //eng ynagi qo'shilganlarini en pasida ko'rsatadi
+            linerLayoutManager.reverseLayout = false
+            linerLayoutManager.stackFromEnd = false
+        }
+    }
 
     private fun initFields() {
         rv = binding.rvMainFragment
+        rv.layoutManager = linerLayoutManager
         scanOptions = ScanOptions()
         scanOptions(scanOptions)
     }
@@ -78,7 +103,6 @@ class MainFragment : Fragment() {
         super.onPause()
         adapter.stopListening()
     }
-
 
     private fun initRecyclerView() {
         refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
@@ -111,14 +135,23 @@ class MainFragment : Fragment() {
         clickItem()
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu)
+        newestBtn = menu.findItem(R.id.menu_first_newest)
+        oldestBtn = menu.findItem(R.id.menu_first_oldest)
         val searchItem = menu.findItem(R.id.menu_search_btn)
-        val searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
-        scannerButton = searchWithQRCode.actionView as Button
+         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
+
+        searchWithQRCode.isVisible = false
+        scannerButton = searchWithQRCode.actionView as ImageView
+        scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
         searchView = searchItem.actionView as SearchView
         searchInit()
+
+            searchView.setOnSearchClickListener {
+//            searchWithQRCode.isVisible = true
+//            showToast("soigj")
+        }
         scannerButton.setOnClickListener {
             barcodeLauncher.launch(scanOptions)
         }
@@ -130,4 +163,21 @@ class MainFragment : Fragment() {
         })
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_first_newest -> {
+                sortState = true
+                newestBtn.isChecked = true
+                oldestBtn.isChecked = false
+//                restartActivity()
+            }
+            R.id.menu_first_oldest -> {
+                sortState = false
+                newestBtn.isChecked = false
+                oldestBtn.isChecked = true
+//                restartActivity()
+            }
+        }
+        return true
+    }
 }
