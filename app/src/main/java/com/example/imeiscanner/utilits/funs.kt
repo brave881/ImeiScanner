@@ -136,6 +136,3 @@ fun logOutDialog() {
         }.show()
 }
 
-fun getItemState(itemId: String): Boolean {
-    return SHARED_PREFERENCES.getBoolean(itemId, false)
-}

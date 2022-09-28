@@ -91,6 +91,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
     private lateinit var memory: EditText
     private lateinit var name: EditText
     private lateinit var phoneId: String
+    private var favouriteState: Boolean = false
     private var imei1Boolean: Boolean = false
     private var imei2Boolean: Boolean = false
     private var imei3Boolean: Boolean = false
@@ -126,9 +127,9 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
             memory.setText(item.phone_memory)
             name.setText(item.phone_name)
             phoneId = item.id
+            favouriteState = item.favourite_state
         }
     }
-
 
 
     override fun onStart() {
@@ -153,6 +154,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         name = binding.phoneEditPhoneName
         dateView = binding.btnDate
 
+
     }
 
     private fun saveDate() {
@@ -166,7 +168,8 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
                     battery,
                     memory,
                     dateView.text.toString(),
-                    price
+                    price,
+                    favouriteState
                 )
                 checkImeiFill(dateMap)
                 //TODO poidyot
@@ -180,7 +183,6 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
             }
         }
     }
-
 
 
     private fun initFunctions() {

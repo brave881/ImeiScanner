@@ -129,7 +129,8 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
                     batteryInfo,
                     memory,
                     date.text.toString(),
-                    price
+                    price,
+                    false
                 )
                 checkImeiFill(dateMap)
                 setValuesToFireBase(dateMap, id)

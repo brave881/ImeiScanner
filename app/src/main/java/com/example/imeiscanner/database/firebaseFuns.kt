@@ -68,7 +68,7 @@ fun setValuesToFireBase(dateMap: HashMap<String, Any>, id: String) {
         .child(NODE_PHONE_DATA_INFO)
         .child(CURRENT_UID)
         .child(id)
-        .setValue(dateMap)
+        .updateChildren(dateMap)
         .addOnSuccessListener { replaceFragment(MainFragment()) }
         .addOnFailureListener { showToast(it.toString()) }
 
@@ -144,6 +144,7 @@ fun addDatabaseImei(
     memory: EditText,
     date: String,
     price: EditText,
+    state: Boolean
 ): HashMap<String, Any> {
     dateMap[CHILD_PHONE_ID] = id
     dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
@@ -151,6 +152,7 @@ fun addDatabaseImei(
     dateMap[CHILD_PHONE_MEMORY] = toStringEditText(memory)
     dateMap[CHILD_PHONE_ADDED_DATE] = date
     dateMap[CHILD_PHONE_PRICE] = toStringEditText(price)
+    dateMap[CHILD_FAVOURITE_STATE] = state
     return dateMap
 }
 
@@ -213,16 +215,28 @@ fun addFavourites(item: PhoneDataModel) {
     dataMap[CHILD_PHONE_NAME] = item.phone_name
     dataMap[CHILD_PHONE_PRICE] = item.phone_price
     dataMap[CHILD_SERIAL_NUMBER] = item.phone_serial_number
+    dataMap[CHILD_FAVOURITE_STATE] = true
 
     val map = hashMapOf<String, Any>()
     map[ref] = dataMap
     REF_DATABASE_ROOT.updateChildren(map)
         .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_added)) }
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnFailureListener {
+            showToast(it.message.toString())
+        }
 
+    val newMap = hashMapOf<String, Any>()
+    newMap[CHILD_FAVOURITE_STATE] = true
+    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(item.id)
+        .updateChildren(newMap)
 }
 
 fun deleteFavouritesValue(value: String) {
+    val dataMap = hashMapOf<String, Any>()
+    dataMap[CHILD_FAVOURITE_STATE] = false
+    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(value)
+        .updateChildren(dataMap)
+
     REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).child(value).removeValue()
         .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_deleted_toast)) }
         .addOnFailureListener { showToast(it.message.toString()) }

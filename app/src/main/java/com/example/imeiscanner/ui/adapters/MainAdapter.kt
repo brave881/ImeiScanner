@@ -37,13 +37,13 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         holder.star_off.setOnClickListener {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
-            SH_P_EDITOR.putBoolean(item.id, true).apply()
+            item.favourite_state=true
             addFavourites(item)
         }
         holder.star_on.setOnClickListener {
             holder.star_on.visibility = View.GONE
             holder.star_off.visibility = View.VISIBLE
-            SH_P_EDITOR.putBoolean(item.id, false).apply()
+            item.favourite_state=false
             deleteFavouritesValue(item.id)
         }
         holder.name.text = item.phone_name
@@ -71,7 +71,7 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         position: Int,
         model: PhoneDataModel
     ) {
-        if (getItemState(model.id)) {
+        if (model.favourite_state) {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
         }

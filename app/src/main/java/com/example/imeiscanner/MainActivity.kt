@@ -34,12 +34,6 @@ class MainActivity : AppCompatActivity() {
             initFields()
             initFunctions()
         }
-        installSharedPreference()
-    }
-
-    private fun installSharedPreference() {
-        SHARED_PREFERENCES = MAIN_ACTIVITY.getSharedPreferences("Favourites", Context.MODE_PRIVATE)
-        SH_P_EDITOR = SHARED_PREFERENCES.edit()
     }
 
     private fun initFields() {

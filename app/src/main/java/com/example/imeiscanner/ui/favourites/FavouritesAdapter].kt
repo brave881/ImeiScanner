@@ -10,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.AppValueEventListener
-import com.example.imeiscanner.utilits.SH_P_EDITOR
-import com.example.imeiscanner.utilits.getItemState
-import com.example.imeiscanner.utilits.getPhoneModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
@@ -37,7 +33,7 @@ class FavouritesAdapter(val options: FirebaseRecyclerOptions<PhoneDataModel>) :
         holder.star_on.setOnClickListener {
             holder.star_on.visibility = View.GONE
             holder.star_off.visibility = View.VISIBLE
-            SH_P_EDITOR.putBoolean(item.id, false).apply()
+            item.favourite_state = false
             deleteFavouritesValue(item.id)
         }
         holder.name.text = item.phone_name
@@ -48,7 +44,6 @@ class FavouritesAdapter(val options: FirebaseRecyclerOptions<PhoneDataModel>) :
             holder.imei.text = item.phone_imei1
         else holder.imei.text = item.phone_imei2
     }
-
 
     fun itemOnCLickListener(v: (PhoneDataModel) -> Unit) {
         itemClickListener = v
@@ -68,7 +63,7 @@ class FavouritesAdapter(val options: FirebaseRecyclerOptions<PhoneDataModel>) :
 //                item = it.getPhoneModel()
 //                initItems(holder, model)
 //            })
-        if (getItemState(model.id)) {
+        if (model.favourite_state) {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
         }

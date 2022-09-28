@@ -12,4 +12,5 @@ data class PhoneDataModel(
     var phone_battery_info: String = "",
     var phone_price: String = "",
     var phone_memory: String = "",
+    var favourite_state: Boolean =false
 ): Serializable

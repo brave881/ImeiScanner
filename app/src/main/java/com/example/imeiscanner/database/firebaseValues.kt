@@ -33,6 +33,7 @@ const val CHILD_PHONE_ADDED_DATE = "phone_added_date"
 const val CHILD_BATTERY_INFO = "phone_battery_info"
 const val CHILD_PHONE_PRICE = "phone_price"
 const val CHILD_PHONE_MEMORY = "phone_memory"
+const val CHILD_FAVOURITE_STATE = "favourite_state"
 // end data phones
 
 const val CHILD_PHONE: String = "phone"
