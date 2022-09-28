@@ -1,8 +1,5 @@
 package com.example.imeiscanner.ui.adapters
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.AppValueEventListener
+import com.example.imeiscanner.utilits.getPhoneModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 
-class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool: Boolean = true) :
+class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>) :
     FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
     private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
@@ -80,19 +78,15 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>, var bool
         val referenceItem =
             REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
                 .child(model.id)
-////////////////////////////
-        if (bool) {
-            referenceItem.addValueEventListener(AppValueEventListener {
-                item = it.getPhoneModel()
-                initItems(holder, item)
-            })
-        } else {
-            referenceItem.addChildEventListener(AppChildEventListener {
-                item = it.getPhoneModel()
-                initItems(holder, item)
-            })
-        }
-/////////////////////////////
+
+
+        referenceItem.addValueEventListener(AppValueEventListener {
+            item = it.getPhoneModel()
+            initItems(holder, item)
+        })
+
+
+
         holder.item.setOnClickListener {
             itemClickListener?.invoke(item)
         }

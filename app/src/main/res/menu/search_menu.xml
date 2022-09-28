@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/menu_scanner_btn"
-        android:icon="@drawable/ic_qr_code_scanner"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_search_btn"
-        android:icon="@drawable/ic_search"
-        android:title="@string/search"
-        app:showAsAction="ifRoom"
-        app:actionViewClass="android.widget.SearchView"/>
+        <item
+            android:id="@+id/menu_scanner_btn"
+            android:icon="@drawable/ic_qr_code_scanner"
+            app:showAsAction="ifRoom"
+            app:actionViewClass="android.widget.Button"
+            android:title="@string/scan_code_menu_item" />
+        <item
+            android:id="@+id/menu_search_btn"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search"
+            app:showAsAction="ifRoom"
+            app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>
