@@ -62,4 +62,11 @@
         <item name="android:layout_height">@dimen/settings_log_out_image_height</item>
         <item name="android:layout_marginStart">@dimen/top_margin_20dp</item>
     </style>
+
+    <style name="style_top_back_btn">
+        <item name="android:layout_marginTop">@dimen/app_margin</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_marginStart">@dimen/app_margin</item>
+    </style>
 </resources>
