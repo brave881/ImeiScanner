@@ -133,7 +133,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
                     false
                 )
                 checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap, id)
+                setValuesToFireBase(dateMap, id, imei1.text.toString(),)
             } else {
                 Toast.makeText(
                     requireContext(),

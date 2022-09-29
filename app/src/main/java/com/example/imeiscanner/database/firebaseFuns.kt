@@ -6,7 +6,7 @@ import android.widget.EditText
 import com.example.imeiscanner.R
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
-import com.example.imeiscanner.ui.fragments.MainFragment
+import com.example.imeiscanner.ui.mainFragment.MainFragment
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -63,16 +63,29 @@ fun userGoogleOrPhone(): String {
     }
 }
 
-fun setValuesToFireBase(dateMap: HashMap<String, Any>, id: String) {
-    REF_DATABASE_ROOT
-        .child(NODE_PHONE_DATA_INFO)
-        .child(CURRENT_UID)
-        .child(id)
-        .updateChildren(dateMap)
-        .addOnSuccessListener { replaceFragment(MainFragment()) }
-        .addOnFailureListener { showToast(it.toString()) }
+fun setValuesToFireBase(
+    dateMap: HashMap<String, Any>,
+    id: String,
+    imei1: String,
+) {
+    val reference = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
+    reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
+        for (i in it.children) {
+            if (i.child(CHILD_IMEI1).value == imei1) {
+                showToast("Uzr aka bu borakanda boshqa yo'g'ini qo'shelik")
+                return@AppValueEventListener
+            }
+        }
+        reference
+            .child(id)
+            .updateChildren(dateMap)
+            .addOnSuccessListener { replaceFragment(MainFragment(), false) }
+            .addOnFailureListener { showToast(it.toString()) }
+    })
+
 
 }
+
 
 inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_PHOTO_URL).setValue(url)

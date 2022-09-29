@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.MainFragment"
+    tools:context=".ui.mainFragment.MainFragment"
     tools:ignore="MissingDefaultResource">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

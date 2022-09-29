@@ -1,10 +1,7 @@
-package com.example.imeiscanner.ui.fragments
+package com.example.imeiscanner.ui.mainFragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -17,7 +14,6 @@ import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.ui.adapters.MainAdapter
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
 import com.example.imeiscanner.utilits.*
@@ -67,7 +63,7 @@ class MainFragment : Fragment() {
         initFields()
         hideKeyboard()
         binding.btnOpenPhoneFragment.setOnClickListener {
-            replaceFragment(PhoneAddFragment())
+            replaceFragment(PhoneAddFragment(),false)
         }
         initRecyclerView()
     }
@@ -118,7 +114,7 @@ class MainFragment : Fragment() {
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, item)
             parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT, bundle)
-            replaceFragment(PhoneInfoFragment())
+            replaceFragment(PhoneInfoFragment(),false)
         }
     }
 

@@ -2,8 +2,6 @@ package com.example.imeiscanner.utilits
 
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.SharedPreferences
 import com.example.imeiscanner.MainActivity
 
 lateinit var MAIN_ACTIVITY: MainActivity

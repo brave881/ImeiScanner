@@ -25,7 +25,7 @@ import com.journeyapps.barcodescanner.ScanOptions
 import java.util.*
 
 fun showToast(string: String) {
-    Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_SHORT).show()
+    Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_LONG).show()
 }
 
 fun ImageView.photoDownloadAndSet(url: String) {

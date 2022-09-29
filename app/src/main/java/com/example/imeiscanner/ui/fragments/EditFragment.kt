@@ -112,7 +112,7 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
                 )
                 checkImeiFill(dateMap)
                 //TODO poidyot
-                setValuesToFireBase(dateMap, phoneId)
+                setValuesToFireBase(dateMap, phoneId, imei1.text.toString(),)
             } else {
                 Toast.makeText(
                     requireContext(),

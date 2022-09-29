@@ -1,19 +1,14 @@
 package com.example.imeiscanner
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.initFirebase
 import com.example.imeiscanner.database.initUser
 import com.example.imeiscanner.databinding.ActivityMainBinding
-import com.example.imeiscanner.ui.fragments.MainFragment
+import com.example.imeiscanner.ui.mainFragment.MainFragment
 import com.example.imeiscanner.ui.fragments.register.RegisterFragment
 import com.example.imeiscanner.utilits.*
 
