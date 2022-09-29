@@ -43,7 +43,6 @@ class MainFragment : Fragment() {
     private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
     private lateinit var searchView: SearchView
     private lateinit var linerLayoutManager: LinearLayoutManager
-    private var sortState: Boolean = true
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -90,6 +89,7 @@ class MainFragment : Fragment() {
     private fun initFields() {
         rv = binding.rvMainFragment
         rv.layoutManager = linerLayoutManager
+        rv.setHasFixedSize(true)
         scanOptions = ScanOptions()
         scanOptions(scanOptions)
     }
@@ -140,18 +140,15 @@ class MainFragment : Fragment() {
         newestBtn = menu.findItem(R.id.menu_first_newest)
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
         val searchItem = menu.findItem(R.id.menu_search_btn)
-         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
+        searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
 
-        searchWithQRCode.isVisible = false
+        searchWithQRCode.isVisible = true
         scannerButton = searchWithQRCode.actionView as ImageView
         scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
         searchView = searchItem.actionView as SearchView
+
         searchInit()
 
-            searchView.setOnSearchClickListener {
-//            searchWithQRCode.isVisible = true
-//            showToast("soigj")
-        }
         scannerButton.setOnClickListener {
             barcodeLauncher.launch(scanOptions)
         }
@@ -169,13 +166,14 @@ class MainFragment : Fragment() {
                 sortState = true
                 newestBtn.isChecked = true
                 oldestBtn.isChecked = false
-//                restartActivity()
+                restartActivity()
             }
             R.id.menu_first_oldest -> {
+                rv.smoothScrollToPosition(1) //rv ni eng birinchi positioniga olib chiqadi
                 sortState = false
                 newestBtn.isChecked = false
                 oldestBtn.isChecked = true
-//                restartActivity()
+                restartActivity()
             }
         }
         return true
