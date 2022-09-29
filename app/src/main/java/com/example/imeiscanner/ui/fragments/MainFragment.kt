@@ -164,13 +164,11 @@ class MainFragment : Fragment() {
             R.id.menu_first_newest -> {
                 sortState = true
                 newestBtn.isChecked = true
-                oldestBtn.isChecked = false
                 restartActivity()
             }
             R.id.menu_first_oldest -> {
-                rv.smoothScrollToPosition(1) //rv ni eng birinchi positioniga olib chiqadi
+                rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
                 sortState = false
-                newestBtn.isChecked = false
                 oldestBtn.isChecked = true
                 restartActivity()
             }

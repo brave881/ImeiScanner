@@ -4,8 +4,8 @@
     <item
         android:id="@+id/menu_scanner_btn"
         android:icon="@drawable/ic_qr_code_scanner"
-        app:actionViewClass="android.widget.ImageView"
         android:title="@string/scan_code_menu_item"
+        app:actionViewClass="android.widget.ImageView"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_search_btn"
@@ -13,22 +13,28 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
+
+
     <item
         android:id="@+id/menu_sort_btn"
         android:icon="@drawable/ic_sort"
-        app:showAsAction="ifRoom"
-        android:title="">
+        android:title=""
+        app:showAsAction="ifRoom">
+
         <menu>
-            <item
-                android:id="@+id/menu_first_oldest"
-                android:checkable="true"
-                android:title="@string/oldest_first_text"
-                app:showAsAction="never" />
-            <item
-                android:id="@+id/menu_first_newest"
-                android:checkable="true"
-                android:title="@string/newest_first_text"
-                app:showAsAction="never" />
+
+            <group android:checkableBehavior="single">
+
+                <item
+                    android:id="@+id/menu_first_oldest"
+                    android:title="@string/oldest_first_text"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/menu_first_newest"
+                    android:title="@string/newest_first_text"
+                    app:showAsAction="never" />
+
+            </group>
         </menu>
     </item>
 </menu>
