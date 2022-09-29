@@ -39,6 +39,6 @@
 
     <style name="actionMenu" parent="Theme.AppCompat.Light">
         <item name="background">@color/colorAccent</item>
-        <item name="android:textColor">@android:color/holo_red_dark</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

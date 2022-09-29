@@ -34,7 +34,6 @@ class MainFragment : Fragment() {
     private lateinit var newestBtn: MenuItem
     private lateinit var searchWithQRCode: MenuItem
     private lateinit var binding: FragmentMainBinding
-    private val LOG = "MainFragment"
     private lateinit var rv: RecyclerView
     private lateinit var refPhoneData: DatabaseReference
     private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>
