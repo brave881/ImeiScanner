@@ -1,5 +1,7 @@
 package com.example.imeiscanner.ui.mainFragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -38,6 +40,8 @@ class MainFragment : Fragment() {
     private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
     private lateinit var searchView: SearchView
     private lateinit var linerLayoutManager: LinearLayoutManager
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -59,18 +63,24 @@ class MainFragment : Fragment() {
         super.onResume()
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
+        initShareP()
         initSort()
         initFields()
         hideKeyboard()
         binding.btnOpenPhoneFragment.setOnClickListener {
-            replaceFragment(PhoneAddFragment(),false)
+            replaceFragment(PhoneAddFragment(), false)
         }
         initRecyclerView()
     }
 
+    private fun initShareP() {
+        sharedPreferences = MAIN_ACTIVITY.getSharedPreferences("State", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+    }
+
     private fun initSort() {
         linerLayoutManager = LinearLayoutManager(MAIN_ACTIVITY)
-        if (sortState) {
+        if (sharedPreferences.getBoolean("state", false)) {
             //engyangi qo'shilganini birinchi ko'rsatadi
             linerLayoutManager.reverseLayout = true
             linerLayoutManager.stackFromEnd = true
@@ -114,7 +124,7 @@ class MainFragment : Fragment() {
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, item)
             parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT, bundle)
-            replaceFragment(PhoneInfoFragment(),false)
+            replaceFragment(PhoneInfoFragment(), false)
         }
     }
 
@@ -158,13 +168,15 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_first_newest -> {
-                sortState = true
+                editor.putBoolean("state", true)
+                editor.apply()
                 newestBtn.isChecked = true
                 restartActivity()
             }
             R.id.menu_first_oldest -> {
-                rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
-                sortState = false
+//                rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
+                editor.putBoolean("state", false)
+                editor.apply()
                 oldestBtn.isChecked = true
                 restartActivity()
             }
