@@ -71,9 +71,8 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
         }
     }
 
-
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         dateInstall()
         initFields()
         installItemsToEditTexts()
@@ -81,6 +80,11 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
         qrScan()
         saveDate()
     }
+    override fun onStart() {
+        super.onStart()
+
+    }
+
 
     private fun initFields() {
         options = ScanOptions()
