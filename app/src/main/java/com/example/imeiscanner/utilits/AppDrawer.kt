@@ -66,23 +66,23 @@ class AppDrawer {
                     .withIdentifier(100)
                     .withSelectable(false)
                     .withIconTintingEnabled(true)
-                    .withName("Home")
+                    .withName(MAIN_ACTIVITY.getString(R.string.home_text))
                     .withIcon(R.drawable.ic_home),
                 PrimaryDrawerItem()
                     .withIdentifier(101)
-                    .withName("Favourites")
+                    .withName(MAIN_ACTIVITY.getString(R.string.favourites_text))
                     .withSelectable(false)
                     .withIconTintingEnabled(false)
                     .withIcon(R.drawable.ic_star),
                 PrimaryDrawerItem()
                     .withIdentifier(102)
-                    .withName("Settings")
+                    .withName(MAIN_ACTIVITY.getString(R.string.setttings))
                     .withSelectable(false)
                     .withIconTintingEnabled(true)
                     .withIcon(R.drawable.ic_settings),
                 PrimaryDrawerItem()
                     .withIdentifier(103)
-                    .withName("About")
+                    .withName(MAIN_ACTIVITY.getString(R.string.about_text))
                     .withSelectable(false)
                     .withIconTintingEnabled(true)
                     .withIcon(R.drawable.ic_info)
@@ -121,7 +121,6 @@ class AppDrawer {
                 .withName(USER.fullname)
                 .withEmail(USER.phone)
                 .withIcon(USER.photoUrl)
-            Log.d("AppDrawer", "initProfile:-> ${USER.fullname} ${USER.phone}")
         }
         return mCurrentProfile
     }

@@ -14,13 +14,25 @@ import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.showToast
 import com.google.firebase.auth.PhoneAuthProvider
+import java.util.concurrent.TimeUnit
 
-class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
+class EnterCodeFragment(private val phoneNumber: String, val id: String) : Fragment() {
 
     private lateinit var binding: FragmentEnterCodeBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onStart() {
         super.onStart()
+
+        binding.inputCodeResendCodeBtn.setOnClickListener { resendCode() }
 
         MAIN_ACTIVITY.title = phoneNumber
         binding.registerInputCode.addTextChangedListener(object : TextWatcher {
@@ -37,6 +49,16 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+    }
+
+    private fun resendCode() {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phoneNumber,
+            60,
+            TimeUnit.SECONDS,
+            MAIN_ACTIVITY,
+            getCallbacks(phoneNumber)
+        )
     }
 
     private fun checkCode() {
@@ -65,14 +87,5 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment() {
                     }
                 }
             })
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
-        return binding.root
     }
 }

@@ -3,6 +3,7 @@ package com.example.imeiscanner.ui.fragments.settings
 import android.Manifest
 import android.Manifest.permission.CAMERA
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +16,7 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
+import java.util.*
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
@@ -31,11 +33,38 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
+
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.title = getString(R.string.setttings)
         initFields()
         initClicks()
-//        updateName(binding.settingsUserName)
+        binding.settingsLanguageBtnBlock.setOnClickListener { changeLanguage() }
+    }
+
+    private fun changeLanguage() {
+        val items = arrayOf("English", "Türkçe", "O'zbekcha")
+        var language = sharedPreferences.getString(LANG, "")
+        DIALOG_BUILDER
+            .setTitle(getString(R.string.choice_language_text))
+            .setSingleChoiceItems(items, -1) { dialog, it ->
+                when (it) {
+                    0 -> {
+                        language = "en"
+                    }
+                    1 -> {
+                        language = "tr"
+                    }
+                    2 -> {
+                        language = "uz"
+                    }
+                }
+            }.setPositiveButton(getString(R.string.ok_text)) { dialogInterface, it ->
+                setLocale(language!!)
+                restartActivity()
+            }.setNegativeButton(getString(R.string.cancel)) { dialogInterface, it ->
+                dialogInterface.cancel()
+            }
+            .create().show()
     }
 
     override fun onStop() {

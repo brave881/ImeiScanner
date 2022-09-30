@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
@@ -26,8 +27,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var mPhoneNumber: String
-    private lateinit var signInRequest: BeginSignInRequest
-    private val showOneTapUi = true
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(
@@ -103,30 +102,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-    private fun getCallbacks(): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
-        callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-
-                AUTH.signInWithCredential(credential).addOnSuccessListener {
-                    restartActivity()
-                    showToast("Welcome")
-                }.addOnFailureListener { showToast(it.message.toString()) }
-            }
-
-            override fun onVerificationFailed(e: FirebaseException) {
-                Log.w("TAG", "onVerificationFailed: ${e.message}")
-            }
-
-            override fun onCodeSent(
-                verificationId: String,
-                token: PhoneAuthProvider.ForceResendingToken
-            ) {
-                replaceFragment(EnterCodeFragment(mPhoneNumber, verificationId))
-            }
-        }
-        return callbacks
-    }
 
 
     private fun options() {
@@ -135,7 +111,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
             .setActivity(MAIN_ACTIVITY)                 // Activity (for callback binding)
-            .setCallbacks(getCallbacks())                    // OnVerificationStateChangedCallbacks
+            .setCallbacks(getCallbacks(mPhoneNumber))                    // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }

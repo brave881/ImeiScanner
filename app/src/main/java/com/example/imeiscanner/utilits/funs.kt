@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.net.Uri
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -11,6 +13,8 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
@@ -56,7 +60,7 @@ fun restartActivity() {
 }
 
 @SuppressLint("SetTextI18n")
-fun showDatePicker( context: Context,tv:TextView) {
+fun showDatePicker(context: Context, tv: TextView) {
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -70,7 +74,7 @@ fun showDatePicker( context: Context,tv:TextView) {
     datePickerDialog.show()
 }
 
-fun DataSnapshot.getPhoneModel():PhoneDataModel{
+fun DataSnapshot.getPhoneModel(): PhoneDataModel {
     return getValue(PhoneDataModel::class.java) ?: PhoneDataModel()
 }
 
@@ -134,6 +138,23 @@ fun logOutDialog() {
         .setNegativeButton(R.string.cancel) { dialogInterFace, it ->
             dialogInterFace.cancel()
         }.show()
+}
+
+fun setLocale(language: String) {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val configuration = Configuration()
+    configuration.setLocale(locale)
+    MAIN_ACTIVITY.resources.updateConfiguration(
+        configuration,
+        MAIN_ACTIVITY.resources.displayMetrics
+    )
+    editor.putString(LANG, language).apply()
+}
+
+fun loadLanguage() {
+    val language = sharedPreferences.getString(LANG, "")
+    setLocale(language!!)
 }
 
 

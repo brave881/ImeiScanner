@@ -7,11 +7,10 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
+import com.example.imeiscanner.ui.fragments.register.EnterCodeFragment
 import com.example.imeiscanner.utilits.*
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -41,7 +40,7 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
-    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
+//    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
     CURRENT_UID = AUTH.currentUser?.uid.toString()
@@ -253,4 +252,29 @@ fun deleteFavouritesValue(value: String) {
     REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).child(value).removeValue()
         .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_deleted_toast)) }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun getCallbacks(mPhoneNumber: String): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+    val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+
+            AUTH.signInWithCredential(credential).addOnSuccessListener {
+                restartActivity()
+                showToast("Welcome")
+            }.addOnFailureListener { showToast(it.message.toString()) }
+        }
+
+        override fun onVerificationFailed(e: FirebaseException) {
+            Log.w("TAG", "onVerificationFailed: ${e.message}")
+        }
+
+        override fun onCodeSent(
+            verificationId: String,
+            token: PhoneAuthProvider.ForceResendingToken
+        ) {
+            replaceFragment(EnterCodeFragment(mPhoneNumber, verificationId))
+        }
+    }
+    return callbacks
 }

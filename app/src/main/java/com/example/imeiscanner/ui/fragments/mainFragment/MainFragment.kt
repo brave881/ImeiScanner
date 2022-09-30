@@ -43,8 +43,6 @@ class MainFragment : Fragment() {
     private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
     private lateinit var searchView: SearchView
     private lateinit var linerLayoutManager: LinearLayoutManager
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -62,13 +60,13 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-
     @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         super.onResume()
+
+        loadLanguage()
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
-        initShareP()
         initSort()
         initFields()
         hideKeyboard()
@@ -80,14 +78,9 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun initShareP() {
-        sharedPreferences = MAIN_ACTIVITY.getSharedPreferences("State", Context.MODE_PRIVATE)
-        editor = sharedPreferences.edit()
-    }
-
     private fun initSort() {
         linerLayoutManager = LinearLayoutManager(MAIN_ACTIVITY)
-        if (sharedPreferences.getBoolean("state", false)) {
+        if (sharedPreferences.getBoolean(STATE, false)) {
             //engyangi qo'shilganini birinchi ko'rsatadi
             linerLayoutManager.reverseLayout = true
             linerLayoutManager.stackFromEnd = true
@@ -172,13 +165,13 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_first_newest -> {
-                editor.putBoolean("state", true)
+                editor.putBoolean(STATE, true)
                 editor.apply()
                 newestBtn.isChecked = true
                 restartActivity()
             }
             R.id.menu_first_oldest -> {
-                editor.putBoolean("state", false)
+                editor.putBoolean(STATE, false)
                 editor.apply()
                 oldestBtn.isChecked = true
                 restartActivity()
