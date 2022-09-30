@@ -122,24 +122,10 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
             if (imei1.text.toString().isNotEmpty()) {
                 val id =
                     REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
-                dateMap = addDatabaseImei(
-                    id,
-                    dateMap,
-                    name,
-                    batteryInfo,
-                    memory,
-                    date.text.toString(),
-                    price,
-                    false
-                )
+                dateMap = addDatabaseImei(id, dateMap, name, batteryInfo, memory, date.text.toString(), price, false)
                 checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap, id, imei1.text.toString(),)
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Please enter Imei1",
-                    Toast.LENGTH_LONG
-                ).show()
+                setValuesToFireBase(dateMap, id, imei1.text.toString())
+            } else {Toast.makeText(requireContext(), "Please enter Imei1", Toast.LENGTH_LONG).show()
             }
     }
 
