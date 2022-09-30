@@ -140,6 +140,41 @@ fun logOutDialog() {
         }.show()
 }
 
+fun changeLanguage() {
+    val items = arrayOf("English", "Türkçe", "O'zbekcha")
+    var language = sharedPreferences.getString(LANG, "")
+    var itemState = 0
+    if (sharedPreferences.getString(LANG, "") == "en") {
+        itemState = 0
+    } else if (sharedPreferences.getString(LANG, "") == "tr") {
+        itemState = 1
+    } else if (sharedPreferences.getString(LANG, "") == "uz") {
+        itemState = 2
+    }
+
+    DIALOG_BUILDER
+        .setTitle(MAIN_ACTIVITY.getString(R.string.choice_language_text))
+        .setSingleChoiceItems(items, itemState) { dialog, it ->
+            when (it) {
+                0 -> {
+                    language = "en"
+                }
+                1 -> {
+                    language = "tr"
+                }
+                2 -> {
+                    language = "uz"
+                }
+            }
+        }.setPositiveButton(MAIN_ACTIVITY.getString(R.string.ok_text)) { dialogInterface, it ->
+            setLocale(language!!)
+            restartActivity()
+        }.setNegativeButton(MAIN_ACTIVITY.getString(R.string.cancel)) { dialogInterface, it ->
+            dialogInterface.cancel()
+        }
+        .create().show()
+}
+
 fun setLocale(language: String) {
     val locale = Locale(language)
     Locale.setDefault(locale)

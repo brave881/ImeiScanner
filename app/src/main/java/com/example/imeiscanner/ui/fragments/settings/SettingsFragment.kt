@@ -41,32 +41,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsLanguageBtnBlock.setOnClickListener { changeLanguage() }
     }
 
-    private fun changeLanguage() {
-        val items = arrayOf("English", "Türkçe", "O'zbekcha")
-        var language = sharedPreferences.getString(LANG, "")
-        DIALOG_BUILDER
-            .setTitle(getString(R.string.choice_language_text))
-            .setSingleChoiceItems(items, -1) { dialog, it ->
-                when (it) {
-                    0 -> {
-                        language = "en"
-                    }
-                    1 -> {
-                        language = "tr"
-                    }
-                    2 -> {
-                        language = "uz"
-                    }
-                }
-            }.setPositiveButton(getString(R.string.ok_text)) { dialogInterface, it ->
-                setLocale(language!!)
-                restartActivity()
-            }.setNegativeButton(getString(R.string.cancel)) { dialogInterface, it ->
-                dialogInterface.cancel()
-            }
-            .create().show()
-    }
-
     override fun onStop() {
         super.onStop()
         MAIN_ACTIVITY.title = getString(R.string.app_name)

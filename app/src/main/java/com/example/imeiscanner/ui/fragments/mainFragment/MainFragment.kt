@@ -64,7 +64,6 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        loadLanguage()
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initSort()

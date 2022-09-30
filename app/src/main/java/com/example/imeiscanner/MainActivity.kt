@@ -23,13 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         MAIN_ACTIVITY = this
         DIALOG_BUILDER = AlertDialog.Builder(this)
-        initFirebase()
         initShareP()
+        loadLanguage()
+        initFirebase()
         initUser {
             initFields()
             initFunctions()
@@ -55,6 +56,4 @@ class MainActivity : AppCompatActivity() {
             replaceFragment(RegisterFragment(), false)
         }
     }
-
-
 }
