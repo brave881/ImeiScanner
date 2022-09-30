@@ -22,9 +22,7 @@
         app:showAsAction="ifRoom">
 
         <menu>
-
             <group android:checkableBehavior="single">
-
                 <item
                     android:id="@+id/menu_first_oldest"
                     android:title="@string/oldest_first_text"
@@ -33,7 +31,6 @@
                     android:id="@+id/menu_first_newest"
                     android:title="@string/newest_first_text"
                     app:showAsAction="never" />
-
             </group>
         </menu>
     </item>

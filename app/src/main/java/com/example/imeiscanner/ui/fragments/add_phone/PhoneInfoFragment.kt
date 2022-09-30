@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.imeiscanner.R
-import com.example.imeiscanner.databinding.FragmentEditPhoneDataBinding
+import com.example.imeiscanner.databinding.FragmentPhoneDataBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.EditFragment
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
@@ -15,17 +15,18 @@ import com.example.imeiscanner.utilits.POSITION_ITEM
 import com.example.imeiscanner.utilits.replaceFragment
 
 
-class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
+class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
 
     private lateinit var items: PhoneDataModel
 
-    private lateinit var binding: FragmentEditPhoneDataBinding
+    private lateinit var binding: FragmentPhoneDataBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEditPhoneDataBinding.inflate(inflater, container, false)
+        binding = FragmentPhoneDataBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,6 +60,5 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_edit_phone_data) {
             binding.tvPhoneBatteryState.text = items.phone_battery_info
             binding.tvPhonePrice.text = items.phone_price
         }
-
     }
 }

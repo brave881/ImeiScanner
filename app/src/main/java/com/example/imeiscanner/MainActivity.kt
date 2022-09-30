@@ -8,7 +8,7 @@ import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.initFirebase
 import com.example.imeiscanner.database.initUser
 import com.example.imeiscanner.databinding.ActivityMainBinding
-import com.example.imeiscanner.ui.mainFragment.MainFragment
+import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
 import com.example.imeiscanner.ui.fragments.register.RegisterFragment
 import com.example.imeiscanner.utilits.*
 
@@ -46,17 +46,5 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        MAIN_ACTIVITY.menuInflater.inflate(R.menu.search_menu, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        when (item.itemId) {
-//            R.id.menu_search_btn -> {
-//
-//            }
-//        }
-//        return true
-//    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.mainFragment
+package com.example.imeiscanner.ui.fragments.mainFragment
 
 import android.view.LayoutInflater
 import android.view.View

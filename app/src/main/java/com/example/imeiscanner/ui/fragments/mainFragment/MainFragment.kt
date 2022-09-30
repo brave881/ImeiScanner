@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.mainFragment
+package com.example.imeiscanner.ui.fragments.mainFragment
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -24,6 +24,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class MainFragment : Fragment() {
@@ -59,6 +62,8 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
@@ -68,9 +73,11 @@ class MainFragment : Fragment() {
         initFields()
         hideKeyboard()
         binding.btnOpenPhoneFragment.setOnClickListener {
-            replaceFragment(PhoneAddFragment(), false)
+            replaceFragment(PhoneAddFragment())
         }
-        initRecyclerView()
+        GlobalScope.launch {
+            initRecyclerView()
+        }
     }
 
     private fun initShareP() {
@@ -119,12 +126,12 @@ class MainFragment : Fragment() {
         clickItem()
     }
 
-    private fun clickItem() {
+    fun clickItem() {
         (adapter as MainAdapter).itemOnClickListener { item ->
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, item)
             parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT, bundle)
-            replaceFragment(PhoneInfoFragment(), false)
+            replaceFragment(PhoneInfoFragment())
         }
     }
 
@@ -146,14 +153,11 @@ class MainFragment : Fragment() {
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
         val searchItem = menu.findItem(R.id.menu_search_btn)
         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
-
         searchWithQRCode.isVisible = true
         scannerButton = searchWithQRCode.actionView as ImageView
         scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
         searchView = searchItem.actionView as SearchView
-
         searchInit()
-
         scannerButton.setOnClickListener {
             barcodeLauncher.launch(scanOptions)
         }
@@ -174,13 +178,13 @@ class MainFragment : Fragment() {
                 restartActivity()
             }
             R.id.menu_first_oldest -> {
-//                rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
                 editor.putBoolean("state", false)
                 editor.apply()
                 oldestBtn.isChecked = true
                 restartActivity()
             }
         }
+        rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
         return true
     }
 }

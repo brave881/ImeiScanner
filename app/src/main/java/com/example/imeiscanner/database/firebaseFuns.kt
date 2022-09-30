@@ -6,7 +6,7 @@ import android.widget.EditText
 import com.example.imeiscanner.R
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
-import com.example.imeiscanner.ui.mainFragment.MainFragment
+import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -79,7 +79,7 @@ fun setValuesToFireBase(
         reference
             .child(id)
             .updateChildren(dateMap)
-            .addOnSuccessListener { replaceFragment(MainFragment(), false) }
+            .addOnSuccessListener { replaceFragment(MainFragment()) }
             .addOnFailureListener { showToast(it.toString()) }
     })
 

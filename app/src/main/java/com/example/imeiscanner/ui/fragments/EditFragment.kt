@@ -11,14 +11,15 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEditBinding
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.ui.fragments.base.BaseChangeFragment
+import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
+import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
 
-class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
+class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
     private lateinit var binding: FragmentEditBinding
     private lateinit var options: ScanOptions
     private lateinit var imei1: EditText
@@ -81,7 +82,6 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         saveDate()
     }
 
-
     private fun initFields() {
         options = ScanOptions()
         imei1 = binding.phoneEditPhoneImei1
@@ -111,7 +111,6 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
                     favouriteState
                 )
                 checkImeiFill(dateMap)
-                //TODO poidyot
                 setValuesToFireBase(dateMap, phoneId, imei1.text.toString(),)
             } else {
                 Toast.makeText(
@@ -133,12 +132,6 @@ class EditFragment : BaseChangeFragment(R.layout.fragment_edit_phone_data) {
         binding.btnDate.setOnClickListener {
             showDatePicker(requireContext(), dateView)
         }
-
-//        if (date.isEmpty()) {
-//            val calendar = Calendar.getInstance()
-//            val sdf = SimpleDateFormat("dd/MM/yyyy", Locale(""))
-//            date = sdf.format(calendar.time)
-//        }
     }
 
     /// scanner block
