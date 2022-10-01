@@ -4,7 +4,6 @@
     <string name="register_text_mobileApp">Mobile App</string>
     <string name="register_text_phoneNumber">Phone Number</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register_btn_sign_text">Sign In</string>
     <string name="register_or_text">or</string>
     <string name="register_enterPhoneNumber_text">Enter Phone Number!</string>

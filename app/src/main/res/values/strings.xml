@@ -3,7 +3,6 @@
     <string name="register_text_mobileApp">Mobile App</string>
     <string name="register_text_phoneNumber">Phone Number</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register_btn_sign_text">Sign In</string>
     <string name="register_or_text">or</string>
     <string name="register_enterPhoneNumber_text">Enter Phone Number!</string>
@@ -20,7 +19,7 @@
     <string name="username_text">Fullname</string>
     <string name="delete_account">Delete Account</string>
     <string name="delete_account_dialog">Delete Account!</string>
-    <string name="alert_dialog_message">Are you sure? Your profile and related account information will be deleted our program.</string>
+    <string name="alert_dialog_message">Are you sure? Your profile and related account information will be deleted from our program.</string>
     <string name="cancel">Cancel</string>
     <string name="delete_text">Delete</string>
     <string name="log_out_dialog_text">Log Out!</string>
@@ -40,7 +39,7 @@
     <string name="didn_t_recive_sms_text">Didn\'t recive SMS?</string>
     <string name="resend_code_text">Resend Code</string>
     <string name="language_text">Language</string>
-    <string name="choice_language_text">Choice Language</string>
+    <string name="choice_language_text">Select the language</string>
     <string name="ok_text">Ok</string>
     <string name="home_text">Home</string>
     <string name="favourites_text">Favourites</string>
