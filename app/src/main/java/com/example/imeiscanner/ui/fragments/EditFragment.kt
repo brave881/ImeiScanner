@@ -119,7 +119,7 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
             } else {
                 Toast.makeText(
                     requireContext(),
-                    "Please input Imei 1",
+                    getString(R.string.please_input_imei_1),
                     Toast.LENGTH_LONG
                 ).show()
             }

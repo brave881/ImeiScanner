@@ -53,7 +53,6 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
             parentFragmentManager.setFragmentResult(DATA_FROM_MAIN_FRAGMENT, bundle)
             replaceFragment(PhoneInfoFragment())
         }
-
     }
 
     override fun onPause() {

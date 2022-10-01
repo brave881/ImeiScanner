@@ -54,7 +54,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     private fun initClicks() {
         binding.settingsUserPhotoChange.setOnClickListener {
             if (CAMERA_SELF_PERMISSION == PackageManager.PERMISSION_GRANTED) changePhoto()
-            else requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            else requestPermissionLauncher.launch(CAMERA)
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         if (userGoogleOrPhone() == PHONE_PROVIDER_ID) {

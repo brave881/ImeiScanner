@@ -38,8 +38,5 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
             USER.fullname = username
             MAIN_ACTIVITY.mAppDrawer.updateHeader()
         }
-
     }
-
-
 }

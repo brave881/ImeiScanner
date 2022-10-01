@@ -85,11 +85,8 @@ class MainAdapter(var options: FirebaseRecyclerOptions<PhoneDataModel>) :
             initItems(holder, item)
         })
 
-
-
         holder.item.setOnClickListener {
             itemClickListener?.invoke(item)
         }
-
     }
 }

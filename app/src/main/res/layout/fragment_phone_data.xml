@@ -38,7 +38,7 @@
                         android:id="@+id/title_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone name"
+                        android:text="@string/phone_name_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -76,7 +76,7 @@
                         android:id="@+id/title_serial_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Serial number"
+                        android:text="@string/serial_number_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -113,7 +113,7 @@
                         android:id="@+id/title_imei1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Imei1"
+                        android:text="@string/imei1_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -150,7 +150,7 @@
                         android:id="@+id/title_imei2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Imei2"
+                        android:text="@string/imei2_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -187,7 +187,7 @@
                         android:id="@+id/title_memory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Memory"
+                        android:text="@string/memory_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -195,7 +195,7 @@
                         android:id="@+id/tv_phone_memory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100000000000TB"
+                        android:text="10000TB"
                         android:textColor="@color/black"
                         android:textSize="@dimen/large_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -224,7 +224,7 @@
                         android:id="@+id/title_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Added date"
+                        android:text="@string/added_date_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -232,7 +232,7 @@
                         android:id="@+id/tv_phone_added_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12/02/2019"
+                        android:text="@string/_26_09_2022_text"
                         android:textColor="@color/black"
                         android:textSize="@dimen/large_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -261,7 +261,7 @@
                         android:id="@+id/title_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Price"
+                        android:text="@string/price_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -269,7 +269,7 @@
                         android:id="@+id/tv_phone_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="290846728946729 dullir"
+                        android:text="290849 dullir"
                         android:textColor="@color/black"
                         android:textSize="@dimen/large_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -301,7 +301,7 @@
                         android:id="@+id/title_battery_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Battery state"
+                        android:text="@string/battery_state_text"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -309,7 +309,7 @@
                         android:id="@+id/tv_phone_battery_state"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="290846728946729 mAh"
+                        android:text="25521 mAh"
                         android:textColor="@color/black"
                         android:textSize="@dimen/large_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -325,7 +325,7 @@
                 android:id="@+id/btn_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="@string/edit_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/btn_delete"
@@ -337,7 +337,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorSecondary"
-                android:text="Delete"
+                android:text="@string/delete_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btn_edit"
                 app:layout_constraintStart_toStartOf="parent"

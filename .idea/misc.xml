@@ -18,6 +18,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/ic_sort.xml" value="0.152" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/ic_star_off.xml" value="0.138" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/next_forward.xml" value="0.138" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/drawable/sign_style.xml" value="0.1285" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/activity_main.xml" value="0.1648148148148148" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_about.xml" value="0.1648148148148148" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_change_user_name.xml" value="0.20416666666666666" />
@@ -30,6 +31,7 @@
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_m.xml" value="0.18888888888888888" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_main.xml" value="0.22" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_phone_add.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_phone_data.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_register.xml" value="0.25" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_search.xml" value="0.22" />
         <entry key="..\:/Users/Hp/AndroidStudioProjects/ImeiScanner/app/src/main/res/layout/fragment_settings.xml" value="0.25" />

@@ -61,10 +61,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
-                Log.d("TAG", "on: ${account.idToken}")
             } catch (e: Exception) {
                 showToast(e.message.toString())
-                Log.d("TAG", "on 1: ${e.message}")
             }
         }
     }
@@ -73,13 +71,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val user = AUTH.currentUser
-            Log.d(TAG, "firebaseAuthWithGoogle: ${user?.email}")
             addGoogleUserToFirebase(user)
             restartActivity()
-            Log.d("TAG", "fb: ${user}")
         }.addOnFailureListener {
             showToast(it.message.toString())
-            Log.d("TAG", "fb1: ${it.message}")
             addGoogleUserToFirebase(null)
         }
     }
@@ -91,7 +86,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(MAIN_ACTIVITY, gso)
-
     }
 
     private fun sendCode() {
@@ -101,9 +95,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             showToast(getString(R.string.enter_code_toast_text))
         }
     }
-
-
-
 
     private fun options() {
         mPhoneNumber = binding.registerInputPhoneNumber.text.toString()

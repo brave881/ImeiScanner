@@ -5,23 +5,18 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.net.Uri
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.deleteUser
 import com.example.imeiscanner.database.deleteUserFromDatabase
-import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
@@ -80,7 +75,7 @@ fun DataSnapshot.getPhoneModel(): PhoneDataModel {
 
 fun scanOptions(options: ScanOptions) {
     options.setDesiredBarcodeFormats(ScanOptions.ONE_D_CODE_TYPES)
-    options.setPrompt("Scan a barcode")
+    options.setPrompt(MAIN_ACTIVITY.getString(R.string.scan_a_barcode_text))
     options.setCameraId(0) // Use a specific camera of the device
     options.setBeepEnabled(false)
     options.setBarcodeImageEnabled(true)
@@ -142,7 +137,6 @@ fun logOutDialog() {
 
 fun changeLanguage() {
     val items = arrayOf("English", "Türkçe", "O'zbekcha")
-    var language = sharedPreferences.getString(LANG, "")
     var itemState = 0
     if (sharedPreferences.getString(LANG, "") == "en") {
         itemState = 0
@@ -151,7 +145,11 @@ fun changeLanguage() {
     } else if (sharedPreferences.getString(LANG, "") == "uz") {
         itemState = 2
     }
+    showAlertDialog(items, itemState)
+}
 
+fun showAlertDialog(items: Array<String>, itemState: Int) {
+    var language = sharedPreferences.getString(LANG, "")
     DIALOG_BUILDER
         .setTitle(MAIN_ACTIVITY.getString(R.string.choice_language_text))
         .setSingleChoiceItems(items, itemState) { dialog, it ->

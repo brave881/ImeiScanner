@@ -118,7 +118,7 @@ class MainFragment : Fragment() {
         clickItem()
     }
 
-    fun clickItem() {
+    private fun clickItem() {
         (adapter as MainAdapter).itemOnClickListener { item ->
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, item)

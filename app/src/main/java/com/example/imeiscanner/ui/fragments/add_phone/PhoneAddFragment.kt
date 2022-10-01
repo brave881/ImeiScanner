@@ -24,6 +24,7 @@ import java.util.*
 
 
 class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
+
     private lateinit var binding: FragmentPhoneAddBinding
     private lateinit var options: ScanOptions
     private lateinit var imei1: EditText
@@ -39,7 +40,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     private var imei3Boolean: Boolean = false
     private var dateMap = hashMapOf<String, Any>()
 
-
     private var barcodeLauncher = registerForActivityResult(ScanContract()) { resultt ->
         if (resultt.contents == null) {
             showToast(getString(R.string.cancelled_from_barcode))
@@ -47,6 +47,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
             installResultForET(resultt)
         }
     }
+
     private fun checkImeiFill(dateMap: HashMap<String, Any>) {
         if (!imei1Boolean) dateMap[CHILD_IMEI1] = toStringEditText(imei1)
         if (!imei2Boolean) dateMap[CHILD_IMEI2] = toStringEditText(imei2)
@@ -71,7 +72,6 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     }
 
-
     private fun installResultForET(resultt: ScanIntentResult) {
         val result = resultt.contents
         showToast(resultt.contents)
@@ -87,8 +87,11 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         }
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentPhoneAddBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -99,7 +102,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         initFields()
         initFunctions()
         qrScan()
-        binding.btnSave.setOnClickListener { saveDate()}
+        binding.btnSave.setOnClickListener { saveDate() }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -112,21 +115,32 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
         price = binding.phoneAddPhonePrice
         name = binding.phoneAddPhoneName
         batteryInfo = binding.phoneAddPhoneBattery
-        val d= Calendar.getInstance()
-        val currentDateTimeString = SimpleDateFormat("dd/MM/yyyy").format(d.time)
+        val d = Calendar.getInstance()
+        val currentDateTimeString =
+            SimpleDateFormat(getString(R.string.dd_mm_yy_text)).format(d.time)
         date = binding.btnDate
         date.text = currentDateTimeString
     }
 
     private fun saveDate() {
-            if (imei1.text.toString().isNotEmpty()) {
-                val id =
-                    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
-                dateMap = addDatabaseImei(id, dateMap, name, batteryInfo, memory, date.text.toString(), price, false)
-                checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap, id, imei1.text.toString())
-            } else {Toast.makeText(requireContext(), "Please enter Imei1", Toast.LENGTH_LONG).show()
-            }
+        if (imei1.text.toString().isNotEmpty()) {
+            val id =
+                REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
+            dateMap = addDatabaseImei(
+                id,
+                dateMap,
+                name,
+                batteryInfo,
+                memory,
+                date.text.toString(),
+                price,
+                false
+            )
+            checkImeiFill(dateMap)
+            setValuesToFireBase(dateMap, id, imei1.text.toString())
+        } else {
+            Toast.makeText(requireContext(), R.string.please_input_imei_1, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun initFunctions() {

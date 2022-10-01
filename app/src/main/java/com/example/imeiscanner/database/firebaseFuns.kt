@@ -71,7 +71,7 @@ fun setValuesToFireBase(
     reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
         for (i in it.children) {
             if (i.child(CHILD_IMEI1).value == imei1) {
-                showToast("Uzr aka bu borakanda boshqa yo'g'ini qo'shelik")
+                showToast(MAIN_ACTIVITY.getString(R.string.imei_already_exists_text))
                 return@AppValueEventListener
             }
         }
@@ -81,10 +81,7 @@ fun setValuesToFireBase(
             .addOnSuccessListener { replaceFragment(MainFragment()) }
             .addOnFailureListener { showToast(it.toString()) }
     })
-
-
 }
-
 
 inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_PHOTO_URL).setValue(url)
@@ -101,7 +98,6 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
-
         }
     }
 }
@@ -119,7 +115,7 @@ inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline functi
 fun updateFullNameFromDatabase(fullname: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
         .setValue(fullname).addOnSuccessListener {
-            showToast("Name Changed!")
+            showToast(MAIN_ACTIVITY.getString(R.string.name_changed_text))
             updateUserName(fullname)
             MAIN_ACTIVITY.supportFragmentManager.popBackStack()
             MAIN_ACTIVITY.mAppDrawer.updateHeader()
@@ -169,8 +165,9 @@ fun addDatabaseImei(
 }
 
 fun deleteUser() {
-    Firebase.auth.currentUser!!.delete().addOnSuccessListener { showToast("Account Deleted") }
-        .addOnFailureListener { Log.d("qwer", "deleteUser: ${it.message.toString()}") }
+    Firebase.auth.currentUser!!.delete()
+        .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.account_deleted)) }
+        .addOnFailureListener { showToast(it.message.toString()) }
     logOut()
 }
 
@@ -261,12 +258,12 @@ fun getCallbacks(mPhoneNumber: String): PhoneAuthProvider.OnVerificationStateCha
 
             AUTH.signInWithCredential(credential).addOnSuccessListener {
                 restartActivity()
-                showToast("Welcome")
+                showToast(MAIN_ACTIVITY.getString(R.string.welcome))
             }.addOnFailureListener { showToast(it.message.toString()) }
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            Log.w("TAG", "onVerificationFailed: ${e.message}")
+            showToast(e.message.toString())
         }
 
         override fun onCodeSent(
