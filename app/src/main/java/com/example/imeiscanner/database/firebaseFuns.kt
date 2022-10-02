@@ -251,7 +251,7 @@ fun deleteFavouritesValue(value: String) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun getCallbacks(mPhoneNumber: String): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+fun getCallbacks(phoneNumber: String): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -270,7 +270,7 @@ fun getCallbacks(mPhoneNumber: String): PhoneAuthProvider.OnVerificationStateCha
             verificationId: String,
             token: PhoneAuthProvider.ForceResendingToken
         ) {
-            replaceFragment(EnterCodeFragment(mPhoneNumber, verificationId))
+            replaceFragment(EnterCodeFragment(phoneNumber, verificationId, token))
         }
     }
     return callbacks

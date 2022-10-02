@@ -12,11 +12,19 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
+import com.google.firebase.FirebaseException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
-class EnterCodeFragment(private val phoneNumber: String, val id: String) : Fragment() {
+class EnterCodeFragment(
+    private val phoneNumber: String,
+    val id: String,
+    val token: PhoneAuthProvider.ForceResendingToken
+) : Fragment() {
 
     private lateinit var binding: FragmentEnterCodeBinding
 
@@ -52,13 +60,14 @@ class EnterCodeFragment(private val phoneNumber: String, val id: String) : Fragm
     }
 
     private fun resendCode() {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phoneNumber,
-            60,
-            TimeUnit.SECONDS,
-            MAIN_ACTIVITY,
-            getCallbacks(phoneNumber)
-        )
+        val options = PhoneAuthOptions.newBuilder(AUTH)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(MAIN_ACTIVITY)
+            .setCallbacks(getCallbacks(phoneNumber))
+            .setForceResendingToken(token)
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
     private fun checkCode() {
