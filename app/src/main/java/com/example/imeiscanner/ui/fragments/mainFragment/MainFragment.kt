@@ -1,5 +1,6 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -80,6 +81,7 @@ class MainFragment : Fragment() {
         binding.toolbarItemLcCancel.setOnClickListener { cancel() }
     }
 
+    @SuppressLint("NewApi")
     private fun addFavourite() {
         cancelBinding()
         (adapter as MainAdapter).addFavouritesSelectedI()
@@ -206,7 +208,7 @@ class MainFragment : Fragment() {
         return true
     }
 
-    fun showItemToolbar(show: Boolean) {
+    private fun showItemToolbar(show: Boolean) {
         binding.toolbarItem.isVisible = show
     }
 }
