@@ -24,6 +24,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/data_container"
         android:layout_width="match_parent"

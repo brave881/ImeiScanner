@@ -61,4 +61,8 @@
     <string name="name_changed_text">Name Changed!</string>
     <string name="account_deleted">Account Deleted</string>
     <string name="imei_already_exists_text">Imei already exists</string>
+
+    <plurals name="count_items" translatable="false">
+        <item quantity="other">%d</item>
+    </plurals>
 </resources>
