@@ -7,24 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.firebaseAuthWithGoogle
+import com.example.imeiscanner.database.getCallbacks
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.RC_SiGN_IN
+import com.example.imeiscanner.utilits.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.*
-import java.lang.Exception
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
+import com.hbb20.CountryCodePicker
 import java.util.concurrent.TimeUnit
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
-    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var mPhoneNumber: String
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var countryCodePicker: CountryCodePicker
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +41,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onStart() {
         super.onStart()
-
+        countryCodePicker = binding.textViewCountryName
+        countryCodePicker.defaultCountryCode
         binding.registerBtnGoogle.setOnClickListener {
             signWithGoogle()
             signIn()
@@ -64,17 +69,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        AUTH.signInWithCredential(credential).addOnSuccessListener {
-            val user = AUTH.currentUser
-            addGoogleUserToFirebase(user)
-            restartActivity()
-        }.addOnFailureListener {
-            showToast(it.message.toString())
-            addGoogleUserToFirebase(null)
-        }
-    }
+
 
     private fun signWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -94,7 +89,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun options() {
-        mPhoneNumber = binding.registerInputPhoneNumber.text.toString()
+        mPhoneNumber =
+            "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text.toString()}"
+
         val options = PhoneAuthOptions.newBuilder(AUTH)
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
@@ -103,4 +100,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
+
+
 }

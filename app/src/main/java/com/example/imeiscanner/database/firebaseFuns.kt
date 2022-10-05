@@ -8,7 +8,11 @@ import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
 import com.example.imeiscanner.ui.fragments.register.EnterCodeFragment
+import com.example.imeiscanner.ui.fragments.register.RegisterFragment
 import com.example.imeiscanner.utilits.*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
@@ -102,6 +106,19 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
     }
 }
 
+
+
+fun firebaseAuthWithGoogle(idToken: String) {
+    val credential = GoogleAuthProvider.getCredential(idToken, null)
+    AUTH.signInWithCredential(credential).addOnSuccessListener {
+        val user = AUTH.currentUser
+        addGoogleUserToFirebase(user)
+        restartActivity()
+    }.addOnFailureListener {
+        showToast(it.message.toString())
+        addGoogleUserToFirebase(null)
+    }
+}
 inline fun getUrlFromStorage(path: StorageReference, crossinline function: (String) -> Unit) {
     path.downloadUrl.addOnSuccessListener { function(it.toString()) }
         .addOnFailureListener { showToast(it.message.toString()) }
