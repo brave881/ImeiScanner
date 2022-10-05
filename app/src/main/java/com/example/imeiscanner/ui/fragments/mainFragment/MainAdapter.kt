@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.get
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.AppValueEventListener
-import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.getPhoneModel
-import com.example.imeiscanner.utilits.showToast
+import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlin.math.log
 
 class MainAdapter(
     var options: FirebaseRecyclerOptions<PhoneDataModel>,
@@ -27,10 +27,10 @@ class MainAdapter(
 ) :
     FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
+    private val holderList = hashMapOf<PhonesHolder, Any>()
     private var isEnable = false
-    private val listSelectedItem = hashMapOf<Int, Int>()
     private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
-    private lateinit var currentHolder:PhonesHolder
+    private lateinit var floatingButton: FloatingActionButton
 
     inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
@@ -87,12 +87,10 @@ class MainAdapter(
             holder.star_off.visibility = View.GONE
         }
 
-        currentHolder=holder
         var item = PhoneDataModel()
         val referenceItem =
             REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
                 .child(model.id)
-
 
         referenceItem.addValueEventListener(AppValueEventListener {
             item = it.getPhoneModel()
@@ -100,50 +98,57 @@ class MainAdapter(
         })
 
         holder.item.setOnClickListener {
-            if (listSelectedItem.contains(position)) {
-                listSelectedItem.remove(position)
-//                item.selected = false
+            if (holderList.contains(holder)) {
+                holderList.remove(holder)
                 holder.checkImage.visibility = View.GONE
-                if (listSelectedItem.isEmpty()) {
+                if (holderList.isEmpty()) {
                     showToolbar(false)
                     MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
+                    floatingButton.visibility = View.VISIBLE
                     isEnable = false
                 }
             } else if (isEnable) {
-                selectItem(holder, item, position)
+                selectItem(holder)
             } else itemClickListener?.invoke(item)
         }
 
         holder.item.setOnLongClickListener {
-            selectItem(holder, model, position)
+            selectItem(holder)
             true
         }
     }
 
-    fun selectItem(holder: PhonesHolder, item: PhoneDataModel, position: Int) {
+    private fun selectItem(holder: PhonesHolder) {
+        floatingButton.visibility = View.GONE
         MAIN_ACTIVITY.mToolbar.visibility = View.GONE
         isEnable = true
-        listSelectedItem[position] = position
+        holderList[holder] = holder
         showToolbar(true)
-//        item.selected = true
         holder.checkImage.visibility = View.VISIBLE
     }
 
     fun deleteSelectedItem() {
-        if (listSelectedItem.isNotEmpty()) {
+        if (holderList.isNotEmpty()) {
             isEnable = false
             showToolbar(false)
-            listSelectedItem.clear()
+            holderList.clear()
         }
     }
 
+    @SuppressLint("NewApi")
     fun cancelItemSelecting() {
-        if (listSelectedItem.isNotEmpty()) {
-            listSelectedItem.clear()
-            currentHolder.checkImage.visibility=View.GONE
+        if (holderList.isNotEmpty()) {
+            holderList.forEach { it, _ ->
+                it.checkImage.visibility = View.GONE
+            }
+            holderList.clear()
         }
         showToolbar(false)
         isEnable = false
+    }
+
+    fun initFloatButton(floatingActionButton: FloatingActionButton) {
+        floatingButton = floatingActionButton
     }
 }
 
