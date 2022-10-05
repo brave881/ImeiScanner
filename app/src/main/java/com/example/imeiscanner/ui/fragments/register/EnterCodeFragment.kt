@@ -12,10 +12,7 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.AppValueEventListener
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
@@ -39,9 +36,7 @@ class EnterCodeFragment(
 
     override fun onStart() {
         super.onStart()
-
         binding.inputCodeResendCodeBtn.setOnClickListener { resendCode() }
-
         MAIN_ACTIVITY.title = phoneNumber
         binding.registerInputCode.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

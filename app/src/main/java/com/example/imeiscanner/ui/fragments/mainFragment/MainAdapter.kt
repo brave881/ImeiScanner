@@ -1,15 +1,13 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.annotation.SuppressLint
-import android.util.Log
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
-import androidx.core.view.get
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
@@ -19,7 +17,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlin.math.log
 
 class MainAdapter(
     var options: FirebaseRecyclerOptions<PhoneDataModel>,
@@ -27,7 +24,7 @@ class MainAdapter(
 ) :
     FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
-    private val holderList = hashMapOf<PhonesHolder, Any>()
+    private val holderList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
     private var isEnable = false
     private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
     private lateinit var floatingButton: FloatingActionButton
@@ -40,30 +37,6 @@ class MainAdapter(
         val checkImage: CircleImageView = view.findViewById(R.id.item_product_check_image)
         val star_on: ImageView = view.findViewById(R.id.item_star_on_btn)
         val star_off: ImageView = view.findViewById(R.id.item_star_off_btn)
-    }
-
-    private fun initItems(
-        holder: PhonesHolder, item: PhoneDataModel
-    ) {
-        holder.star_off.setOnClickListener {
-            holder.star_on.visibility = View.VISIBLE
-            holder.star_off.visibility = View.GONE
-            item.favourite_state = true
-            addFavourites(item)
-        }
-        holder.star_on.setOnClickListener {
-            holder.star_on.visibility = View.GONE
-            holder.star_off.visibility = View.VISIBLE
-            item.favourite_state = false
-            deleteFavouritesValue(item.id)
-        }
-        holder.name.text = item.phone_name
-        holder.date.text = item.phone_added_date
-        if (item.phone_serial_number.isNotEmpty())
-            holder.imei.text = item.phone_serial_number
-        else if (item.phone_imei1.isNotEmpty())
-            holder.imei.text = item.phone_imei1
-        else holder.imei.text = item.phone_imei2
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhonesHolder {
@@ -108,43 +81,45 @@ class MainAdapter(
                     isEnable = false
                 }
             } else if (isEnable) {
-                selectItem(holder)
+                selectItem(holder, model)
             } else itemClickListener?.invoke(item)
         }
 
         holder.item.setOnLongClickListener {
-            selectItem(holder)
+            selectItem(holder, model)
             true
         }
     }
 
-    private fun selectItem(holder: PhonesHolder) {
+    private fun selectItem(holder: PhonesHolder, model: PhoneDataModel) {
         floatingButton.visibility = View.GONE
         MAIN_ACTIVITY.mToolbar.visibility = View.GONE
         isEnable = true
-        holderList[holder] = holder
+        holderList[holder] = model
         showToolbar(true)
         holder.checkImage.visibility = View.VISIBLE
     }
 
     fun deleteSelectedItem() {
-        if (holderList.isNotEmpty()) {
-            isEnable = false
-            showToolbar(false)
-            holderList.clear()
-        }
-    }
-
-    @SuppressLint("NewApi")
-    fun cancelItemSelecting() {
-        if (holderList.isNotEmpty()) {
-            holderList.forEach { it, _ ->
-                it.checkImage.visibility = View.GONE
-            }
-            holderList.clear()
-        }
+        clearHolderList(holderList)
         showToolbar(false)
         isEnable = false
+    }
+
+    fun cancelItemSelecting() {
+        clearHolderList(holderList)
+        showToolbar(false)
+        isEnable = false
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    fun addFavouritesSelectedI() {
+        if (holderList.isNotEmpty()) {
+            holderList.forEach { t, u ->
+                commitFavourites(t, u)
+            }
+        }
+        clearHolderList(holderList)
     }
 
     fun initFloatButton(floatingActionButton: FloatingActionButton) {
