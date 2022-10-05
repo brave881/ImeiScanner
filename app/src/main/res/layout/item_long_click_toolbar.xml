@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_longCLick_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?actionBarSize"
+    tools:ignore="MissingConstraints">
+
+    <ImageView
+        android:id="@+id/toolbar_item_lc_cancel1"
+        android:layout_width="23dp"
+        android:layout_height="22dp"
+        android:layout_margin="@dimen/app_margin"
+        android:src="@drawable/ic_x" />
+
+    <ImageView
+        android:id="@+id/toolbar_item_lc_delete1"
+        android:layout_width="23dp"
+        android:layout_height="22dp"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/app_margin"
+        android:src="@drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/toolbar_item_lc_star1"
+        android:layout_width="23dp"
+        android:layout_height="22dp"
+        android:layout_gravity="end"
+        android:layout_margin="@dimen/app_margin"
+        android:src="@drawable/ic_star_outline" />
+</Toolbar>

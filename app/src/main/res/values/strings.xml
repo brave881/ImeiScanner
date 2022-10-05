@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Imei Scanner App</string>
+    <string name="app_name">Imei Scanner</string>
     <string name="register_text_mobileApp">Mobile App</string>
-    <string name="register_text_phoneNumber">Mobile number</string>
+    <string name="register_text_phoneNumber">Phone Number</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="register_btn_sign_text">Send code</string>
-    <string name="register_or_text">or with</string>
+    <string name="register_btn_sign_text">Sign In</string>
+    <string name="register_or_text">or</string>
     <string name="register_enterPhoneNumber_text">Enter Phone Number!</string>
     <string name="entercode_enterphone_text">Enter code</string>
     <string name="enter_code_toast_text">Please enter phone number!</string>
@@ -61,6 +61,4 @@
     <string name="name_changed_text">Name Changed!</string>
     <string name="account_deleted">Account Deleted</string>
     <string name="imei_already_exists_text">Imei already exists</string>
-    <string name="what_is_your_phone_number">What is your phone number?</string>
-    <string name="google">Google</string>
 </resources>

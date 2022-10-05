@@ -62,4 +62,5 @@
     <string name="name_changed_text">Isim O\'zgartirildi</string>
     <string name="account_deleted">Hisob O\'chirildi</string>
     <string name="imei_already_exists_text">Imei allaqachon mavjud</string>
+
 </resources>

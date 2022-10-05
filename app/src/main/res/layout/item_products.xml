@@ -22,8 +22,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_product">
+            android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/item_star_off_btn"
                 android:layout_width="40dp"
@@ -35,12 +35,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:visibility="invisible"
                 android:id="@+id/item_star_on_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginBottom="@dimen/top_margin_20dp"
                 android:src="@drawable/ic_star"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +55,15 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/item_product_check_image"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/img_product_image"
+                app:layout_constraintEnd_toEndOf="@id/img_product_image" />
 
             <TextView
                 android:id="@+id/tv_name_product"

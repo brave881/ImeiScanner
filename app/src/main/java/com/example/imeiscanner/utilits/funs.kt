@@ -190,4 +190,7 @@ fun loadLanguage() {
     setLocale(language!!)
 }
 
+fun getPlurals(count: Int) =
+    MAIN_ACTIVITY.resources.getQuantityString(R.plurals.count_items, count, count)
+
 

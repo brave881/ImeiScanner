@@ -1,11 +1,10 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +26,6 @@ import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
 
 class MainFragment : Fragment() {
 
@@ -60,7 +58,6 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         super.onResume()
 
@@ -75,6 +72,26 @@ class MainFragment : Fragment() {
         GlobalScope.launch {
             initRecyclerView()
         }
+        listenerToolbarItems()
+    }
+
+    private fun listenerToolbarItems() {
+        binding.toolbarItemLcDelete.setOnClickListener { delete() }
+        binding.toolbarItemLcCancel.setOnClickListener { cancel() }
+    }
+
+    private fun cancel() {
+        binding.toolbarItem.visibility = View.GONE
+        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
+        MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
+        (adapter as MainAdapter).cancelItemSelecting()
+    }
+
+    private fun delete() {
+        binding.toolbarItem.visibility = View.GONE
+        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
+        MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
+        (adapter as MainAdapter).deleteSelectedItem()
     }
 
     private fun initSort() {
@@ -112,7 +129,7 @@ class MainFragment : Fragment() {
         refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
         val options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(refPhoneData, PhoneDataModel::class.java).build()
-        adapter = MainAdapter(options)
+        adapter = MainAdapter(options) { show -> showItemToolbar(show) }
         rv.adapter = adapter
         adapter.startListening()
         clickItem()
@@ -133,7 +150,7 @@ class MainFragment : Fragment() {
                 refPhoneData.orderByChild(CHILD_IMEI1).startAt(text).endAt(text + "\uf8ff"),
                 PhoneDataModel::class.java
             ).build()
-        adapter = MainAdapter(options)
+        adapter = MainAdapter(options) {}
         adapter.startListening()
         rv.adapter = adapter
         clickItem()
@@ -178,5 +195,9 @@ class MainFragment : Fragment() {
         }
         rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
         return true
+    }
+
+    fun showItemToolbar(show: Boolean) {
+        binding.toolbarItem.isVisible = show
     }
 }
