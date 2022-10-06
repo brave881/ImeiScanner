@@ -1,13 +1,11 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -91,7 +89,9 @@ class MainAdapter(
         }
 
         holder.item.setOnLongClickListener {
-            selectItem(holder, model)
+            if (selectedItemsList.isEmpty()) {
+                selectItem(holder, model)
+            }
             true
         }
     }
@@ -107,13 +107,13 @@ class MainAdapter(
 
     fun deleteSelectedItem() {
         count = 0
-        clearHolderList(selectedItemsList)
+        clearSelectedList(selectedItemsList)
         showToolbar(false)
     }
 
     fun cancelItemSelecting() {
         count = 0
-        clearHolderList(selectedItemsList)
+        clearSelectedList(selectedItemsList)
         showToolbar(false)
     }
 
@@ -124,7 +124,7 @@ class MainAdapter(
             }
         }
         count = 0
-        clearHolderList(selectedItemsList)
+        clearSelectedList(selectedItemsList)
     }
 
     fun initFloatButton(floatingActionButton: FloatingActionButton) {
@@ -136,14 +136,19 @@ class MainAdapter(
     }
 
     fun unselectAll() {
-
+        selectedItemsList.clear()
+        count = 0
+        countTextView.text = count.toString()
+        holdersList.forEach { (t, u) ->
+            t.checkImage.visibility = View.GONE
+        }
     }
 
     fun selectAll() {
         selectedItemsList.clear()
+        count = holdersList.size
+        countTextView.text = count.toString()
         holdersList.forEach { (holder, model) ->
-            count = holdersList.size
-            countTextView.text = count.toString()
             holder.checkImage.visibility = View.VISIBLE
             selectedItemsList[holder] = model
         }
