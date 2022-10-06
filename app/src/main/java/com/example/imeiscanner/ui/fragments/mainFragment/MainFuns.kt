@@ -44,10 +44,9 @@ fun initItems(
     addFavourites(item)
 }
 
-@SuppressLint("NewApi")
 fun clearHolderList(holderList: HashMap<MainAdapter.PhonesHolder, PhoneDataModel>) {
     if (holderList.isNotEmpty()) {
-        holderList.forEach { it, _ ->
+        holderList.forEach { (it, _) ->
             it.checkImage.visibility = View.GONE
         }
         holderList.clear()

@@ -28,9 +28,11 @@
 
         <TextView
             android:id="@+id/toolbar_item_lc_count"
-            android:layout_width="55dp"
-            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="@dimen/app_margin"
+            android:gravity="top"
+            android:textSize="@dimen/large_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/toolbar_item_lc_cancel"
             app:layout_constraintTop_toTopOf="parent" />
@@ -41,6 +43,16 @@
             android:layout_height="22dp"
             android:layout_margin="@dimen/app_margin"
             android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/toolbar_item_menu"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/toolbar_item_menu"
+            android:src="@drawable/ic_baseline_menu"
+            android:layout_width="23dp"
+            android:layout_height="22dp"
+            android:layout_margin="@dimen/app_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

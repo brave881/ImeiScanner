@@ -61,6 +61,8 @@
     <string name="name_changed_text">Name Changed!</string>
     <string name="account_deleted">Account Deleted</string>
     <string name="imei_already_exists_text">Imei already exists</string>
+    <string name="select_all_text">Select All</string>
+    <string name="unselect_all_text">Unselect All</string>
 
     <plurals name="count_items" translatable="false">
         <item quantity="other">%d</item>

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,7 +22,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,6 +40,7 @@ class MainFragment : Fragment() {
     private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
     private lateinit var searchView: SearchView
     private lateinit var linerLayoutManager: LinearLayoutManager
+    private lateinit var popupMenu: PopupMenu
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -71,11 +72,27 @@ class MainFragment : Fragment() {
         }
         GlobalScope.launch {
             initRecyclerView()
+            initPopupMenu()
+            listenerToolbar()
         }
-        listenerToolbarItems()
     }
 
-    private fun listenerToolbarItems() {
+    private fun initPopupMenu() {
+        popupMenu = PopupMenu(MAIN_ACTIVITY, binding.toolbarItemMenu)
+        popupMenu.menuInflater.inflate(R.menu.select_menu, popupMenu.menu)
+        popupMenu.setOnMenuItemClickListener {
+            val id = it.itemId
+            if (id == R.id.select_all) {
+                (adapter as MainAdapter).selectAll()
+            } else if (id == R.id.unselect_all) {
+                (adapter as MainAdapter).unselectAll()
+            }
+            false
+        }
+        binding.toolbarItemMenu.setOnClickListener { popupMenu.show() }
+    }
+
+    private fun listenerToolbar() {
         binding.toolbarItemLcStar.setOnClickListener { addFavourite() }
         binding.toolbarItemLcDelete.setOnClickListener { delete() }
         binding.toolbarItemLcCancel.setOnClickListener { cancel() }
@@ -144,6 +161,7 @@ class MainFragment : Fragment() {
         adapter.startListening()
         clickItem()
         (adapter as MainAdapter).initFloatButton(binding.btnOpenPhoneFragment)
+        (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
     }
 
     private fun clickItem() {
