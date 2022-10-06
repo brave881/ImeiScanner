@@ -9,10 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.CHILD_IMEI1
-import com.example.imeiscanner.database.CURRENT_UID
-import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
-import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
@@ -23,6 +20,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -58,6 +56,7 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         super.onResume()
 
@@ -76,21 +75,30 @@ class MainFragment : Fragment() {
     }
 
     private fun listenerToolbarItems() {
+        binding.toolbarItemLcStar.setOnClickListener { addFavourite() }
         binding.toolbarItemLcDelete.setOnClickListener { delete() }
         binding.toolbarItemLcCancel.setOnClickListener { cancel() }
     }
 
-    private fun cancel() {
+    private fun addFavourite() {
+        cancelBinding()
+        (adapter as MainAdapter).addFavouritesSelectedI()
+    }
+
+    private fun cancelBinding() {
         binding.toolbarItem.visibility = View.GONE
         binding.btnOpenPhoneFragment.visibility = View.VISIBLE
         MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
+        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
+    }
+
+    private fun cancel() {
+        cancelBinding()
         (adapter as MainAdapter).cancelItemSelecting()
     }
 
     private fun delete() {
-        binding.toolbarItem.visibility = View.GONE
-        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
-        MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
+        cancelBinding()
         (adapter as MainAdapter).deleteSelectedItem()
     }
 
@@ -133,6 +141,7 @@ class MainFragment : Fragment() {
         rv.adapter = adapter
         adapter.startListening()
         clickItem()
+        (adapter as MainAdapter).initFloatButton(binding.btnOpenPhoneFragment)
     }
 
     private fun clickItem() {
