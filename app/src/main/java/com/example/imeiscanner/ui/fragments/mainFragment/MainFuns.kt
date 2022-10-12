@@ -44,7 +44,7 @@ fun initItems(
     addFavourites(item)
 }
 
-fun clearHolderList(holderList: HashMap<MainAdapter.PhonesHolder, PhoneDataModel>) {
+fun clearSelectedList(holderList: HashMap<MainAdapter.PhonesHolder, PhoneDataModel>) {
     if (holderList.isNotEmpty()) {
         holderList.forEach { (it, _) ->
             it.checkImage.visibility = View.GONE
