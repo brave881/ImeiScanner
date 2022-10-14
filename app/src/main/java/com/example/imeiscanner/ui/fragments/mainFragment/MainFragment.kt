@@ -99,7 +99,6 @@ class MainFragment : Fragment() {
         binding.toolbarItemLcCancel.setOnClickListener { cancel() }
     }
 
-    @SuppressLint("NewApi")
     private fun addFavourite() {
         cancelBinding()
         (adapter as MainAdapter).addFavouritesSelectedI()

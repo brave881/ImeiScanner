@@ -45,7 +45,7 @@ class EnterCodeFragment(
             }
         }
         binding.registerInputCode.setOnCompleteListener {
-            timer.cancel()
+//            timer.cancel()
             if (it.length == 6) {
                 checkCode()
             }
@@ -58,7 +58,6 @@ class EnterCodeFragment(
         tvTimer = binding.textViewCountdownTime
         MAIN_ACTIVITY.title = phoneNumber
     }
-
 
     private fun checkCode() {
         val code = binding.registerInputCode.text.toString()

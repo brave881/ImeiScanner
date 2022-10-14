@@ -30,6 +30,7 @@ class MainAdapter(
     private lateinit var floatingButton: FloatingActionButton
     private lateinit var countTextView: TextView
     private var count: Int = 0
+    private var isEnable = false
 
     inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
@@ -80,10 +81,11 @@ class MainAdapter(
                 holder.checkImage.visibility = View.GONE
                 if (selectedItemsList.isEmpty()) {
                     showToolbar(false)
+                    isEnable = false
                     MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
                     floatingButton.visibility = View.VISIBLE
                 }
-            } else if (selectedItemsList.isNotEmpty()) {
+            } else if (isEnable) {
                 selectItem(holder, model)
             } else itemClickListener?.invoke(item)
         }
@@ -102,6 +104,7 @@ class MainAdapter(
         selectedItemsList[holder] = model
         countTextView.text = (++count).toString()
         showToolbar(true)
+        isEnable = true
         holder.checkImage.visibility = View.VISIBLE
     }
 
@@ -109,16 +112,16 @@ class MainAdapter(
         count = 0
         clearSelectedList(selectedItemsList)
         showToolbar(false)
+        isEnable = false
     }
 
     fun cancelItemSelecting() {
         count = 0
         clearSelectedList(selectedItemsList)
         showToolbar(false)
+        isEnable = false
     }
 
-
-    @SuppressLint("NewApi")
     fun addFavouritesSelectedI() {
         if (selectedItemsList.isNotEmpty()) {
             selectedItemsList.forEach { (t, u) ->
