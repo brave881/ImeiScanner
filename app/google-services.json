@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "778414215990",
-    "firebase_url": "https://imei-scanner-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "imei-scanner",
-    "storage_bucket": "imei-scanner.appspot.com"
+    "project_number": "200208948655",
+    "firebase_url": "https://imei-scanner-d7ab3-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "imei-scanner-d7ab3",
+    "storage_bucket": "imei-scanner-d7ab3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:778414215990:android:b0e80d559bff25f21a5997",
+        "mobilesdk_app_id": "1:200208948655:android:2f095441dfeb728e3da35a",
         "android_client_info": {
           "package_name": "com.example.imeiscanner"
         }
       },
       "oauth_client": [
         {
-          "client_id": "778414215990-22cbqonvjme0ahmkeimkbhmia7bf818p.apps.googleusercontent.com",
+          "client_id": "200208948655-t270u773t3mrnvukk92hl20bplm9tmje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.imeiscanner",
+            "certificate_hash": "fd489ec844d981360da2114affe66ec04ed0da1b"
+          }
+        },
+        {
+          "client_id": "200208948655-ehtrhqqm7rqnuaprtvjgtq15b92kpgov.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwKAKKKVwpDlTvbBAdum-Ii9EYlM8DuUA"
+          "current_key": "AIzaSyBwFux6AEmKWSOtHhTLxVmCXNXdapgUURs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "778414215990-22cbqonvjme0ahmkeimkbhmia7bf818p.apps.googleusercontent.com",
+              "client_id": "200208948655-ehtrhqqm7rqnuaprtvjgtq15b92kpgov.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

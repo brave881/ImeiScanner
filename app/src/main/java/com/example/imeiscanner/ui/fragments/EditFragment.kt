@@ -115,7 +115,7 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
                     favouriteState
                 )
                 checkImeiFill(dateMap)
-                setValuesToFireBase(dateMap, phoneId, imei1.text.toString(),)
+                setValuesToFireBase(dateMap, phoneId, imei1.text.toString(),true)
             } else {
                 Toast.makeText(
                     requireContext(),

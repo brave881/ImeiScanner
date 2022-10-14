@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.os.CountDownTimer
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -17,11 +18,17 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.deleteUser
 import com.example.imeiscanner.database.deleteUserFromDatabase
+import com.example.imeiscanner.database.getCallbacks
 import com.example.imeiscanner.models.PhoneDataModel
+import com.example.imeiscanner.ui.fragments.register.EnterCodeFragment
+import com.google.firebase.auth.PhoneAuthOptions
+import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
 import com.journeyapps.barcodescanner.ScanOptions
 import java.util.*
+import java.util.concurrent.TimeUnit
+
 
 fun showToast(string: String) {
     Toast.makeText(MAIN_ACTIVITY, string, Toast.LENGTH_LONG).show()
@@ -189,8 +196,30 @@ fun loadLanguage() {
     val language = sharedPreferences.getString(LANG, "")
     setLocale(language!!)
 }
+fun startTimer(tvTimer:TextView):CountDownTimer {
+    return object : CountDownTimer(60000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            tvTimer.text = (millisUntilFinished / 1000).toString()
+        }
 
-fun getPlurals(count: Int) =
-    MAIN_ACTIVITY.resources.getQuantityString(R.plurals.count_items, count, count)
+        override fun onFinish() {
+            tvTimer.text = MAIN_ACTIVITY.getString(R.string.done)
+        }
+    }
+}
+
+ fun resendCode(phoneNumber:String,token:PhoneAuthProvider.ForceResendingToken) {
+    val options = PhoneAuthOptions.newBuilder(AUTH)
+        .setPhoneNumber(phoneNumber)
+        .setTimeout(60L, TimeUnit.SECONDS)
+        .setActivity(MAIN_ACTIVITY)
+        .setCallbacks(getCallbacks(phoneNumber))
+        .setForceResendingToken(token)
+        .build()
+    PhoneAuthProvider.verifyPhoneNumber(options)
+}
+
+//fun getPlurals(count: Int) =
+//    MAIN_ACTIVITY.resources.getQuantityString(R.plurals.count_items, count, count)
 
 

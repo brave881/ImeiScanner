@@ -43,7 +43,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         super.onStart()
         countryCodePicker = binding.textViewCountryName
         countryCodePicker.defaultCountryCode
-        binding.registerBtnGoogle.setOnClickListener {
+        binding.registerBtnGoogleContainer.setOnClickListener {
             signWithGoogle()
             signIn()
         }
@@ -89,8 +89,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun options() {
-        mPhoneNumber =
-            "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text.toString()}"
+        mPhoneNumber = "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text}"
 
         val options = PhoneAuthOptions.newBuilder(AUTH)
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify

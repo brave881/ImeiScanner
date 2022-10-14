@@ -40,13 +40,13 @@
     <string name="resend_code_text">Resend Code</string>
     <string name="language_text">Language</string>
     <string name="choice_language_text">Select the language</string>
-    <string name="ok_text">Ok</string>
+    <string name="ok_text">OK</string>
     <string name="home_text">Home</string>
     <string name="favourites_text">Favourites</string>
     <string name="about_text">About</string>
     <string name="phone_name_text">Phone name</string>
     <string name="serial_number_text">Serial number</string>
-    <string name="imei1_text">Imei1</string>
+    <string name="imei1_text">Imei 1</string>
     <string name="imei2_text">Imei2</string>
     <string name="memory_text">Memory</string>
     <string name="added_date_text">Added date</string>
@@ -67,4 +67,13 @@
     <plurals name="count_items" translatable="false">
         <item quantity="other">%d</item>
     </plurals>
+    <string name="what_is_your_phone_number">What is your phone number?</string>
+    <string name="done">Done!</string>
+    <string name="verification_code">Verification code</string>
+    <string name="please_enter_the_6_digit_code_sent_to_you">Please enter the 6-digit code sent to you</string>
+    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it</string>
+    <string name="_60">60</string>
+    <string name="label">label</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname(optional)</string>
 </resources>

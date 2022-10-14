@@ -1,6 +1,6 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,7 +83,7 @@ class MainAdapter(
                     MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
                     floatingButton.visibility = View.VISIBLE
                 }
-            } else if (!holder.checkImage.isVisible) {
+            } else if (selectedItemsList.isNotEmpty()) {
                 selectItem(holder, model)
             } else itemClickListener?.invoke(item)
         }
@@ -117,6 +117,8 @@ class MainAdapter(
         showToolbar(false)
     }
 
+
+    @SuppressLint("NewApi")
     fun addFavouritesSelectedI() {
         if (selectedItemsList.isNotEmpty()) {
             selectedItemsList.forEach { (t, u) ->
@@ -139,7 +141,7 @@ class MainAdapter(
         selectedItemsList.clear()
         count = 0
         countTextView.text = count.toString()
-        holdersList.forEach { (t, u) ->
+        holdersList.forEach { (t, _) ->
             t.checkImage.visibility = View.GONE
         }
     }

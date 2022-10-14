@@ -8,11 +8,7 @@ import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.models.UserModel
 import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
 import com.example.imeiscanner.ui.fragments.register.EnterCodeFragment
-import com.example.imeiscanner.ui.fragments.register.RegisterFragment
 import com.example.imeiscanner.utilits.*
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
@@ -44,7 +40,7 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
-//    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
+    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
     CURRENT_UID = AUTH.currentUser?.uid.toString()
@@ -70,20 +66,29 @@ fun setValuesToFireBase(
     dateMap: HashMap<String, Any>,
     id: String,
     imei1: String,
+    boolean: Boolean
 ) {
     val reference = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
-    reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
-        for (i in it.children) {
-            if (i.child(CHILD_IMEI1).value == imei1) {
-                showToast(MAIN_ACTIVITY.getString(R.string.imei_already_exists_text))
-                return@AppValueEventListener
+    reference.addValueEventListener(AppValueEventListener { it ->
+        if (boolean)
+            reference
+                .child(id)
+                .setValue(dateMap)
+                .addOnSuccessListener { replaceFragment(MainFragment()) }
+                .addOnFailureListener { showToast(it.toString()) }
+        else {
+            for (i in it.children) {
+                if (i.child(CHILD_IMEI1).value == imei1) {
+                    showToast(MAIN_ACTIVITY.getString(R.string.imei_already_exists_text))
+                    return@AppValueEventListener
+                }
             }
+            reference
+                .child(id)
+                .setValue(dateMap)
+                .addOnSuccessListener { replaceFragment(MainFragment()) }
+                .addOnFailureListener { showToast(it.toString()) }
         }
-        reference
-            .child(id)
-            .updateChildren(dateMap)
-            .addOnSuccessListener { replaceFragment(MainFragment()) }
-            .addOnFailureListener { showToast(it.toString()) }
     })
 }
 
@@ -119,6 +124,7 @@ fun firebaseAuthWithGoogle(idToken: String) {
         addGoogleUserToFirebase(null)
     }
 }
+
 inline fun getUrlFromStorage(path: StorageReference, crossinline function: (String) -> Unit) {
     path.downloadUrl.addOnSuccessListener { function(it.toString()) }
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -161,15 +167,7 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 
-fun addDatabaseImei(
-    id: String,
-    dateMap: HashMap<String, Any>,
-    name: EditText,
-    batteryInfo: EditText,
-    memory: EditText,
-    date: String,
-    price: EditText,
-    state: Boolean
+fun addDatabaseImei(id: String, dateMap: HashMap<String, Any>, name: EditText, batteryInfo: EditText, memory: EditText, date: String, price: EditText, state: Boolean
 ): HashMap<String, Any> {
     dateMap[CHILD_PHONE_ID] = id
     dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
@@ -211,7 +209,13 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
     dataMap[CHILD_PHONE] = phoneNumber
     dataMap[CHILD_ID] = uid
     dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
-
+    Log.d(TAG, "signInWithPhone: $uid")
+    FirebaseDatabase.getInstance().reference.child(NODE_USERS).setValue(name)
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+            restartActivity()
+            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
+        }
     REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
         .addListenerForSingleValueEvent(AppValueEventListener {
 

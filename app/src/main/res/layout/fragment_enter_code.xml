@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="#FCFCFF"
     tools:context=".ui.fragments.register.EnterCodeFragment">
 
 
@@ -18,51 +18,94 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/top_margin_20dp"
-            android:text="@string/entercode_enterphone_text"
-            android:textSize="@dimen/normal_text_size"
-            app:layout_constraintBottom_toTopOf="@+id/register_input_code"
-            app:layout_constraintEnd_toEndOf="@+id/register_input_code"
-            app:layout_constraintStart_toStartOf="@+id/register_input_code" />
-
-        <EditText
-            android:id="@+id/register_input_code"
-            style="@style/register_edit_text_style"
-            android:hint="@string/input_code"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/karla_bold"
+            android:text="@string/verification_code"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large_text_24_dp"
+            app:layout_constraintBottom_toTopOf="@id/input_code_resent_text"
+            app:layout_constraintStart_toStartOf="@+id/input_code_resent_text"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="530dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
         <TextView
             android:id="@+id/input_code_resent_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/top_margin_20dp"
-            android:layout_marginTop="@dimen/app_margin"
-            android:text="@string/didn_t_recive_sms_text"
-            android:textSize="@dimen/normal_text_size"
-            app:layout_constraintStart_toStartOf="@id/register_input_code"
-            app:layout_constraintTop_toBottomOf="@id/register_input_code" />
+            android:text="@string/please_enter_the_6_digit_code_sent_to_you"
+            app:layout_constraintBottom_toTopOf="@+id/register_input_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/mid_text_style" />
 
         <TextView
-            android:id="@+id/input_code_resend_code_btn"
+            style="@style/mid_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_margin"
-            android:text="@string/resend_code_text"
-            android:textColor="@color/white"
+            android:text="at +905519920410"
+            app:layout_constraintEnd_toEndOf="@+id/input_code_resent_text"
+            app:layout_constraintStart_toStartOf="@+id/input_code_resent_text"
+            app:layout_constraintTop_toBottomOf="@+id/input_code_resent_text" />
 
+
+        <com.broooapps.otpedittext2.OtpEditText
+            android:id="@+id/register_input_code"
+            style="@style/register_edit_text_style"
+            android:textColorHint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/resend_code_info"
+            app:layout_constraintEnd_toEndOf="@+id/input_code_resent_text"
+            app:layout_constraintStart_toStartOf="@+id/input_code_resent_text"
+            app:oev_primary_color="@color/button_color" />
+
+
+        <TextView
+            android:id="@+id/resend_code_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/if_you_don_t_receive_the_code_tap_below_resend_it"
+            app:layout_constraintBottom_toTopOf="@+id/resend_code_btn"
+            app:layout_constraintEnd_toStartOf="@id/textView_countdown_time"
+            app:layout_constraintStart_toStartOf="@+id/register_input_code"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
+        <TextView
+            android:id="@+id/textView_countdown_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_60"
+            app:layout_constraintBottom_toBottomOf="@+id/resend_code_info"
+            app:layout_constraintEnd_toEndOf="@+id/register_input_code"
+            app:layout_constraintStart_toEndOf="@+id/resend_code_info"
+            app:layout_constraintTop_toTopOf="@+id/resend_code_info" />
+
+        <TextView
+            android:id="@+id/resend_code_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/karla_bold"
+            android:gravity="center"
+            android:text="@string/resend_code_text"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/large_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/input_code_resent_text"
-            app:layout_constraintStart_toEndOf="@id/input_code_resent_text"
-            app:layout_constraintTop_toTopOf="@+id/input_code_resent_text" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView_countdown_time"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="@+id/resend_code_info"
+            app:layout_constraintTop_toTopOf="@+id/view2" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enter_name_container"
@@ -71,35 +114,77 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/top_margin_20dp"
-            android:text="@string/register_enter_name"
-            app:layout_constraintBottom_toTopOf="@+id/register_input_name"
-            app:layout_constraintEnd_toEndOf="@+id/register_input_name"
-            app:layout_constraintStart_toStartOf="@+id/register_input_name" />
-
-        <EditText
-            android:id="@+id/register_input_name"
-            style="@style/register_inputName_style"
-            android:hint="@string/register_input_name"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/textView2"
+            style="@style/text_imei_scanner"
+            android:fontFamily="@font/karla_bold"
+            android:text="Enter your fullname"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/enter_name_next_btn"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/top_margin_20dp"
-            android:src="@drawable/next_forward"
+            android:hint="@string/name"
+            app:layout_constraintBottom_toTopOf="@+id/enter_name_next_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enter_code_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/surname_container"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/top_margin_20dp"
+            android:hint="@string/surname"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/enter_code_surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/enter_name_next_btn"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/top_margin_20dp"
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/karla_bold"
+            android:gravity="center"
+            android:text="Continue"
+            android:textColor="@color/white"
+            android:textSize="18dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

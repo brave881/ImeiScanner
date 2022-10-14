@@ -1,4 +1,4 @@
-package com.example.imeiscanner.ui.favourites
+package com.example.imeiscanner.ui.fragments.favourites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

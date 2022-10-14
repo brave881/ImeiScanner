@@ -11,7 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.CHILD_IMEI1
+import com.example.imeiscanner.database.CURRENT_UID
+import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
@@ -22,9 +25,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
 
@@ -58,7 +58,6 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onResume() {
         super.onResume()
 
@@ -70,11 +69,13 @@ class MainFragment : Fragment() {
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
-        GlobalScope.launch {
-            initRecyclerView()
-            initPopupMenu()
-            listenerToolbar()
-        }
+
+        initRecyclerView()
+        initPopupMenu()
+        listenerToolbar()
+        binding.bottomNavBar.background = null
+        binding.bottomNavBar.menu.getItem(2).isEnabled = false
+
     }
 
     private fun initPopupMenu() {

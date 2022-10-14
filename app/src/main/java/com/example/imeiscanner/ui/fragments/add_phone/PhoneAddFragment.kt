@@ -2,6 +2,7 @@ package com.example.imeiscanner.ui.fragments.add_phone
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +13,7 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentPhoneAddBinding
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
-import com.example.imeiscanner.utilits.scanOptions
-import com.example.imeiscanner.utilits.showDatePicker
-import com.example.imeiscanner.utilits.showToast
-import com.example.imeiscanner.utilits.toStringEditText
+import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
@@ -124,8 +122,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     private fun saveDate() {
         if (imei1.text.toString().isNotEmpty()) {
-            val id =
-                REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
+            val id = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).push().key!!
             dateMap = addDatabaseImei(
                 id,
                 dateMap,
@@ -137,7 +134,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
                 false
             )
             checkImeiFill(dateMap)
-            setValuesToFireBase(dateMap, id, imei1.text.toString())
+            setValuesToFireBase(dateMap, id, imei1.text.toString(),false)
         } else {
             Toast.makeText(requireContext(), R.string.please_input_imei_1, Toast.LENGTH_LONG).show()
         }

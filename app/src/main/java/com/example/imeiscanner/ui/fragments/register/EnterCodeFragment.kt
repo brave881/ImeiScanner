@@ -1,30 +1,31 @@
 package com.example.imeiscanner.ui.fragments.register
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.NODE_USERS
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.signInWithPhone
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
-import com.example.imeiscanner.utilits.AppValueEventListener
-import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.showToast
-import com.google.firebase.auth.PhoneAuthOptions
+import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
-import java.util.concurrent.TimeUnit
 
 class EnterCodeFragment(
     private val phoneNumber: String,
     val id: String,
-    val token: PhoneAuthProvider.ForceResendingToken
+    private val token: PhoneAuthProvider.ForceResendingToken
 ) : Fragment() {
 
     private lateinit var binding: FragmentEnterCodeBinding
+    private lateinit var tvTimer: TextView
 
+    private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,34 +37,28 @@ class EnterCodeFragment(
 
     override fun onStart() {
         super.onStart()
-        binding.inputCodeResendCodeBtn.setOnClickListener { resendCode() }
+        initFields()
+        startTimer(tvTimer).start()
+        if (tvTimer.text.toString() == "Done!") {
+            binding.resendCodeBtn.setOnClickListener {
+                resendCode(phoneNumber, token)
+            }
+        }
+        binding.registerInputCode.setOnCompleteListener {
+            timer.cancel()
+            if (it.length == 6) {
+                checkCode()
+            }
+        }
+
+    }
+
+
+    private fun initFields() {
+        tvTimer = binding.textViewCountdownTime
         MAIN_ACTIVITY.title = phoneNumber
-        binding.registerInputCode.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val code = binding.registerInputCode.text.toString()
-                if (code.length == 6) {
-                    checkCode()
-                }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-            }
-        })
     }
 
-    private fun resendCode() {
-        val options = PhoneAuthOptions.newBuilder(AUTH)
-            .setPhoneNumber(phoneNumber)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(MAIN_ACTIVITY)
-            .setCallbacks(getCallbacks(phoneNumber))
-            .setForceResendingToken(token)
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-    }
 
     private fun checkCode() {
         val code = binding.registerInputCode.text.toString()
@@ -71,6 +66,15 @@ class EnterCodeFragment(
 
         AUTH.signInWithCredential(credential).addOnSuccessListener {
             val uid = AUTH.currentUser?.uid.toString()
+            binding.enterCodeContainer.visibility = View.GONE
+            binding.enterNameContainer.visibility = View.VISIBLE
+            binding.enterNameNextBtn.setOnClickListener {
+                val name = binding.enterCodeName.text.toString()
+                val surname = binding.enterCodeSurname.text.toString()
+                val fullName = "$name $surname"
+                showToast(fullName)
+                signInWithPhone(uid, phoneNumber, fullName)
+            }
             signAndCheckUserHasExist(uid)
         }
     }
@@ -84,9 +88,10 @@ class EnterCodeFragment(
                     binding.enterCodeContainer.visibility = View.GONE
                     binding.enterNameContainer.visibility = View.VISIBLE
                     binding.enterNameNextBtn.setOnClickListener {
-                        val name = binding.registerInputName.text.toString()
+                        val name = binding.enterCodeName.text.toString()
+                        val surname = binding.enterCodeName.text.toString()
                         if (name.isNotEmpty()) {
-                            signInWithPhone(uid, phoneNumber, name)
+                            signInWithPhone(uid, phoneNumber, "$name $surname")
                         } else showToast(getString(R.string.fullname_is_empty))
                     }
                 }
