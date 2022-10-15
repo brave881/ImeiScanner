@@ -70,7 +70,7 @@ fun setValuesToFireBase(
     boolean: Boolean
 ) {
     val reference = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
-    reference.addValueEventListener(AppValueEventListener { it ->
+    reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
         if (boolean)
             reference
                 .child(id)
@@ -166,7 +166,15 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 
-fun addDatabaseImei(id: String, dateMap: HashMap<String, Any>, name: EditText, batteryInfo: EditText, memory: EditText, date: String, price: EditText, state: Boolean
+fun addDatabaseImei(
+    id: String,
+    dateMap: HashMap<String, Any>,
+    name: EditText,
+    batteryInfo: EditText,
+    memory: EditText,
+    date: String,
+    price: EditText,
+    state: Boolean
 ): HashMap<String, Any> {
     dateMap[CHILD_PHONE_ID] = id
     dateMap[CHILD_PHONE_NAME] = toStringEditText(name)
@@ -293,4 +301,9 @@ fun getCallbacks(phoneNumber: String): PhoneAuthProvider.OnVerificationStateChan
         }
     }
     return callbacks
+}
+
+fun deleteSelectedItems(id: String) {
+    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(id).removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

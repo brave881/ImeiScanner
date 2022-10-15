@@ -1,6 +1,5 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,13 +17,10 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlin.math.log
 
 class MainAdapter(
-    var options: FirebaseRecyclerOptions<PhoneDataModel>,
-    private val showToolbar: (Boolean) -> Unit
-) :
-    FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
+    var options: FirebaseRecyclerOptions<PhoneDataModel>, private val showToolbar: (Boolean) -> Unit
+) : FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
     private val selectedItemsList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
     private val holdersList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
@@ -47,8 +43,7 @@ class MainAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhonesHolder {
         return PhonesHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_products, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_products, parent, false)
         )
     }
 
@@ -57,14 +52,12 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(
-        holder: PhonesHolder,
-        position: Int,
-        model: PhoneDataModel
+        holder: PhonesHolder, position: Int, model: PhoneDataModel
     ) {
         if (model.favourite_state) {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
-        }else {
+        } else {
             holder.star_on.visibility = View.GONE
             holder.star_off.visibility = View.VISIBLE
         }
@@ -72,8 +65,7 @@ class MainAdapter(
         holdersList[holder] = model
         var item = PhoneDataModel()
         val referenceItem =
-            REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
-                .child(model.id)
+            REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(model.id)
 
         referenceItem.addValueEventListener(AppValueEventListener {
             item = it.getPhoneModel()
@@ -115,7 +107,23 @@ class MainAdapter(
     }
 
     fun deleteSelectedItem() {
+        DIALOG_BUILDER.setTitle(MAIN_ACTIVITY.getString(R.string.delete_data))
+            .setMessage(MAIN_ACTIVITY.getString(R.string.delete_item_message))
+            .setPositiveButton(MAIN_ACTIVITY.getString(R.string.delete_text)) { dialogInterFace, it ->
+                deleteItems()
+            }.setNegativeButton(MAIN_ACTIVITY.getString(R.string.cancel)) { dialogInterFace, it ->
+                dialogInterFace.cancel()
+                cancelItemSelecting()
+            }.show()
+    }
+
+    private fun deleteItems() {
         count = 0
+        selectedItemsList.forEach { (t, u) ->
+            if (u.favourite_state)
+                deleteFavourites(t, u)
+            deleteSelectedItems(u.id)
+        }
         clearSelectedList(selectedItemsList)
         showToolbar(false)
         isEnable = false
@@ -150,8 +158,7 @@ class MainAdapter(
     private fun selectedItemsIsVisible() {
         if (selectedItemsList.isNotEmpty()) {
             selectedItemsList.forEach { (it, model) ->
-                if (model.favourite_state)
-                    selectedVisibleItemsSize++
+                if (model.favourite_state) selectedVisibleItemsSize++
             }
         }
     }
