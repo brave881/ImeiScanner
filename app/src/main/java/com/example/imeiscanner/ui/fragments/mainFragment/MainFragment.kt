@@ -69,13 +69,11 @@ class MainFragment : Fragment() {
         binding.btnOpenPhoneFragment.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
-
         initRecyclerView()
         initPopupMenu()
         listenerToolbar()
         binding.bottomNavBar.background = null
         binding.bottomNavBar.menu.getItem(2).isEnabled = false
-
     }
 
     private fun initPopupMenu() {

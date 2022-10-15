@@ -1,6 +1,7 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlin.math.log
 
 class MainAdapter(
     var options: FirebaseRecyclerOptions<PhoneDataModel>,
@@ -31,6 +33,7 @@ class MainAdapter(
     private lateinit var countTextView: TextView
     private var count: Int = 0
     private var isEnable = false
+    private var selectedVisibleItemsSize = 0
 
     inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
@@ -61,6 +64,9 @@ class MainAdapter(
         if (model.favourite_state) {
             holder.star_on.visibility = View.VISIBLE
             holder.star_off.visibility = View.GONE
+        }else {
+            holder.star_on.visibility = View.GONE
+            holder.star_off.visibility = View.VISIBLE
         }
 
         holdersList[holder] = model
@@ -123,13 +129,31 @@ class MainAdapter(
     }
 
     fun addFavouritesSelectedI() {
-        if (selectedItemsList.isNotEmpty()) {
-            selectedItemsList.forEach { (t, u) ->
-                commitFavourites(t, u)
+        selectedItemsIsVisible()
+        when (selectedVisibleItemsSize) {
+            selectedItemsList.size -> {
+                selectedItemsList.forEach { (t, u) ->
+                    deleteFavourites(t, u)
+                }
+            }
+            0 -> {
+                selectedItemsList.forEach { (t, u) ->
+                    commitFavourites(t, u)
+                }
             }
         }
+        selectedVisibleItemsSize = 0
         count = 0
         clearSelectedList(selectedItemsList)
+    }
+
+    private fun selectedItemsIsVisible() {
+        if (selectedItemsList.isNotEmpty()) {
+            selectedItemsList.forEach { (it, model) ->
+                if (model.favourite_state)
+                    selectedVisibleItemsSize++
+            }
+        }
     }
 
     fun initFloatButton(floatingActionButton: FloatingActionButton) {

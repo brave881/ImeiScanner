@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
+import android.os.CountDownTimer
 import android.util.Log
 import android.widget.EditText
 import com.example.imeiscanner.R
@@ -111,8 +112,6 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
     }
 }
 
-
-
 fun firebaseAuthWithGoogle(idToken: String) {
     val credential = GoogleAuthProvider.getCredential(idToken, null)
     AUTH.signInWithCredential(credential).addOnSuccessListener {
@@ -201,7 +200,7 @@ fun deleteUserFromDatabase() {
     }
 }
 
-fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
+fun signInWithPhone(uid: String, phoneNumber: String, name: String = "", timer: CountDownTimer) {
     val dataMap = hashMapOf<String, Any>()
     if (name.isNotEmpty()) {
         dataMap[CHILD_FULLNAME] = name
@@ -227,6 +226,7 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
                         .addOnFailureListener { showToast(it.message.toString()) }
                         .addOnSuccessListener {
                             restartActivity()
+                            timer.cancel()
                             showToast(MAIN_ACTIVITY.getString(R.string.welcome))
                         }
                 }
@@ -250,7 +250,6 @@ fun addFavourites(item: PhoneDataModel) {
     val map = hashMapOf<String, Any>()
     map[ref] = dataMap
     REF_DATABASE_ROOT.updateChildren(map)
-        .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_added)) }
         .addOnFailureListener {
             showToast(it.message.toString())
         }
@@ -268,7 +267,6 @@ fun deleteFavouritesValue(value: String) {
         .updateChildren(dataMap)
 
     REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).child(value).removeValue()
-        .addOnSuccessListener { showToast(MAIN_ACTIVITY.getString(R.string.favourites_deleted_toast)) }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 

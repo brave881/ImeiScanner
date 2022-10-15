@@ -45,14 +45,12 @@ class EnterCodeFragment(
             }
         }
         binding.registerInputCode.setOnCompleteListener {
-//            timer.cancel()
             if (it.length == 6) {
                 checkCode()
             }
         }
 
     }
-
 
     private fun initFields() {
         tvTimer = binding.textViewCountdownTime
@@ -72,7 +70,7 @@ class EnterCodeFragment(
                 val surname = binding.enterCodeSurname.text.toString()
                 val fullName = "$name $surname"
                 showToast(fullName)
-                signInWithPhone(uid, phoneNumber, fullName)
+                signInWithPhone(uid, phoneNumber, fullName,timer)
             }
             signAndCheckUserHasExist(uid)
         }
@@ -82,7 +80,7 @@ class EnterCodeFragment(
         REF_DATABASE_ROOT.child(NODE_USERS)
             .addListenerForSingleValueEvent(AppValueEventListener {
                 if (it.hasChild(uid)) {
-                    signInWithPhone(uid, phoneNumber)
+                    signInWithPhone(uid, phoneNumber, timer = timer)
                 } else {
                     binding.enterCodeContainer.visibility = View.GONE
                     binding.enterNameContainer.visibility = View.VISIBLE
@@ -90,7 +88,7 @@ class EnterCodeFragment(
                         val name = binding.enterCodeName.text.toString()
                         val surname = binding.enterCodeName.text.toString()
                         if (name.isNotEmpty()) {
-                            signInWithPhone(uid, phoneNumber, "$name $surname")
+                            signInWithPhone(uid, phoneNumber, "$name $surname", timer)
                         } else showToast(getString(R.string.fullname_is_empty))
                     }
                 }

@@ -2,9 +2,12 @@ package com.example.imeiscanner.ui.fragments.mainFragment
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.example.imeiscanner.R
 import com.example.imeiscanner.database.addFavourites
 import com.example.imeiscanner.database.deleteFavouritesValue
 import com.example.imeiscanner.models.PhoneDataModel
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.showToast
 
 fun initItems(
     holder: MainAdapter.PhonesHolder, item: PhoneDataModel
@@ -24,17 +27,17 @@ fun initItems(
     else holder.imei.text = item.phone_imei2
 }
 
- fun deleteFavourites(
+fun deleteFavourites(
     holder: MainAdapter.PhonesHolder,
     item: PhoneDataModel
 ) {
     holder.star_on.visibility = View.GONE
-    item.favourite_state = false
     holder.star_off.visibility = View.VISIBLE
+    item.favourite_state = false
     deleteFavouritesValue(item.id)
 }
 
- fun commitFavourites(
+fun commitFavourites(
     holder: MainAdapter.PhonesHolder,
     item: PhoneDataModel
 ) {
