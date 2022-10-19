@@ -208,7 +208,7 @@ fun deleteUserFromDatabase() {
     }
 }
 
-fun signInWithPhone(uid: String, phoneNumber: String, name: String = "", timer: CountDownTimer) {
+fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
     val dataMap = hashMapOf<String, Any>()
     if (name.isNotEmpty()) {
         dataMap[CHILD_FULLNAME] = name
@@ -219,13 +219,12 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "", timer: 
     Log.d(TAG, "signInWithPhone: $uid")
     FirebaseDatabase.getInstance().reference.child(NODE_USERS).setValue(name)
         .addOnFailureListener { showToast(it.message.toString()) }
-        .addOnSuccessListener {
-            restartActivity()
-            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
-        }
+//        .addOnSuccessListener {
+//            restartActivity()
+//            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
+//        }
     REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
         .addListenerForSingleValueEvent(AppValueEventListener {
-
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(phoneNumber).updateChildren(dataMap)
                 .addOnFailureListener { showToast(it.message.toString()) }
                 .addOnSuccessListener {
@@ -234,7 +233,6 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "", timer: 
                         .addOnFailureListener { showToast(it.message.toString()) }
                         .addOnSuccessListener {
                             restartActivity()
-                            timer.cancel()
                             showToast(MAIN_ACTIVITY.getString(R.string.welcome))
                         }
                 }

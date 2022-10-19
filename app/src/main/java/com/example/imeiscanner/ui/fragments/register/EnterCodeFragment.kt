@@ -25,7 +25,7 @@ class EnterCodeFragment(
     private lateinit var binding: FragmentEnterCodeBinding
     private lateinit var tvTimer: TextView
 
-    private lateinit var timer: CountDownTimer
+   private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,7 +70,7 @@ class EnterCodeFragment(
                 val surname = binding.enterCodeSurname.text.toString()
                 val fullName = "$name $surname"
                 showToast(fullName)
-                signInWithPhone(uid, phoneNumber, fullName,timer)
+                signInWithPhone(uid, phoneNumber, fullName)
             }
             signAndCheckUserHasExist(uid)
         }
@@ -80,7 +80,7 @@ class EnterCodeFragment(
         REF_DATABASE_ROOT.child(NODE_USERS)
             .addListenerForSingleValueEvent(AppValueEventListener {
                 if (it.hasChild(uid)) {
-                    signInWithPhone(uid, phoneNumber, timer = timer)
+                    signInWithPhone(uid, phoneNumber)
                 } else {
                     binding.enterCodeContainer.visibility = View.GONE
                     binding.enterNameContainer.visibility = View.VISIBLE
@@ -88,7 +88,7 @@ class EnterCodeFragment(
                         val name = binding.enterCodeName.text.toString()
                         val surname = binding.enterCodeName.text.toString()
                         if (name.isNotEmpty()) {
-                            signInWithPhone(uid, phoneNumber, "$name $surname", timer)
+                            signInWithPhone(uid, phoneNumber, "$name $surname")
                         } else showToast(getString(R.string.fullname_is_empty))
                     }
                 }

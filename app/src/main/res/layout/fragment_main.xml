@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/background_all"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.fragments.mainFragment.MainFragment">
@@ -74,26 +75,119 @@
         android:visibility="visible">
 
         <androidx.recyclerview.widget.RecyclerView
+
             android:id="@+id/rvMainFragment"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar_main"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/margin_10_dp"
+                android:layout_marginStart="40dp"
+                android:src="@drawable/google"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_search"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="@dimen/app_margin"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/img_sort"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_sort"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_margin="@dimen/top_margin_20dp"
+                android:src="@drawable/sort_main"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            style="@style/card_view_main_fragment"
+            app:cardCornerRadius="@dimen/margin_10_dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="160dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/img"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/top_margin_20dp"
+                    android:ems="12"
+                    android:fontFamily="@font/karla_regular"
+                    android:gravity="center"
+                    android:maxEms="12"
+                    android:text="You don’t have set any phone data.Create one in seconds."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/top_margin_20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinatorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
 
             <com.google.android.material.bottomappbar.BottomAppBar
                 android:id="@+id/bottomapp_nav_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:fabCradleMargin="10dp"
-                app:fabCradleRoundedCornerRadius="@dimen/margin_10_dp"
-                app:fabCradleVerticalOffset="5dp">
+                app:fabCradleMargin="5dp"
+                app:fabCradleRoundedCornerRadius="15dp">
 
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottom_nav_bar"
@@ -109,11 +203,15 @@
                 android:id="@+id/btn_open_phone_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:elevation="@dimen/margin_10_dp"
                 android:src="@drawable/ic_baseline_add_24"
-                app:layout_anchor="@id/bottomapp_nav_bar" />
+                app:layout_anchor="@id/bottomapp_nav_bar"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>

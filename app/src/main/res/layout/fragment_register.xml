@@ -69,10 +69,10 @@
 
         <TextView
             android:id="@+id/register_btn_sign"
+            style="@style/text_button"
             android:text="@string/register_btn_sign_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            style="@style/text_button"
             app:layout_constraintTop_toBottomOf="@id/register_input_phone_container" />
 
     </androidx.cardview.widget.CardView>
@@ -83,6 +83,7 @@
         app:layout_constraintBottom_toTopOf="@+id/register_btn_google_container"
         app:layout_constraintEnd_toEndOf="@+id/register_btn_sign_container"
         app:layout_constraintStart_toStartOf="@+id/register_btn_sign_container"
+        android:layout_marginTop="15dp"
         style="@style/text_or"
         app:layout_constraintTop_toBottomOf="@+id/register_btn_sign_container" />
 
@@ -90,13 +91,14 @@
         android:id="@+id/register_btn_google_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="@+id/or_text"
         app:layout_constraintStart_toStartOf="@+id/or_text"
         app:layout_constraintTop_toBottomOf="@+id/or_text">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:src="@drawable/google" />
     </androidx.cardview.widget.CardView>

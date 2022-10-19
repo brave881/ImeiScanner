@@ -220,7 +220,7 @@ class MainFragment : Fragment() {
                 restartActivity()
             }
         }
-        rv.smoothScrollToPosition(1)//rv ni eng birinchi positioniga olib chiqadi
+        rv.smoothScrollToPosition(1)     //rv ni eng birinchi positioniga olib chiqadi
         return true
     }
 

@@ -11,12 +11,16 @@
         android:title="Favourites" />
 
     <item
+        android:id="@+id/placeholder"
+        android:title="" />
+
+    <item
         android:id="@+id/settings_main"
         android:icon="@drawable/settings_main"
         android:title="Settings" />
 
     <item
         android:id="@+id/info_main"
-        android:icon="@drawable/info_menu"
+        android:icon="@drawable/ic_info"
         android:title="About" />
 </menu>

@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         mAppDrawer = AppDrawer()
     }
 
-    private fun initFunctions() {
+   private fun initFunctions() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()

@@ -122,4 +122,23 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
     </style>
+
+    <style name="card_view_main_fragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">350dp</item>
+        <item name="android:layout_marginStart">@dimen/top_margin_20dp</item>
+        <item name="android:layout_marginEnd">@dimen/top_margin_20dp</item>
+    </style>
+
+    <style name="editext_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/top_margin_20dp</item>
+    </style>
+
+    <style name="edittext_icon_qr_code">
+        <item name="android:layout_width">@dimen/_18sdp</item>
+        <item name="android:layout_height">@dimen/_18sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_15sdp</item>
+    </style>
 </resources>

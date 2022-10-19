@@ -11,7 +11,6 @@ import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEditBinding
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
 import com.journeyapps.barcodescanner.ScanContract
