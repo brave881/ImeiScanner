@@ -2,7 +2,6 @@ package com.example.imeiscanner.ui.fragments.add_phone
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -106,17 +105,17 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     @SuppressLint("SimpleDateFormat")
     private fun initFields() {
         options = ScanOptions()
-        imei1 = binding.phoneAddPhoneImei1
-        imei2 = binding.phoneAddPhoneImei2
-        serialNumber = binding.phoneAddPhoneSerialNumber
-        memory = binding.phoneAddPhoneMemory
-        price = binding.phoneAddPhonePrice
+        imei1 = binding.phoneAddImei1
+        imei2 = binding.phoneAddImei2
+        serialNumber = binding.phoneAddSerialNumber
+        memory = binding.phoneAddMemory
+        price = binding.phoneAddPrice
         name = binding.phoneAddPhoneName
-        batteryInfo = binding.phoneAddPhoneBattery
+        batteryInfo = binding.phoneAddBatteryState
         val d = Calendar.getInstance()
         val currentDateTimeString =
             SimpleDateFormat(getString(R.string.dd_mm_yy_text)).format(d.time)
-        date = binding.btnDate
+        date = binding.phoneAddDate
         date.text = currentDateTimeString
     }
 
@@ -145,7 +144,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     }
 
     private fun dateInstall() {
-        binding.btnDate.setOnClickListener {
+        binding.phoneAddDate.setOnClickListener {
             showDatePicker(requireContext(), date)
         }
     }

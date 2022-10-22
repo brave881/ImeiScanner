@@ -20,7 +20,6 @@ import com.example.imeiscanner.database.deleteUser
 import com.example.imeiscanner.database.deleteUserFromDatabase
 import com.example.imeiscanner.database.getCallbacks
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.ui.fragments.register.EnterCodeFragment
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.userProfileChangeRequest

@@ -1,6 +1,5 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -70,6 +69,7 @@ class MainFragment : Fragment() {
             replaceFragment(PhoneAddFragment())
         }
         initRecyclerView()
+        checkDataExists()
         initPopupMenu()
         listenerToolbar()
         binding.bottomNavBar.background = null
@@ -155,11 +155,23 @@ class MainFragment : Fragment() {
         val options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(refPhoneData, PhoneDataModel::class.java).build()
         adapter = MainAdapter(options) { show -> showItemToolbar(show) }
+        adapter.itemCount.toString()
         rv.adapter = adapter
         adapter.startListening()
         clickItem()
         (adapter as MainAdapter).initFloatButton(binding.btnOpenPhoneFragment)
         (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
+    }
+
+    private fun checkDataExists() {
+//        showToast((adapter as MainAdapter).getItemsCount().toString())
+        if ((adapter as MainAdapter).getItemsCount()) {
+            rv.visibility = View.VISIBLE
+            binding.mainEx.visibility = View.GONE
+        } else {
+            rv.visibility = View.GONE
+            binding.mainEx.visibility = View.VISIBLE
+        }
     }
 
     private fun clickItem() {

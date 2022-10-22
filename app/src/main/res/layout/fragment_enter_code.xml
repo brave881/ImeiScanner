@@ -13,7 +13,7 @@
         android:id="@+id/enter_code_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,6 +50,7 @@
             style="@style/mid_text_style" />
 
         <TextView
+            android:id="@+id/tv_phone_number"
             style="@style/mid_text_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +113,7 @@
         android:id="@+id/enter_name_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

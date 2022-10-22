@@ -1,7 +1,6 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
-import android.os.CountDownTimer
 import android.util.Log
 import android.widget.EditText
 import com.example.imeiscanner.R

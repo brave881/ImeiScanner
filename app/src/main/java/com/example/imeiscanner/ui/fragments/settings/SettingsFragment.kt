@@ -1,9 +1,7 @@
 package com.example.imeiscanner.ui.fragments.settings
 
-import android.Manifest
 import android.Manifest.permission.CAMERA
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,7 +14,6 @@ import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentSettingsBinding
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
 import com.example.imeiscanner.utilits.*
-import java.util.*
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 

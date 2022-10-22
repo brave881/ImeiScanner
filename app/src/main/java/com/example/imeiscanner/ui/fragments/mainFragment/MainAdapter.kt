@@ -1,6 +1,5 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +9,15 @@ import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.CURRENT_UID
+import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.deleteSelectedItems
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.*
+import com.example.imeiscanner.utilits.AppValueEventListener
+import com.example.imeiscanner.utilits.DIALOG_BUILDER
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
+import com.example.imeiscanner.utilits.getPhoneModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,6 +35,7 @@ class MainAdapter(
     private var count: Int = 0
     private var isEnable = false
     private var selectedVisibleItemsSize = 0
+    private var bool = true
 
     inner class PhonesHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.findViewById(R.id.tv_name_product)
@@ -62,11 +68,11 @@ class MainAdapter(
             holder.star_off.visibility = View.VISIBLE
         }
 
+        if (model.id.isNotEmpty()) bool = false
         holdersList[holder] = model
         var item = PhoneDataModel()
         val referenceItem =
             REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(model.id)
-
         referenceItem.addValueEventListener(AppValueEventListener {
             item = it.getPhoneModel()
             initItems(holder, item)
@@ -94,6 +100,11 @@ class MainAdapter(
             }
             true
         }
+    }
+
+
+    fun getItemsCount(): Boolean {
+        return bool
     }
 
     private fun selectItem(holder: PhonesHolder, model: PhoneDataModel) {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_items"
     android:layout_width="match_parent"
     android:layout_height="80dp">
@@ -12,7 +11,7 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/register_or_margin_5dp"
         android:clickable="true"
-        android:elevation="25dp"
+        app:cardElevation="@dimen/_20sdp"
         android:focusable="true"
         app:cardCornerRadius="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,12 +21,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_gravity="center"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/item_star_off_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="@dimen/top_margin_20dp"
                 android:src="@drawable/ic_star_off"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -36,8 +37,9 @@
 
             <ImageView
                 android:id="@+id/item_star_on_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_height="30dp"
                 android:layout_marginBottom="@dimen/top_margin_20dp"
                 android:src="@drawable/ic_star"
                 android:visibility="invisible"
@@ -70,12 +72,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
+                android:fontFamily="@font/karla_bold"
                 android:ems="12"
                 android:maxEms="12"
                 android:maxLines="1"
                 android:text="Iphone 36 pro max plus 100TB"
                 android:textColor="@color/black"
-                android:textSize="22dp"
+                android:textSize="18dp"
                 app:layout_constraintStart_toEndOf="@+id/img_product_image"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,8 +89,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
                 android:text="856203478567586"
-                android:textColor="@color/black"
-                android:textSize="20dp"
+                android:textColor="#92A096"
+                android:fontFamily="@font/karla_regular"
+                android:maxLines="1"
+                android:textSize="17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_product_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name_product" />
@@ -97,11 +102,16 @@
                 android:id="@+id/tv_time_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/register_or_margin_5dp"
+                android:fontFamily="@font/karla_bold_italic"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
                 android:text="26/02/2022"
-                android:textColor="@color/black"
+                android:textColor="#FCA5AE"
+                android:textSize="@dimen/_8sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_star_off_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

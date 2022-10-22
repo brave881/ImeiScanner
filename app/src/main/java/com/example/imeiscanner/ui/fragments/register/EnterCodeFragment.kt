@@ -1,7 +1,6 @@
 package com.example.imeiscanner.ui.fragments.register
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,8 +23,6 @@ class EnterCodeFragment(
 
     private lateinit var binding: FragmentEnterCodeBinding
     private lateinit var tvTimer: TextView
-
-   private lateinit var timer: CountDownTimer
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,6 +52,7 @@ class EnterCodeFragment(
     private fun initFields() {
         tvTimer = binding.textViewCountdownTime
         MAIN_ACTIVITY.title = phoneNumber
+        binding.tvPhoneNumber.text = "at $phoneNumber"
     }
 
     private fun checkCode() {

@@ -78,9 +78,10 @@
 
             android:id="@+id/rvMainFragment"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="match_parent"
+            android:layout_height="615dp"
+            android:visibility="visible"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -127,8 +128,10 @@
 
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/main_ex"
             style="@style/card_view_main_fragment"
             app:cardCornerRadius="@dimen/margin_10_dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,8 +180,10 @@
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
 
             <com.google.android.material.bottomappbar.BottomAppBar
