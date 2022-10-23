@@ -18,7 +18,7 @@ import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 
 
-class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
+class EditFragment : BaseFragment(R.layout.fragment_edit) {
     private lateinit var binding: FragmentEditBinding
     private lateinit var options: ScanOptions
     private lateinit var imei1: EditText

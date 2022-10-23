@@ -30,7 +30,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
         super.onResume()
-
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.title = getString(R.string.setttings)
         initFields()
@@ -49,7 +48,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
 
     private fun initClicks() {
-        binding.settingsUserPhotoChange.setOnClickListener {
+        binding.profileImage.setOnClickListener {
             if (CAMERA_SELF_PERMISSION == PackageManager.PERMISSION_GRANTED) changePhoto()
             else requestPermissionLauncher.launch(CAMERA)
         }
