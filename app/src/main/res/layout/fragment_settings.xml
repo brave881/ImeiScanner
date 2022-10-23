@@ -10,28 +10,60 @@
         android:id="@+id/textView5"
         android:layout_width="412dp"
         android:layout_height="79dp"
-        app:layout_constraintBottom_toTopOf="@id/profile_image"
+        app:layout_constraintBottom_toTopOf="@id/settings_photo_block"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="100dp"
-        android:id="@+id/profile_image"
-        android:layout_height="100dp"
-        android:src="@drawable/google"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_photo_block"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
         android:layout_marginTop="@dimen/top_margin_20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settings_user_photo"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:src="@drawable/img22"
+            tools:ignore="MissingConstraints" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/settings_change_photo"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/camera_background"
+                tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="23dp"
+                android:src="@drawable/photo_camera_com"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <androidx.cardview.widget.CardView
-        style="@style/card_style"
         android:id="@+id/card_name"
+        style="@style/card_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_image">
+        app:layout_constraintTop_toBottomOf="@id/settings_photo_block">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +75,7 @@
                 android:text="@string/your_name" />
 
             <TextView
-                android:id="@+id/tv_settings_name"
+                android:id="@+id/settings_user_name"
                 style="@style/phone_info_tv_style"
                 android:text="@string/name" />
 
@@ -51,22 +83,21 @@
         </LinearLayout>
 
 
-
-            <ImageView
-                android:layout_margin="@dimen/margin_10_dp"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/edit_pen"/>
-
+        <ImageView
+            android:id="@+id/settings_user_name_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/margin_10_dp"
+            android:src="@drawable/edit_pen" />
 
 
     </androidx.cardview.widget.CardView>
 
 
     <androidx.cardview.widget.CardView
-        style="@style/card_style"
         android:id="@+id/card_email"
+        style="@style/card_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_name">
@@ -75,25 +106,34 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
-                android:id="@+id/email_or_phone_text"
+                android:id="@+id/settings_email_text"
                 style="@style/phone_info_info_tv_style"
                 android:text="@string/email" />
+
             <TextView
-                android:id="@+id/tv_settings_email"
+                android:id="@+id/settings_email_or_phone_text"
                 style="@style/phone_info_tv_style"
                 android:text="@string/name" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/settings_user_phone_change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="@dimen/margin_10_dp"
+            android:src="@drawable/edit_pen"
+            android:visibility="gone" />
 
 
     </androidx.cardview.widget.CardView>
 
 
-
-
     <androidx.cardview.widget.CardView
-        style="@style/card_style"
         android:id="@+id/card_lang"
+        style="@style/card_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/card_email">
@@ -102,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 style="@style/phone_info_info_tv_style"
                 android:text="@string/language_text" />
@@ -115,41 +156,18 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_delete_account"
-        style="@style/card_style"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_lang">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_settings_delete_account"
-                style="@style/phone_info_tv_style"
-                android:textColor="#FF4E35"
-                android:text="@string/delete_account" />
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/settings_log_out_btn"
         style="@style/mid_text_style"
         android:layout_marginBottom="@dimen/margin_10_dp"
         android:background="@drawable/button_shape_red"
         android:gravity="center"
-        android:text="Log out"
+        android:text="@string/log_out_text"
         android:textSize="@dimen/top_margin_20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

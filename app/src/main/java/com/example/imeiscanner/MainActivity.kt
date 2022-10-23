@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
         initUser {
             initFields()
             initFunctions()
-        }
-
+       }
     }
 
     override fun onResume() {
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavBar.background = null
         binding.bottomNavBar.menu.getItem(2).isEnabled = false
     }
-    
+
 
     private fun initShareP() {
         sharedPreferences = MAIN_ACTIVITY.getSharedPreferences("Imei_Scanner", Context.MODE_PRIVATE)

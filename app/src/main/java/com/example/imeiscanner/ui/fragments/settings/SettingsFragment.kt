@@ -48,27 +48,25 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         }
 
     private fun initClicks() {
-        binding.profileImage.setOnClickListener {
+        binding.settingsChangePhoto.setOnClickListener {
             if (CAMERA_SELF_PERMISSION == PackageManager.PERMISSION_GRANTED) changePhoto()
             else requestPermissionLauncher.launch(CAMERA)
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
-        if (userGoogleOrPhone() == PHONE_PROVIDER_ID) {
-            binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
-        }
     }
 
     private fun initFields() {
         binding.settingsUserName.text = USER.fullname
-        binding.settingsPhoneChange.text = USER.email
-        binding.settingsUserNameChange.text = USER.fullname
+//        binding.settingsPhoneChange.text = USER.email
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
-            binding.settingsUserEmailORPhone.text = USER.email
+            binding.settingsEmailOrPhoneText.text = USER.email
+            binding.settingsEmailText.text=getString(R.string.email)
         } else {
-            binding.settingsUserEmailORPhone.text = USER.phone
-            binding.settingsPhoneChange.text = USER.phone
-            binding.settingsPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
+            binding.settingsEmailText.text=getString(R.string.name)
+            binding.settingsUserPhoneChange.visibility=View.VISIBLE
+            binding.settingsEmailOrPhoneText.text = USER.phone
+            binding.settingsUserPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsLogOutBtn.setOnClickListener { logOutDialog() }

@@ -24,7 +24,7 @@
     <string name="delete_text">Delete</string>
     <string name="log_out_dialog_text">Log Out!</string>
     <string name="log_out_dialog_message">Are you sure You want to log out?</string>
-    <string name="log_out_text">Log Out</string>
+    <string name="log_out_text">Log out</string>
     <string name="image_changed">Image Changed!</string>
     <string name="setttings">Settings</string>
     <string name="welcome">Welcome</string>
