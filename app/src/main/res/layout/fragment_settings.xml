@@ -26,8 +26,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
-
-
     <androidx.cardview.widget.CardView
         style="@style/card_style"
         android:id="@+id/card_name"
@@ -107,6 +105,7 @@
             <TextView
                 style="@style/phone_info_info_tv_style"
                 android:text="@string/language_text" />
+
             <TextView
                 android:id="@+id/tv_settings_lang"
                 style="@style/phone_info_tv_style"
@@ -116,14 +115,37 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_delete_account"
+        style="@style/card_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_lang">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_settings_delete_account"
+                style="@style/phone_info_tv_style"
+                android:textColor="#FF4E35"
+                android:text="@string/delete_account" />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
+        android:id="@+id/textView6"
         style="@style/mid_text_style"
-        android:textSize="@dimen/top_margin_20dp"
-        android:background="@drawable/button_shape_red"
-        android:text="Log out"
-        android:gravity="center"
         android:layout_marginBottom="@dimen/margin_10_dp"
+        android:background="@drawable/button_shape_red"
+        android:gravity="center"
+        android:text="Log out"
+        android:textSize="@dimen/top_margin_20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -65,15 +65,12 @@ class MainFragment : Fragment() {
         initSort()
         initFields()
         hideKeyboard()
-        binding.btnOpenPhoneFragment.setOnClickListener {
-            replaceFragment(PhoneAddFragment())
-        }
+
         initRecyclerView()
         checkDataExists()
         initPopupMenu()
         listenerToolbar()
-        binding.bottomNavBar.background = null
-        binding.bottomNavBar.menu.getItem(2).isEnabled = false
+
     }
 
     private fun initPopupMenu() {
@@ -104,9 +101,7 @@ class MainFragment : Fragment() {
 
     private fun cancelBinding() {
         binding.toolbarItem.visibility = View.GONE
-        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
         MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
-        binding.btnOpenPhoneFragment.visibility = View.VISIBLE
     }
 
     private fun cancel() {
@@ -159,7 +154,6 @@ class MainFragment : Fragment() {
         rv.adapter = adapter
         adapter.startListening()
         clickItem()
-        (adapter as MainAdapter).initFloatButton(binding.btnOpenPhoneFragment)
         (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
     }
 

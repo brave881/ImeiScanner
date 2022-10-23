@@ -10,6 +10,7 @@ import com.example.imeiscanner.database.AUTH
 import com.example.imeiscanner.database.initFirebase
 import com.example.imeiscanner.database.initUser
 import com.example.imeiscanner.databinding.ActivityMainBinding
+import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
 import com.example.imeiscanner.ui.fragments.mainFragment.MainFragment
 import com.example.imeiscanner.ui.fragments.register.RegisterFragment
 import com.example.imeiscanner.utilits.*
@@ -33,9 +34,19 @@ class MainActivity : AppCompatActivity() {
         initUser {
             initFields()
             initFunctions()
-       }
+        }
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        binding.btnOpenPhoneFragment.setOnClickListener {
+            replaceFragment(PhoneAddFragment())
+        }
+        binding.bottomNavBar.background = null
+        binding.bottomNavBar.menu.getItem(2).isEnabled = false
+    }
+    
 
     private fun initShareP() {
         sharedPreferences = MAIN_ACTIVITY.getSharedPreferences("Imei_Scanner", Context.MODE_PRIVATE)
