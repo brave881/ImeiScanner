@@ -52,12 +52,12 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
         ) { _, result ->
             items = result.getSerializable(POSITION_ITEM) as PhoneDataModel
             binding.tvPhoneName.text = items.phone_name
-            binding.tvPhoneSerialNumber.text = items.phone_serial_number
+            binding.tvPhoneSerial.text = items.phone_serial_number
             binding.tvPhoneImei1.text = items.phone_imei1
             binding.tvPhoneImei2.text = items.phone_imei2
-            binding.tvPhoneAddedDate.text = items.phone_added_date
+            binding.tvPhoneDate.text = items.phone_added_date
             binding.tvPhoneMemory.text = items.phone_memory
-            binding.tvPhoneBatteryState.text = items.phone_battery_info
+            binding.tvPhoneState.text = items.phone_battery_info
             binding.tvPhonePrice.text = items.phone_price
         }
     }

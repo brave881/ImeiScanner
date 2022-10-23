@@ -78,4 +78,6 @@
     <string name="surname">Surname(optional)</string>
     <string name="delete_data">Delete Data!</string>
     <string name="delete_item_message">Are you sure? This information will be deleted</string>
+    <string name="your_name">Your name</string>
+    <string name="email">Email</string>
 </resources>

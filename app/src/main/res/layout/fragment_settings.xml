@@ -6,176 +6,128 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.settings.SettingsFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_header_block"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorPrimary"
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="412dp"
+        android:layout_height="79dp"
+        app:layout_constraintBottom_toTopOf="@id/profile_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settings_user_photo"
-            android:layout_width="@dimen/settings_user_photo_width"
-            android:layout_height="@dimen/settings_user_photo_height"
-            android:layout_marginStart="@dimen/app_margin"
-            android:src="@drawable/ic_profile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/settings_user_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_margin"
-            android:layout_marginTop="@dimen/app_small_margin"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/normal_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/settings_user_photo"
-            app:layout_constraintTop_toTopOf="@id/settings_user_photo" />
-
-        <TextView
-            android:id="@+id/settings_user_emailOR_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_margin"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/small_text_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/settings_user_photo"
-            app:layout_constraintTop_toBottomOf="@id/settings_user_name" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/settings_user_photo_change"
-        android:layout_width="@dimen/settings_user_photo_width"
-        android:layout_height="@dimen/settings_user_photo_height"
-        android:layout_marginEnd="@dimen/app_margin"
-        android:src="@drawable/ic_add_photo"
-        app:civ_circle_background_color="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="@id/settings_header_block"
-        app:layout_constraintEnd_toEndOf="@id/settings_header_block"
-        app:layout_constraintTop_toBottomOf="@id/settings_header_block" />
+        android:layout_width="100dp"
+        android:id="@+id/profile_image"
+        android:layout_height="100dp"
+        android:src="@drawable/google"
+        android:layout_marginTop="@dimen/top_margin_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/card_style"
+        android:id="@+id/card_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_image">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/phone_info_info_tv_style"
+                android:text="@string/your_name" />
+
+            <TextView
+                android:id="@+id/tv_settings_name"
+                style="@style/phone_info_tv_style"
+                android:text="@string/name" />
+
+
+        </LinearLayout>
+
+
+
+            <ImageView
+                android:layout_margin="@dimen/margin_10_dp"
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_pen"/>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/card_style"
+        android:id="@+id/card_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_name">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/email_or_phone_text"
+                style="@style/phone_info_info_tv_style"
+                android:text="@string/email" />
+            <TextView
+                android:id="@+id/tv_settings_email"
+                style="@style/phone_info_tv_style"
+                android:text="@string/name" />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/card_style"
+        android:id="@+id/card_lang"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_email">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                style="@style/phone_info_info_tv_style"
+                android:text="@string/language_text" />
+            <TextView
+                android:id="@+id/tv_settings_lang"
+                style="@style/phone_info_tv_style"
+                android:text="@string/name" />
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
     <TextView
-        android:id="@+id/settings_account_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/app_margin"
-        android:layout_marginTop="@dimen/app_margin"
-        android:text="@string/settings_account_text"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/normal_text_size"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/settings_header_block" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_user_name_block"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_account_text">
-
-        <TextView
-            android:id="@+id/settings_user_name_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_margin"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_phone_change_block"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_user_name_block">
-
-        <TextView
-            android:id="@+id/settings_phone_change"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/app_margin"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_language_btn_block"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_margin"
-        android:focusable="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_phone_change_block">
-
-        <ImageView
-            android:id="@+id/settings_language_btn"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="@dimen/app_margin"
-            android:src="@drawable/ic_language"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/settings_language_change"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_10_dp"
-            android:text="@string/language_text"
-            android:textColor="@color/black"
-            android:textSize="@dimen/large_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/settings_language_btn"
-            app:layout_constraintStart_toEndOf="@id/settings_language_btn"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_log_out_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/app_margin"
-        android:background="@color/colorGray"
-        android:clickable="true"
-        android:focusable="true"
+        style="@style/mid_text_style"
+        android:textSize="@dimen/top_margin_20dp"
+        android:background="@drawable/button_shape_red"
+        android:text="Log out"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_10_dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/settings_log_out_image"
-            style="@style/settings_log_out_image_style"
-            android:src="@drawable/ic_log_out"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/settings_log_out_text"
-            style="@style/settings_log_out_text_style"
-            android:text="@string/settings_log_out_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/settings_log_out_image"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

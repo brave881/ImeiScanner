@@ -163,15 +163,18 @@ class MainFragment : Fragment() {
         (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
     }
 
+
     private fun checkDataExists() {
-//        showToast((adapter as MainAdapter).getItemsCount().toString())
-        if ((adapter as MainAdapter).getItemsCount()) {
-            rv.visibility = View.VISIBLE
-            binding.mainEx.visibility = View.GONE
-        } else {
-            rv.visibility = View.GONE
-            binding.mainEx.visibility = View.VISIBLE
-        }
+        val ref = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
+        ref.addValueEventListener(AppValueEventListener {
+            if (it.childrenCount > 0) {
+                binding.mainEx.visibility = View.GONE
+                rv.visibility = View.VISIBLE
+            } else {
+                rv.visibility = View.GONE
+                binding.mainEx.visibility = View.VISIBLE
+            }
+        })
     }
 
     private fun clickItem() {

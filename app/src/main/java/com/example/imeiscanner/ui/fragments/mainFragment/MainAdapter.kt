@@ -68,7 +68,7 @@ class MainAdapter(
             holder.star_off.visibility = View.VISIBLE
         }
 
-        if (model.id.isNotEmpty()) bool = false
+        if (model.id.isEmpty()) bool = false
         holdersList[holder] = model
         var item = PhoneDataModel()
         val referenceItem =
@@ -103,9 +103,7 @@ class MainAdapter(
     }
 
 
-    fun getItemsCount(): Boolean {
-        return bool
-    }
+
 
     private fun selectItem(holder: PhonesHolder, model: PhoneDataModel) {
         floatingButton.visibility = View.GONE

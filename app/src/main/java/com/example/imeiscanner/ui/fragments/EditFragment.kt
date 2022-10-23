@@ -87,20 +87,20 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
 
     private fun initFields() {
         options = ScanOptions()
-        imei1 = binding.phoneEditPhoneImei1
-        imei2 = binding.phoneEditPhoneImei2
-        serialNumber = binding.phoneEditPhoneSerialNumber
-        battery = binding.phoneEditPhoneBattery
-        price = binding.phoneEditPhonePrice
-        memory = binding.phoneEditPhoneMemory
-        name = binding.phoneEditPhoneName
-        dateView = binding.btnDate
+        imei1 = binding.phoneAddImei1
+        imei2 = binding.phoneAddImei2
+        serialNumber = binding.phoneAddSerialNumber
+        battery = binding.phoneAddBatteryState
+        price = binding.phoneAddPrice
+        memory = binding.phoneAddMemory
+        name = binding.phoneAddPhoneName
+        dateView = binding.phoneAddDate
 
 
     }
 
     private fun saveDate() {
-        binding.btnEditSave.setOnClickListener {
+        binding.btnSave.setOnClickListener {
             if (imei1.text.toString().isNotEmpty()
             ) {
                 dateMap = addDatabaseImei(
@@ -132,7 +132,7 @@ class EditFragment : BaseFragment(R.layout.fragment_phone_data) {
 
 
     private fun dateInstall() {
-        binding.btnDate.setOnClickListener {
+        binding.phoneAddDate.setOnClickListener {
             showDatePicker(requireContext(), dateView)
         }
     }

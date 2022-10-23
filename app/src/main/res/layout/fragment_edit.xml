@@ -1,139 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background_top"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="@dimen/margin_10_dp"
     tools:context=".ui.fragments.EditFragment">
 
-    <EditText
-        android:clickable="true"
-        android:focusable="true"
-        android:id="@+id/phone_edit_phone_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone_name_text"
+        android:layout_height="83dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-
-        android:clickable="true"
-        android:focusable="true"
-        android:id="@+id/phone_edit_phone_imei_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/imei1_text"
-        app:layout_constraintEnd_toStartOf="@id/btn_imei_1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_edit_phone_name" />
-
-    <ImageView
-        android:id="@+id/btn_imei_1"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/barcode_scanner"
-        app:layout_constraintBottom_toTopOf="@+id/phone_edit_phone_imei_2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/phone_edit_phone_imei_1"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_name" />
-
-    <EditText
-        android:clickable="true"
-        android:focusable="true"
-        android:id="@+id/phone_edit_phone_imei_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/imei2_text"
-        app:layout_constraintEnd_toStartOf="@id/btn_imei_2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_edit_phone_imei_1" />
-
-    <ImageView
-        android:id="@+id/btn_imei_2"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/barcode_scanner"
-        app:layout_constraintBottom_toTopOf="@+id/phone_edit_phone_serial_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/phone_edit_phone_imei_2"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_imei_1" />
+        <ImageView
+            android:id="@+id/back_to_main"
+            android:layout_width="32dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="@dimen/top_margin_20dp"
+            android:src="@drawable/back_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <EditText
-        android:id="@+id/phone_edit_phone_serial_number"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/serial_number_text"
-        app:layout_constraintEnd_toStartOf="@id/btn_serial_number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_edit_phone_imei_2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/karla_bold"
+            android:text="Edit phone information"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/btn_serial_number"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/barcode_scanner"
-        app:layout_constraintBottom_toTopOf="@+id/phone_edit_phone_battery"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/phone_edit_phone_serial_number"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_imei_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-
-    <EditText
-        android:id="@+id/phone_edit_phone_memory"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/memory_text"
-        app:layout_constraintEnd_toStartOf="@id/phone_edit_phone_battery"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_serial_number" />
-
-    <EditText
-        android:id="@+id/phone_edit_phone_battery"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/app_margin"
-        android:hint="@string/battery_state_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/phone_edit_phone_memory"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_serial_number" />
-
-    <EditText
-        android:id="@+id/phone_edit_phone_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/price_text"
-        app:layout_constraintEnd_toStartOf="@id/btn_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_memory" />
-
-    <TextView
-        android:id="@+id/btn_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/_26_09_2022_text"
-        android:layout_marginStart="@dimen/app_margin"
-        android:textSize="@dimen/large_text_size"
-        app:layout_constraintBottom_toBottomOf="@+id/phone_edit_phone_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/phone_edit_phone_price"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_battery" />
-
-
-    <Button
-        android:id="@+id/btn_edit_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save_text"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="650dp"
+        android:background="@drawable/verification_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_phone_price" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <TextView
+            android:id="@+id/tv_phone_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:fontFamily="@font/karla_bold"
+            android:text="Phone Information"
+            android:textColor="#8A8A8A"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Phone name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_phone_information">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_phone_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!-- /////////  IMei 1 \\\\\\\\\\\\\\\\\\ -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Imei 1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_imei1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/btn_imei_1"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:src="@drawable/qr_code_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout2" />
+
+
+        <!-- /////////  IMei 2 \\\\\\\\\\\\\\\\\\ -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Imei 2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_imei2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/btn_imei_2"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:src="@drawable/qr_code_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout3" />
+
+
+        <!--         Serial number          -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Serial Number"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_serial_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/btn_serial_number"
+            android:layout_width="@dimen/_17sdp"
+            android:layout_height="@dimen/_17sdp"
+            android:layout_marginEnd="@dimen/margin_10_dp"
+            android:src="@drawable/qr_code_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
+
+
+        <!--       Memory         -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout5"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Memory"
+            app:layout_constraintEnd_toStartOf="@id/textInputLayout6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_memory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--       Battery         -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout6"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Battery State"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textInputLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_battery_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--       price         -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout7"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Price"
+            app:layout_constraintEnd_toStartOf="@id/textInputLayout8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <!--       date         -->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout8"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/textInputLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_add_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/karla_bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_20sdp"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/karla_bold"
+        android:gravity="center"
+        android:text="Save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_22sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
