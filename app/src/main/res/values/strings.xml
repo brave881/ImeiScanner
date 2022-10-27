@@ -80,4 +80,5 @@
     <string name="delete_item_message">Are you sure? This information will be deleted</string>
     <string name="your_name">Your name</string>
     <string name="email">Email</string>
+    <string name="pohone">Phone</string>
 </resources>

@@ -193,6 +193,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
         inflater.inflate(R.menu.search_menu, menu)
         newestBtn = menu.findItem(R.id.menu_first_newest)
         oldestBtn = menu.findItem(R.id.menu_first_oldest)

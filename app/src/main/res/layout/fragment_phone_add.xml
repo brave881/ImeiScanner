@@ -90,7 +90,6 @@
 
             <!-- /////////  IMei 1 \\\\\\\\\\\\\\\\\\ -->
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -106,6 +105,8 @@
                     android:id="@+id/phone_add_imei1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:fontFamily="@font/karla_bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -137,6 +138,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone_add_imei2"
                     android:layout_width="match_parent"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/karla_bold" />
 
@@ -169,6 +172,8 @@
                     android:id="@+id/phone_add_serial_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:fontFamily="@font/karla_bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -202,6 +207,8 @@
                     android:id="@+id/phone_add_memory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:fontFamily="@font/karla_bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -223,6 +230,9 @@
                     android:id="@+id/phone_add_battery_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:maxLines="1"
                     android:fontFamily="@font/karla_bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -246,6 +256,8 @@
                     android:id="@+id/phone_add_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
                     android:fontFamily="@font/karla_bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -267,6 +279,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/phone_add_date"
                     android:layout_width="match_parent"
+                    android:inputType="date"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/karla_bold" />
 

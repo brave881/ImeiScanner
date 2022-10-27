@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background_top"
     android:layout_height="match_parent"
+    android:background="@drawable/background_top"
     tools:context=".ui.fragments.EditFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +43,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -61,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/app_margin "
             android:fontFamily="@font/karla_bold"
             android:text="Phone Information"
             android:textColor="#8A8A8A"
@@ -90,7 +89,6 @@
 
         <!-- /////////  IMei 1 \\\\\\\\\\\\\\\\\\ -->
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -105,8 +103,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_add_imei1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:layout_height="49dp"
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -138,7 +138,9 @@
                 android:id="@+id/phone_add_imei2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -169,7 +171,9 @@
                 android:id="@+id/phone_add_serial_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -202,7 +206,9 @@
                 android:id="@+id/phone_add_memory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -223,7 +229,10 @@
                 android:id="@+id/phone_add_battery_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLength="3"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -246,7 +255,9 @@
                 android:id="@+id/phone_add_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="number"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -268,7 +279,9 @@
                 android:id="@+id/phone_add_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold" />
+                android:fontFamily="@font/karla_bold"
+                android:inputType="date"
+                android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
