@@ -39,11 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.btnOpenPhoneFragment.setOnClickListener {
-            replaceFragment(PhoneAddFragment())
-        }
-        binding.bottomNavBar.background = null
-        binding.bottomNavBar.menu.getItem(2).isEnabled = false
+//        binding.bottomNavBar.background = null
+//        binding.bottomNavBar.menu.getItem(2).isEnabled = false
     }
 
 

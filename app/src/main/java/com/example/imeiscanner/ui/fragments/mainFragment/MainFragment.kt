@@ -16,8 +16,10 @@ import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
+import com.example.imeiscanner.ui.fragments.SearchFragment
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
+import com.example.imeiscanner.ui.fragments.settings.SettingsFragment
 import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -65,12 +67,13 @@ class MainFragment : Fragment() {
         initSort()
         initFields()
         hideKeyboard()
-
         initRecyclerView()
         checkDataExists()
         initPopupMenu()
         listenerToolbar()
-
+        binding.btnOpenPhoneFragment.setOnClickListener {
+            replaceFragment(PhoneAddFragment())
+        }
     }
 
     private fun initPopupMenu() {
@@ -193,13 +196,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
         inflater.inflate(R.menu.search_menu, menu)
         newestBtn = menu.findItem(R.id.menu_first_newest)
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
         val searchItem = menu.findItem(R.id.menu_search_btn)
         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
-        searchWithQRCode.isVisible = true
+        searchWithQRCode.isVisible = false
         scannerButton = searchWithQRCode.actionView as ImageView
         scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
         searchView = searchItem.actionView as SearchView
@@ -217,6 +219,9 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_search_btn -> {
+                replaceFragment(SearchFragment())
+            }
             R.id.menu_first_newest -> {
                 editor.putBoolean(STATE, true)
                 editor.apply()
