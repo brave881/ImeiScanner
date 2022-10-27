@@ -34,7 +34,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         MAIN_ACTIVITY.title = getString(R.string.setttings)
         initFields()
         initClicks()
-        binding.tvSettingsLang.setOnClickListener { changeLanguage() }
+        binding.settingsLanguage.setOnClickListener { changeLanguage() }
     }
 
     override fun onStop() {

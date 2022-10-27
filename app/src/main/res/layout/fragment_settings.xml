@@ -28,7 +28,7 @@
             android:id="@+id/settings_user_photo"
             android:layout_width="84dp"
             android:layout_height="84dp"
-            android:src="@drawable/img22"
+            android:src="@drawable/img1"
             tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -148,9 +148,8 @@
                 android:text="@string/language_text" />
 
             <TextView
-                android:id="@+id/tv_settings_lang"
-                style="@style/phone_info_tv_style"
-                android:text="@string/name" />
+                android:id="@+id/settings_language"
+                style="@style/phone_info_tv_style" />
         </LinearLayout>
 
 

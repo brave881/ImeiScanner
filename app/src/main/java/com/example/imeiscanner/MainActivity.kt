@@ -37,13 +37,6 @@ class MainActivity : AppCompatActivity() {
        }
     }
 
-    override fun onResume() {
-        super.onResume()
-//        binding.bottomNavBar.background = null
-//        binding.bottomNavBar.menu.getItem(2).isEnabled = false
-    }
-
-
     private fun initShareP() {
         sharedPreferences = MAIN_ACTIVITY.getSharedPreferences("Imei_Scanner", Context.MODE_PRIVATE)
         editor = sharedPreferences.edit()

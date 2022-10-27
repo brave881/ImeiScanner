@@ -71,7 +71,7 @@ class MainFragment : Fragment() {
         checkDataExists()
         initPopupMenu()
         listenerToolbar()
-        binding.btnOpenPhoneFragment.setOnClickListener {
+        binding.floatActionBtn.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
     }
@@ -158,6 +158,7 @@ class MainFragment : Fragment() {
         adapter.startListening()
         clickItem()
         (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
+        (adapter as MainAdapter).initFloatButton(binding.floatActionBtn)
     }
 
 
@@ -201,7 +202,7 @@ class MainFragment : Fragment() {
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
         val searchItem = menu.findItem(R.id.menu_search_btn)
         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
-        searchWithQRCode.isVisible = false
+        searchWithQRCode.isVisible = true
         scannerButton = searchWithQRCode.actionView as ImageView
         scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
         searchView = searchItem.actionView as SearchView

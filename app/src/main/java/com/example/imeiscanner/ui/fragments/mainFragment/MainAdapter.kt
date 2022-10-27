@@ -102,9 +102,6 @@ class MainAdapter(
         }
     }
 
-
-
-
     private fun selectItem(holder: PhonesHolder, model: PhoneDataModel) {
         floatingButton.visibility = View.GONE
         MAIN_ACTIVITY.mToolbar.visibility = View.GONE
