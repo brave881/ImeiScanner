@@ -74,6 +74,7 @@
         android:layout_height="match_parent"
         android:visibility="visible">
 
+
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/rvMainFragment"
@@ -83,10 +84,10 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/main_ex"
@@ -145,8 +146,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_margin="@dimen/app_margin"
             android:elevation="@dimen/margin_10_dp"
-            android:src="@drawable/ic_baseline_add_24"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:src="@drawable/ic_baseline_add_24"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
