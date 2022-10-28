@@ -34,6 +34,17 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         MAIN_ACTIVITY.title = getString(R.string.setttings)
         initFields()
         initClicks()
+        when (sharedPreferences.getString(LANG, "")) {
+            "en" -> {
+                binding.settingsLanguage.text = getString(R.string.english)
+            }
+            "tr" -> {
+                binding.settingsLanguage.text = "Türkçe"
+            }
+            "uz" -> {
+                binding.settingsLanguage.text = "O'zbekcha"
+            }
+        }
         binding.settingsLanguage.setOnClickListener { changeLanguage() }
     }
 
@@ -61,12 +72,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         binding.settingsUserPhoto.photoDownloadAndSet(USER.photoUrl)
         if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
             binding.settingsEmailOrPhoneText.text = USER.email
-            binding.settingsEmailText.text=getString(R.string.email)
+            binding.settingsEmailText.text = getString(R.string.email)
         } else {
-            binding.settingsEmailText.text=getString(R.string.pohone)
-            binding.settingsUserPhoneChange.visibility=View.VISIBLE
+            binding.settingsEmailText.text = getString(R.string.pohone)
             binding.settingsEmailOrPhoneText.text = USER.phone
-            binding.settingsUserPhoneChange.setOnClickListener { replaceFragment(ChangeUserPhoneFragment()) }
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
         binding.settingsLogOutBtn.setOnClickListener { logOutDialog() }

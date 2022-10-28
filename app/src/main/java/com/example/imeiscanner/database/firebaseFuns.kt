@@ -1,7 +1,6 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
-import android.util.Log
 import android.widget.EditText
 import com.example.imeiscanner.R
 import com.example.imeiscanner.models.PhoneDataModel
@@ -104,7 +103,7 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID)
                 .child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
@@ -148,7 +147,7 @@ fun updateFullNameFromDatabase(fullname: String) {
                 .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).child(CHILD_FULLNAME)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
                 .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
     }
@@ -202,7 +201,7 @@ fun deleteUserFromDatabase() {
                 .addOnFailureListener { showToast(it.message.toString()) }
         }
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(USER.phone).removeValue()
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID).removeValue()
         }
     }
 }
@@ -215,27 +214,25 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
     dataMap[CHILD_PHONE] = phoneNumber
     dataMap[CHILD_ID] = uid
     dataMap[CHILD_TYPE] = PhoneAuthProvider.PROVIDER_ID
-    Log.d(TAG, "signInWithPhone: $uid")
-    FirebaseDatabase.getInstance().reference.child(NODE_USERS).setValue(name)
-        .addOnFailureListener { showToast(it.message.toString()) }
+//    FirebaseDatabase.getInstance().reference.child(NODE_USERS).setValue(name)
+//        .addOnFailureListener { showToast(it.message.toString()) }
 //        .addOnSuccessListener {
 //            restartActivity()
 //            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
 //        }
-    REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
-        .addListenerForSingleValueEvent(AppValueEventListener {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(phoneNumber).updateChildren(dataMap)
+//    REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+//        .addListenerForSingleValueEvent(AppValueEventListener {
+    REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(uid).updateChildren(dataMap)
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener {
+
+            REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
                 .addOnFailureListener { showToast(it.message.toString()) }
                 .addOnSuccessListener {
-
-                    REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
-                        .addOnFailureListener { showToast(it.message.toString()) }
-                        .addOnSuccessListener {
-                            restartActivity()
-                            showToast(MAIN_ACTIVITY.getString(R.string.welcome))
-                        }
+                    restartActivity()
+                    showToast(MAIN_ACTIVITY.getString(R.string.welcome))
                 }
-        })
+        }
 }
 
 fun addFavourites(item: PhoneDataModel) {
@@ -275,14 +272,16 @@ fun deleteFavouritesValue(value: String) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun getCallbacks(phoneNumber: String): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+fun getCallbacks(
+    phoneNumber: String,
+    function: () -> Unit
+): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
             AUTH.signInWithCredential(credential).addOnSuccessListener {
-                restartActivity()
-                showToast(MAIN_ACTIVITY.getString(R.string.welcome))
+                function()
             }.addOnFailureListener { showToast(it.message.toString()) }
         }
 
@@ -294,7 +293,7 @@ fun getCallbacks(phoneNumber: String): PhoneAuthProvider.OnVerificationStateChan
             verificationId: String,
             token: PhoneAuthProvider.ForceResendingToken
         ) {
-            replaceFragment(EnterCodeFragment(phoneNumber, verificationId, token))
+                replaceFragment(EnterCodeFragment(phoneNumber, verificationId, token))
         }
     }
     return callbacks

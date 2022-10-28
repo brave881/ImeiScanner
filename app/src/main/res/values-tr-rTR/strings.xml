@@ -70,4 +70,6 @@
     <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it</string>
     <string name="delete_data">Delete Data!</string>
     <string name="delete_item_message">Are you sure? This information will be deleted</string>
+    <string name="number_text">Number</string>
+    <string name="phone_number_empty">Phone Number is Empty</string>
 </resources>

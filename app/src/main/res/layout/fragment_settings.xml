@@ -117,17 +117,6 @@
                 style="@style/phone_info_tv_style"
                 android:text="@string/name" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/settings_user_phone_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="@dimen/margin_10_dp"
-            android:src="@drawable/edit_pen"
-            android:visibility="gone" />
-
-
     </androidx.cardview.widget.CardView>
 
 
@@ -149,6 +138,7 @@
 
             <TextView
                 android:id="@+id/settings_language"
+                android:text="@string/english"
                 style="@style/phone_info_tv_style" />
         </LinearLayout>
 

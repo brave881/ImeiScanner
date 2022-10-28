@@ -13,6 +13,7 @@ import com.example.imeiscanner.database.getCallbacks
 import com.example.imeiscanner.databinding.FragmentRegisterBinding
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.RC_SiGN_IN
+import com.example.imeiscanner.utilits.restartActivity
 import com.example.imeiscanner.utilits.showToast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -69,8 +70,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-
-
     private fun signWithGoogle() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -89,13 +88,17 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun options() {
-        mPhoneNumber = "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text}"
+        mPhoneNumber =
+            "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text}"
 
         val options = PhoneAuthOptions.newBuilder(AUTH)
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
             .setActivity(MAIN_ACTIVITY)                 // Activity (for callback binding)
-            .setCallbacks(getCallbacks(mPhoneNumber))                    // OnVerificationStateChangedCallbacks
+            .setCallbacks(getCallbacks(mPhoneNumber) {
+                showToast(MAIN_ACTIVITY.getString(R.string.welcome))
+                restartActivity()
+            })                    // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }

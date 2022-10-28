@@ -212,13 +212,11 @@ fun startTimer(tvTimer:TextView):CountDownTimer {
         .setPhoneNumber(phoneNumber)
         .setTimeout(60L, TimeUnit.SECONDS)
         .setActivity(MAIN_ACTIVITY)
-        .setCallbacks(getCallbacks(phoneNumber))
+        .setCallbacks(getCallbacks(phoneNumber) {})
         .setForceResendingToken(token)
         .build()
     PhoneAuthProvider.verifyPhoneNumber(options)
 }
 
-//fun getPlurals(count: Int) =
-//    MAIN_ACTIVITY.resources.getQuantityString(R.plurals.count_items, count, count)
 
 

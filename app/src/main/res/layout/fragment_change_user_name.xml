@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.settings.ChangeUserNameFragment">
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_name"
         style="@style/card_style"
@@ -27,16 +26,10 @@
                 android:text="@string/username_text" />
 
             <EditText
-                android:background="null"
                 android:id="@+id/st_change_username_input"
                 style="@style/phone_info_tv_style"
-                android:hint="@string/name"/>
-
-
+                android:background="@null"
+                android:hint="@string/name" />
         </LinearLayout>
-
-
     </androidx.cardview.widget.CardView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -81,4 +81,7 @@
     <string name="your_name">Your name</string>
     <string name="email">Email</string>
     <string name="pohone">Phone</string>
+    <string name="english">English</string>
+    <string name="number_text">Number</string>
+    <string name="phone_number_empty">Phone Number is Empty</string>
 </resources>

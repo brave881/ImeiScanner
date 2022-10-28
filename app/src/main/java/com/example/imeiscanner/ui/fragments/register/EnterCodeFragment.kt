@@ -1,16 +1,14 @@
 package com.example.imeiscanner.ui.fragments.register
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.AUTH
-import com.example.imeiscanner.database.NODE_USERS
-import com.example.imeiscanner.database.REF_DATABASE_ROOT
-import com.example.imeiscanner.database.signInWithPhone
+import com.example.imeiscanner.database.*
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
@@ -18,7 +16,7 @@ import com.google.firebase.auth.PhoneAuthProvider
 class EnterCodeFragment(
     private val phoneNumber: String,
     val id: String,
-    private val token: PhoneAuthProvider.ForceResendingToken
+    private val token: PhoneAuthProvider.ForceResendingToken,
 ) : Fragment() {
 
     private lateinit var binding: FragmentEnterCodeBinding
@@ -46,7 +44,6 @@ class EnterCodeFragment(
                 checkCode()
             }
         }
-
     }
 
     private fun initFields() {
@@ -59,19 +56,10 @@ class EnterCodeFragment(
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id, code)
 
-        AUTH.signInWithCredential(credential).addOnSuccessListener {
-            val uid = AUTH.currentUser?.uid.toString()
-            binding.enterCodeContainer.visibility = View.GONE
-            binding.enterNameContainer.visibility = View.VISIBLE
-            binding.enterNameNextBtn.setOnClickListener {
-                val name = binding.enterCodeName.text.toString()
-                val surname = binding.enterCodeSurname.text.toString()
-                val fullName = "$name $surname"
-                showToast(fullName)
-                signInWithPhone(uid, phoneNumber, fullName)
+            AUTH.signInWithCredential(credential).addOnSuccessListener {
+                val uid = AUTH.currentUser?.uid.toString()
+                signAndCheckUserHasExist(uid)
             }
-            signAndCheckUserHasExist(uid)
-        }
     }
 
     private fun signAndCheckUserHasExist(uid: String) {
