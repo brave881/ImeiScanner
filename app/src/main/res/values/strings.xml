@@ -84,4 +84,5 @@
     <string name="english">English</string>
     <string name="number_text">Number</string>
     <string name="phone_number_empty">Phone Number is Empty</string>
+    <string name="send_code_txt">Send Code</string>
 </resources>

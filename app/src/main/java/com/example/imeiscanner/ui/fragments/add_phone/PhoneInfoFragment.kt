@@ -41,7 +41,7 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, items)
             parentFragmentManager.setFragmentResult(DATA_FROM_PHONE_INFO_FRAGMENT, bundle)
-            replaceFragment(EditFragment())
+            replaceFragment(EditFragment(), false)
         }
     }
 

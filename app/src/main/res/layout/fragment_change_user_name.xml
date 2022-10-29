@@ -4,32 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.fragments.settings.ChangeUserNameFragment">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="@dimen/top_margin_20dp"
+        android:fontFamily="@font/karla_bold"
+        android:text="@string/username_text"
+        app:layout_constraintStart_toStartOf="@id/card_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_name"
-        style="@style/card_style"
-        android:layout_marginTop="@dimen/top_margin_20dp"
-        android:background="@drawable/stroke_cardview"
-        app:cardCornerRadius="@dimen/_11sdp"
+        style="@style/change_username_edt_style"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/phone_info_info_tv_style"
-                android:text="@string/username_text" />
-
-            <EditText
-                android:id="@+id/st_change_username_input"
-                style="@style/phone_info_tv_style"
-                android:background="@null"
-                android:hint="@string/name" />
-        </LinearLayout>
+        <EditText
+            android:id="@+id/st_change_username_input"
+            style="@style/phone_info_tv_style"
+            android:background="@null"
+            android:fontFamily="@font/karla_bold"
+            android:hint="@string/name" />
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

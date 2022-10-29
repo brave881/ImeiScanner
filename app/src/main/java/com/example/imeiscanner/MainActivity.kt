@@ -4,6 +4,8 @@ package com.example.imeiscanner
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.imeiscanner.database.AUTH
@@ -23,6 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.addFlags(    // toolbarni tepasi
+            WindowManager.LayoutParams.FLAG_DIM_BEHIND
+        )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         MAIN_ACTIVITY = this
