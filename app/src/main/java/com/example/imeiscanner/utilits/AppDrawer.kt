@@ -109,14 +109,14 @@ class AppDrawer {
 
     private fun initProfile(): ProfileDrawerItem {
 
-        if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
-            mCurrentProfile = ProfileDrawerItem()
+        mCurrentProfile = if (userGoogleOrPhone() == GOOGLE_PROVIDER_ID) {
+            ProfileDrawerItem()
                 .withIdentifier(200)
                 .withName(USER.fullname)
                 .withEmail(USER.email)
                 .withIcon(USER.photoUrl)
         } else {
-            mCurrentProfile = ProfileDrawerItem()
+            ProfileDrawerItem()
                 .withIdentifier(200)
                 .withName(USER.fullname)
                 .withEmail(USER.phone)
@@ -135,8 +135,9 @@ class AppDrawer {
 
     private fun initLoader() {
         DrawerImageLoader.init(object : AbstractDrawerImageLoader() {
+            @Deprecated("", ReplaceWith("imageView.photoDownloadAndSet(uri.toString())"))
             override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable) {
-                imageView.photoDownloadAndSet(uri.toString())  //kelyabturgan imageviewga urini rasmiini qo'yadi
+                imageView.photoDownloadAndSet(uri.toString())  //kelitgan imageviewga urini rasmiini qo'yadi
             }
         })
     }

@@ -202,7 +202,7 @@ fun startTimer(tvTimer:TextView):CountDownTimer {
         }
 
         override fun onFinish() {
-            tvTimer.text = MAIN_ACTIVITY.getString(R.string.done)
+            tvTimer.text = ""
         }
     }
 }

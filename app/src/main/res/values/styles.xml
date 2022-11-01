@@ -186,4 +186,10 @@
         <item name="android:layout_marginTop">@dimen/_5sdp</item>
         <item name="android:layout_marginBottom">@dimen/_5sdp</item>
     </style>
+
+
+    <style name="FloatingButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="colorSecondary">@color/button_color</item>
+        <item name="colorOnSecondary">@color/white</item>
+    </style>
 </resources>

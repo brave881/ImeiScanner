@@ -140,6 +140,7 @@
             android:background="@drawable/float_btn_color"
             android:clickable="@bool/is_iconics_content_provider_enabled"
             android:elevation="@dimen/margin_10_dp"
+            android:theme="@style/FloatingButton"
             android:src="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
