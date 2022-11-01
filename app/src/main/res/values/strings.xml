@@ -47,7 +47,7 @@
     <string name="phone_name_text">Phone name</string>
     <string name="serial_number_text">Serial number</string>
     <string name="imei1_text">Imei 1</string>
-    <string name="imei2_text">Imei2</string>
+    <string name="imei2_text">Imei 2</string>
     <string name="memory_text">Memory</string>
     <string name="added_date_text">Added date</string>
     <string name="price_text">Price</string>

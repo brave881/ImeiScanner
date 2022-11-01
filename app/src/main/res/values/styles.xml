@@ -134,7 +134,8 @@
     <style name="editext_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">@dimen/top_margin_20dp</item>
+        <item name="android:layout_marginStart">@dimen/top_margin_20dp</item>
+        <item name="android:layout_marginEnd">@dimen/top_margin_20dp</item>
     </style>
     <style name="change_username_edt_style" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:layout_width">match_parent</item>
@@ -154,7 +155,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/_15sdp</item>
         <item name="android:layout_marginEnd">@dimen/_15sdp</item>
-        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:layout_marginTop">12dp</item>
         <item name="android:layout_marginBottom">@dimen/_5sdp</item>
     </style>
 
@@ -167,7 +168,7 @@
         <item name="android:fontFamily">@font/karla_bold</item>
         <item name="android:padding">@dimen/register_or_margin_5dp</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">@dimen/_16sdp</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
     </style>
 
     <style name="phone_info_info_tv_style">

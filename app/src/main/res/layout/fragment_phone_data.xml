@@ -7,30 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.add_phone.PhoneInfoFragment">
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/verification_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/tv_phone_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
-            android:fontFamily="@font/karla_bold"
-            android:text="Phone Information"
-            android:textColor="#8A8A8A"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_name"
@@ -39,11 +23,11 @@
             app:cardCornerRadius="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phone_information">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -65,6 +49,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_imei1"
             style="@style/card_style"
+            android:layout_marginTop="12dp"
             android:background="@drawable/stroke_cardview"
             app:cardCornerRadius="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +58,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -94,7 +79,6 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_imei2"
             style="@style/card_style"
-
             app:cardCornerRadius="@dimen/_11sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +86,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -131,7 +115,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -168,10 +152,10 @@
 
                 <TextView
                     style="@style/phone_info_info_tv_style"
-                    android:text="@string/price_text" />
+                    android:text="@string/memory_text" />
 
                 <TextView
-                    android:id="@+id/tv_phone_price"
+                    android:id="@+id/tv_phone_memory"
                     style="@style/phone_info_tv_style"
                     android:text="@string/name" />
 
@@ -233,7 +217,7 @@
                     android:text="@string/price_text" />
 
                 <TextView
-                    android:id="@+id/tv_phone_memory"
+                    android:id="@+id/tv_phone_price"
                     style="@style/phone_info_tv_style"
                     android:text="@string/name" />
 
@@ -262,7 +246,7 @@
 
                 <TextView
                     style="@style/phone_info_info_tv_style"
-                    android:text="@string/battery_state_text" />
+                    android:text="@string/dd_mm_yy_text" />
 
                 <TextView
                     android:id="@+id/tv_phone_date"

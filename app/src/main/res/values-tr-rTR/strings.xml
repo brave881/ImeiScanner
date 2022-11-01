@@ -47,8 +47,8 @@
     <string name="about_text">Hakkında</string>
     <string name="phone_name_text">Telefon Adı</string>
     <string name="serial_number_text">Seri numarası</string>
-    <string name="imei1_text">Imei1</string>
-    <string name="imei2_text">Imei2</string>
+    <string name="imei1_text">Imei 1</string>
+    <string name="imei2_text">Imei 2</string>
     <string name="memory_text">Hafıza</string>
     <string name="added_date_text">Eklenme tarihi</string>
     <string name="price_text">Fiyatı</string>

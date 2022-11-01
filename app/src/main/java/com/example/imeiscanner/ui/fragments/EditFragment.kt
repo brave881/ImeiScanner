@@ -72,6 +72,7 @@ class EditFragment : BaseFragment(R.layout.fragment_edit) {
 
     override fun onResume() {
         super.onResume()
+        MAIN_ACTIVITY.title="Edit Phone Information"
         dateInstall()
         initFields()
         installItemsToEditTexts()

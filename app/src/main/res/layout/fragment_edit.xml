@@ -3,69 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_top"
-    tools:context=".ui.fragments.EditFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="83dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/back_to_main"
-            android:layout_width="32dp"
-            android:layout_height="21dp"
-            android:layout_marginStart="@dimen/top_margin_20dp"
-            android:src="@drawable/back_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/karla_bold"
-            android:text="Edit phone information"
-            android:textColor="@color/white"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_height="match_parent" tools:context=".ui.fragments.EditFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="match_parent"
         android:background="@drawable/verification_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
-
-        <TextView
-            android:id="@+id/tv_phone_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/app_margin "
-            android:fontFamily="@font/karla_bold"
-            android:text="Phone Information"
-            android:textColor="#8A8A8A"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout1"
@@ -76,7 +26,7 @@
             android:hint="Phone name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_phone_information">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_add_phone_name"
@@ -104,6 +54,7 @@
                 android:id="@+id/phone_add_imei1"
                 android:layout_width="match_parent"
                 android:layout_height="49dp"
+                android:editable="false"
                 android:fontFamily="@font/karla_bold"
                 android:inputType="number"
                 android:maxLines="1" />
@@ -115,7 +66,7 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/margin_10_dp"
-            android:src="@drawable/qr_code_icon"
+            android:src="@drawable/qr_new_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout2" />
@@ -149,7 +100,7 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/margin_10_dp"
-            android:src="@drawable/qr_code_icon"
+            android:src="@drawable/qr_new_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout3"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout3" />
@@ -182,7 +133,7 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/margin_10_dp"
-            android:src="@drawable/qr_code_icon"
+            android:src="@drawable/qr_new_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />

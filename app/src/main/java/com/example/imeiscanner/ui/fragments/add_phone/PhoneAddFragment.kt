@@ -95,6 +95,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
 
     override fun onStart() {
         super.onStart()
+        MAIN_ACTIVITY.title="Add Phone Information"
         dateInstall()
         initFields()
         initFunctions()

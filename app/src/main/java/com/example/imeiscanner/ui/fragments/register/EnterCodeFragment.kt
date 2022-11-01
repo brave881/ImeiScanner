@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.*
@@ -21,10 +22,9 @@ class EnterCodeFragment(
 
     private lateinit var binding: FragmentEnterCodeBinding
     private lateinit var tvTimer: TextView
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,6 +32,7 @@ class EnterCodeFragment(
 
     override fun onStart() {
         super.onStart()
+
         initFields()
         startTimer(tvTimer).start()
         if (tvTimer.text.toString() == "Done!") {
@@ -47,6 +48,7 @@ class EnterCodeFragment(
     }
 
     private fun initFields() {
+        binding.enterCodeToolbar.setNavigationOnClickListener { MAIN_ACTIVITY.supportFragmentManager.popBackStack() }
         tvTimer = binding.textViewCountdownTime
         MAIN_ACTIVITY.title = phoneNumber
         binding.tvPhoneNumber.text = "at $phoneNumber"
@@ -56,15 +58,14 @@ class EnterCodeFragment(
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id, code)
 
-            AUTH.signInWithCredential(credential).addOnSuccessListener {
-                val uid = AUTH.currentUser?.uid.toString()
-                signAndCheckUserHasExist(uid)
-            }
+        AUTH.signInWithCredential(credential).addOnSuccessListener {
+            val uid = AUTH.currentUser?.uid.toString()
+            signAndCheckUserHasExist(uid)
+        }
     }
 
     private fun signAndCheckUserHasExist(uid: String) {
-        REF_DATABASE_ROOT.child(NODE_USERS)
-            .addListenerForSingleValueEvent(AppValueEventListener {
+        REF_DATABASE_ROOT.child(NODE_USERS).addListenerForSingleValueEvent(AppValueEventListener {
                 if (it.hasChild(uid)) {
                     signInWithPhone(uid, phoneNumber)
                 } else {

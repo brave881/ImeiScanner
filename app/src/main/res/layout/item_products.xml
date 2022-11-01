@@ -62,7 +62,7 @@
                 android:id="@+id/item_product_check_image"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/ic_check"
+                android:src="@drawable/ic_check_white"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/img_product_image"
                 app:layout_constraintEnd_toEndOf="@id/img_product_image" />

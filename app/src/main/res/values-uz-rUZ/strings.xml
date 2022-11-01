@@ -47,8 +47,8 @@
     <string name="about_text">Biz Haqimizda</string>
     <string name="phone_name_text">Telefon raqam</string>
     <string name="serial_number_text">Seria raqami</string>
-    <string name="imei1_text">Imei1</string>
-    <string name="imei2_text">Imei2</string>
+    <string name="imei1_text">Imei 1</string>
+    <string name="imei2_text">Imei 2</string>
     <string name="memory_text">Hotira</string>
     <string name="added_date_text">Qo\'shilgan vaqti</string>
     <string name="price_text">Narxi</string>

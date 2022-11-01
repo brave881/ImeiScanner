@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.imeiscanner.R
 import com.example.imeiscanner.databinding.FragmentAboutBinding
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 
 class AboutFragment : Fragment(R.layout.fragment_about) {
 
@@ -20,5 +21,10 @@ class AboutFragment : Fragment(R.layout.fragment_about) {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        MAIN_ACTIVITY.title=getString(R.string.about_text)
+    }
 
 }

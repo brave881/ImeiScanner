@@ -14,6 +14,7 @@ import com.example.imeiscanner.databinding.FragmentFavouritesBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
 import com.example.imeiscanner.utilits.DATA_FROM_MAIN_FRAGMENT
+import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.POSITION_ITEM
 import com.example.imeiscanner.utilits.replaceFragment
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -35,6 +36,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     override fun onResume() {
         super.onResume()
+        MAIN_ACTIVITY.title=getString(R.string.favourites_text)
         initRecyclerView()
     }
 

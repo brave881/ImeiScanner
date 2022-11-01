@@ -62,6 +62,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        MAIN_ACTIVITY.title=getString(R.string.app_name)
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initSort()

@@ -9,10 +9,7 @@ import com.example.imeiscanner.databinding.FragmentPhoneDataBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.EditFragment
 import com.example.imeiscanner.ui.fragments.base.BaseFragment
-import com.example.imeiscanner.utilits.DATA_FROM_PHONE_INFO_FRAGMENT
-import com.example.imeiscanner.utilits.DATA_FROM_MAIN_FRAGMENT
-import com.example.imeiscanner.utilits.POSITION_ITEM
-import com.example.imeiscanner.utilits.replaceFragment
+import com.example.imeiscanner.utilits.*
 
 
 class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
@@ -32,6 +29,7 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
 
     override fun onResume() {
         super.onResume()
+        MAIN_ACTIVITY.title="Phone Information"
         installData()
         changeToEdit()
     }

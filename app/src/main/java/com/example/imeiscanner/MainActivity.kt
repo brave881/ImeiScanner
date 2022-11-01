@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.addFlags(    // toolbarni tepasi
-            WindowManager.LayoutParams.FLAG_DIM_BEHIND
-        )
+//        window.addFlags(    // toolbarni tepasi
+//            WindowManager.LayoutParams.FLAG_FULLSCREEN
+//        )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         MAIN_ACTIVITY = this

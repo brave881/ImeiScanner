@@ -9,6 +9,7 @@ import com.example.imeiscanner.database.USER
 import com.example.imeiscanner.database.updateFullNameFromDatabase
 import com.example.imeiscanner.databinding.FragmentChangeUserNameBinding
 import com.example.imeiscanner.ui.fragments.base.BaseChangeFragment
+import com.example.imeiscanner.ui.fragments.mainFragment.MainAdapter
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.showToast
 
@@ -26,6 +27,7 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
 
     override fun onResume() {
         super.onResume()
+        MAIN_ACTIVITY.title = getString(R.string.your_name)
         binding.stChangeUsernameInput.setText(USER.fullname)
     }
 
