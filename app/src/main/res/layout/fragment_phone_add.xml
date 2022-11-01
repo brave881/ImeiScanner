@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background_top"
     android:layout_height="match_parent"
     tools:context=".ui.fragments.add_phone.PhoneAddFragment">
 
@@ -18,16 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_15sdp"
-                android:hint="Phone name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phone_information">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:hint="Phone name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_add_phone_name"
@@ -212,7 +211,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <!--       date         -->
 
 
@@ -236,7 +234,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
+        <ImageView
+            android:id="@+id/buttonPanel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/register_or_margin_5dp"
+            android:src="@drawable/ic_baseline_calendar_month_24"
+            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout8"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout8"
+            app:layout_constraintTop_toTopOf="@+id/textInputLayout8" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
@@ -63,10 +62,12 @@ class EnterCodeFragment(
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id, code)
 
-            AUTH.signInWithCredential(credential).addOnSuccessListener {
-                val uid = AUTH.currentUser?.uid.toString()
-                signAndCheckUserHasExist(uid)
-            }
+        AUTH.signInWithCredential(credential).addOnSuccessListener {
+            val uid = AUTH.currentUser?.uid.toString()
+            signAndCheckUserHasExist(uid)
+        }.addOnFailureListener {
+           binding.registerInputCode.triggerErrorAnimation()
+        }
     }
 
     private fun signAndCheckUserHasExist(uid: String) {

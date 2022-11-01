@@ -73,6 +73,7 @@ fun showDatePicker(context: Context, tv: TextView) {
         }, year, month, day
     )
     datePickerDialog.show()
+    datePickerDialog.datePicker.setBackgroundColor(MAIN_ACTIVITY.resources.getColor(R.color.button_color))
 }
 
 fun DataSnapshot.getPhoneModel(): PhoneDataModel {

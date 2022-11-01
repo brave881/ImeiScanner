@@ -133,7 +133,7 @@ class EditFragment : BaseFragment(R.layout.fragment_edit) {
 
 
     private fun dateInstall() {
-        binding.phoneAddDate.setOnClickListener {
+        binding.buttonPanel.setOnClickListener {
             showDatePicker(requireContext(), dateView)
         }
     }

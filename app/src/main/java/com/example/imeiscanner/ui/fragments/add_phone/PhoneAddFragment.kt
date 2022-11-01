@@ -1,6 +1,7 @@
 package com.example.imeiscanner.ui.fragments.add_phone
 
 import android.annotation.SuppressLint
+import android.icu.util.Currency.CurrencyUsage
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -145,7 +146,7 @@ class PhoneAddFragment : BaseFragment(R.layout.fragment_phone_add) {
     }
 
     private fun dateInstall() {
-        binding.phoneAddDate.setOnClickListener {
+        binding.buttonPanel.setOnClickListener {
             showDatePicker(requireContext(), date)
         }
     }

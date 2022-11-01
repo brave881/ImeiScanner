@@ -76,7 +76,6 @@
             android:id="@+id/register_input_code"
             style="@style/register_edit_text_style"
             android:textColorHint="@color/black"
-            app:oev_secondary_color="#FF0057"
             app:layout_constraintBottom_toTopOf="@+id/resend_code_info"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/input_code_resent_text"
@@ -109,6 +108,7 @@
             android:background="@drawable/button_shape"
             android:fontFamily="@font/karla_bold"
             android:gravity="center"
+            android:clickable="true"
             android:text="@string/resend_code_text"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/large_text_size"
@@ -116,6 +116,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textView_countdown_time"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="@+id/resend_code_info"
+            android:focusable="true"
             app:layout_constraintTop_toTopOf="@+id/view2" />
 
 
