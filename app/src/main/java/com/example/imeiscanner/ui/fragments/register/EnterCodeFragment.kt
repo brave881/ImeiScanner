@@ -1,7 +1,6 @@
 package com.example.imeiscanner.ui.fragments.register
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
-import com.example.imeiscanner.database.*
+import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.NODE_USERS
+import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.signInWithPhone
 import com.example.imeiscanner.databinding.FragmentEnterCodeBinding
 import com.example.imeiscanner.utilits.*
 import com.google.firebase.auth.PhoneAuthProvider
@@ -24,7 +26,9 @@ class EnterCodeFragment(
     private lateinit var tvTimer: TextView
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
         return binding.root
@@ -32,11 +36,12 @@ class EnterCodeFragment(
 
     override fun onStart() {
         super.onStart()
-
         initFields()
         startTimer(tvTimer).start()
-        if (tvTimer.text.toString() == "Done!") {
-            binding.resendCodeBtn.setOnClickListener {
+
+        binding.resendCodeBtn.setOnClickListener {
+            if (tvTimer.text.toString().isEmpty()) {
+                startTimer(tvTimer).start()
                 resendCode(phoneNumber, token)
             }
         }
@@ -58,10 +63,10 @@ class EnterCodeFragment(
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id, code)
 
-        AUTH.signInWithCredential(credential).addOnSuccessListener {
-            val uid = AUTH.currentUser?.uid.toString()
-            signAndCheckUserHasExist(uid)
-        }
+            AUTH.signInWithCredential(credential).addOnSuccessListener {
+                val uid = AUTH.currentUser?.uid.toString()
+                signAndCheckUserHasExist(uid)
+            }
     }
 
     private fun signAndCheckUserHasExist(uid: String) {

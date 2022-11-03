@@ -48,7 +48,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         )
         MAIN_ACTIVITY.mToolbar.visibility = View.GONE
         countryCodePicker = binding.textViewCountryName
-        countryCodePicker.defaultCountryCode
         binding.registerBtnGoogleContainer.setOnClickListener {
             signWithGoogle()
             signIn()

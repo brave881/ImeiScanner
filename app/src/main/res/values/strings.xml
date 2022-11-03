@@ -71,7 +71,7 @@
     <string name="done">Done!</string>
     <string name="verification_code">Verification code</string>
     <string name="please_enter_the_6_digit_code_sent_to_you">Please enter the 6-digit code sent to you</string>
-    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it</string>
+    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it  </string>
     <string name="_60">60</string>
     <string name="label">label</string>
     <string name="name">Name</string>

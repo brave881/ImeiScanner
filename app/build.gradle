@@ -83,9 +83,8 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 
-    implementation 'com.google.android.material:material:1.6.1'
-//    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-//    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.google.android.material:material:1.7.0'
+
     //TODO: Phone number detector
     implementation 'com.hbb20:ccp:2.4.7'
     implementation 'io.michaelrocks:libphonenumber-android:8.12.52'
@@ -94,5 +93,5 @@ dependencies {
     //TODO -> custom editext
     implementation 'com.github.simformsolutions:SSCustomEditTextOutLineBorder:1.0.15'
     // MATERIAL DRAWER
-    implementation 'com.google.android.material:material:1.8.0-alpha01'
+    implementation 'com.google.android.material:material:1.8.0-alpha02'
 }
