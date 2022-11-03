@@ -139,7 +139,6 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-
             app:cardCornerRadius="@dimen/_11sdp"
             app:layout_constraintEnd_toStartOf="@+id/card_state"
             app:layout_constraintStart_toStartOf="parent"
@@ -201,7 +200,6 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-
             app:cardCornerRadius="@dimen/_11sdp"
             app:layout_constraintEnd_toStartOf="@+id/card_date"
             app:layout_constraintStart_toStartOf="parent"

@@ -43,7 +43,10 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onStart() {
         super.onStart()
-        MAIN_ACTIVITY.mToolbar.visibility=View.GONE
+        MAIN_ACTIVITY.window.addFlags(    // toolbarni tepasi pasi bilan bir xil qiladi
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        MAIN_ACTIVITY.mToolbar.visibility = View.GONE
         countryCodePicker = binding.textViewCountryName
         countryCodePicker.defaultCountryCode
         binding.registerBtnGoogleContainer.setOnClickListener {

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
@@ -20,7 +21,6 @@ import com.example.imeiscanner.utilits.MAIN_ACTIVITY
 import com.example.imeiscanner.utilits.getPhoneModel
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import de.hdodenhof.circleimageview.CircleImageView
 
 class MainAdapter(
@@ -30,7 +30,7 @@ class MainAdapter(
     private val selectedItemsList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
     private val holdersList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
     private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
-    private lateinit var floatingButton: FloatingActionButton
+    private lateinit var floatingButton: ConstraintLayout
     private lateinit var countTextView: TextView
     private var count: Int = 0
     private var isEnable = false
@@ -68,12 +68,12 @@ class MainAdapter(
             holder.star_off.visibility = View.VISIBLE
         }
 
-        if (model.id.isEmpty()) bool = false
+        if (model.id.isEmpty()) {bool = false}
         holdersList[holder] = model
         var item = PhoneDataModel()
         val referenceItem =
             REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(model.id)
-        referenceItem.addValueEventListener(AppValueEventListener {
+        referenceItem.addListenerForSingleValueEvent(AppValueEventListener {
             item = it.getPhoneModel()
             initItems(holder, item)
         })
@@ -88,6 +88,8 @@ class MainAdapter(
                     isEnable = false
                     MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
                     floatingButton.visibility = View.VISIBLE
+                    holder.star_off.isClickable = true
+                    holder.star_on.isClickable = true
                 }
             } else if (isEnable) {
                 selectItem(holder, model)
@@ -109,6 +111,8 @@ class MainAdapter(
         countTextView.text = (++count).toString()
         showToolbar(true)
         isEnable = true
+        holder.star_off.isClickable = false
+        holder.star_on.isClickable = false
         holder.checkImage.visibility = View.VISIBLE
     }
 
@@ -132,12 +136,14 @@ class MainAdapter(
         }
         clearSelectedList(selectedItemsList)
         showToolbar(false)
+        floatingButton.visibility = View.VISIBLE
         isEnable = false
     }
 
     fun cancelItemSelecting() {
         count = 0
         clearSelectedList(selectedItemsList)
+        floatingButton.visibility = View.VISIBLE
         showToolbar(false)
         isEnable = false
     }
@@ -159,6 +165,7 @@ class MainAdapter(
         selectedVisibleItemsSize = 0
         count = 0
         clearSelectedList(selectedItemsList)
+        floatingButton.visibility = View.VISIBLE
     }
 
     private fun selectedItemsIsVisible() {
@@ -169,7 +176,7 @@ class MainAdapter(
         }
     }
 
-    fun initFloatButton(floatingActionButton: FloatingActionButton) {
+    fun initFloatButton(floatingActionButton: ConstraintLayout) {
         floatingButton = floatingActionButton
     }
 
@@ -183,16 +190,20 @@ class MainAdapter(
         countTextView.text = count.toString()
         holdersList.forEach { (t, _) ->
             t.checkImage.visibility = View.GONE
+            t.star_off.isClickable = true
         }
     }
 
     fun selectAll() {
         selectedItemsList.clear()
-        count = holdersList.size
-        countTextView.text = count.toString()
         holdersList.forEach { (holder, model) ->
             holder.checkImage.visibility = View.VISIBLE
+            holder.star_off.isClickable = false
             selectedItemsList[holder] = model
+        }
+        if (holdersList.size != selectedItemsList.size) {
+            count = selectedItemsList.size
+            countTextView.text = count.toString()
         }
     }
 }

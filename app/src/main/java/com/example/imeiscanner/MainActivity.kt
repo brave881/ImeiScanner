@@ -3,6 +3,7 @@ package com.example.imeiscanner
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -25,9 +26,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        window.addFlags(    // toolbarni tepasi
-//            WindowManager.LayoutParams.FLAG_FULLSCREEN
-//        )
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         MAIN_ACTIVITY = this
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         initUser {
             initFields()
             initFunctions()
-       }
+        }
     }
 
     private fun initShareP() {
@@ -52,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         mAppDrawer = AppDrawer()
     }
 
-   private fun initFunctions() {
+    private fun initFunctions() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()

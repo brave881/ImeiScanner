@@ -3,26 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container_items"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="100dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/main_list_item_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/register_or_margin_5dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:clickable="true"
-        app:cardElevation="@dimen/_20sdp"
         android:focusable="true"
-        app:cardCornerRadius="14dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="15dp"
+        app:layout_constraintCircleRadius="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/item_star_off_btn"
@@ -30,7 +31,7 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="@dimen/top_margin_20dp"
-                android:src="@drawable/ic_star_off"
+                android:src="@drawable/ic_light_star"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,8 +39,8 @@
             <ImageView
                 android:id="@+id/item_star_on_btn"
                 android:layout_width="30dp"
-                android:layout_marginEnd="10dp"
                 android:layout_height="30dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="@dimen/top_margin_20dp"
                 android:src="@drawable/ic_star"
                 android:visibility="invisible"
@@ -47,23 +48,24 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/img_product_image"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                android:src="@drawable/ic_baseline_phone_android_24"
+                android:layout_height="55dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/iphone_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/item_product_check_image"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_check_white"
-                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:background="@drawable/back_chek"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_check"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/img_product_image"
                 app:layout_constraintEnd_toEndOf="@id/img_product_image" />
 
@@ -72,8 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
-                android:fontFamily="@font/karla_bold"
                 android:ems="12"
+                android:fontFamily="@font/karla_bold"
                 android:maxEms="12"
                 android:maxLines="1"
                 android:text="Iphone 36 pro max plus 100TB"
@@ -88,10 +90,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/register_or_margin_5dp"
-                android:text="856203478567586"
-                android:textColor="#92A096"
                 android:fontFamily="@font/karla_regular"
                 android:maxLines="1"
+                android:text="856203478567586"
+                android:textColor="#92A096"
                 android:textSize="17dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/img_product_image"
@@ -102,13 +104,13 @@
                 android:id="@+id/tv_time_product"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/karla_bold_italic"
                 android:layout_marginTop="7dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/karla_bold_italic"
                 android:text="26/02/2022"
-                android:textColor="#FCA5AE"
-                android:textSize="@dimen/_8sdp"
+                android:textColor="@color/dateColor"
+                android:textSize="@dimen/small_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/item_star_off_btn" />
