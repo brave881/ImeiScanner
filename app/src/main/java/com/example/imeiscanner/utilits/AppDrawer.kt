@@ -100,7 +100,7 @@ class AppDrawer {
 
     private fun clickToItem(position: Int) {
         when (position) {
-            1 -> replaceFragment(MainFragment())
+            1 -> replaceFragment(MainFragment(),false)
             2 -> replaceFragment(FavouritesFragment())
             3 -> replaceFragment(SettingsFragment())
             4 -> replaceFragment(AboutFragment())

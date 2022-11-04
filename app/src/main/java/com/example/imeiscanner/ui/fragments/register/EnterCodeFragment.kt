@@ -1,5 +1,6 @@
 package com.example.imeiscanner.ui.fragments.register
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,6 +59,7 @@ class EnterCodeFragment(
         binding.tvPhoneNumber.text = "at $phoneNumber"
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun checkCode() {
         val code = binding.registerInputCode.text.toString()
         val credential = PhoneAuthProvider.getCredential(id, code)

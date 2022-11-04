@@ -33,7 +33,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:exported="true"
-            android:screenOrientation="fullSensor">
+            android:screenOrientation="portrait"> <!--orientatsiyani qotiradi-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

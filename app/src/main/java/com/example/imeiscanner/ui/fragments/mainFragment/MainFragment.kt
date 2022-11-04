@@ -64,6 +64,7 @@ class MainFragment : Fragment() {
 
         MAIN_ACTIVITY.title=getString(R.string.app_name)
         setHasOptionsMenu(true)
+        MAIN_ACTIVITY.supportFragmentManager.popBackStack()// orqaga qaytishni o'chiradi
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initSort()
         initFields()
