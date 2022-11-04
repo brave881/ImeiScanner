@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         MAIN_ACTIVITY = this
         DIALOG_BUILDER = AlertDialog.Builder(this)
-        initFields()
         initShareP()
         loadLanguage()
         initFirebase()
+        initFields()
 
         initUser {
             initFunctions()
