@@ -3,6 +3,7 @@ package com.example.imeiscanner
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -26,14 +27,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         MAIN_ACTIVITY = this
         DIALOG_BUILDER = AlertDialog.Builder(this)
+        initFields()
         initShareP()
         loadLanguage()
         initFirebase()
 
         initUser {
-            initFields()
             initFunctions()
-       }
+        }
     }
 
     private fun initShareP() {
@@ -46,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         mAppDrawer = AppDrawer()
     }
 
-   private fun initFunctions() {
+    private fun initFunctions() {
         setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
             mAppDrawer.create()

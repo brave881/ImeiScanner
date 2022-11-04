@@ -39,7 +39,7 @@ fun addGoogleUserToFirebase(user: FirebaseUser?) {
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
-    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi
+//    AUTH.firebaseAuthSettings.setAppVerificationDisabledForTesting(true) // reCaaptcha ni o'chiradi faqat testiviy tel raqamlar uchun
     REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
     REF_STORAGE_ROOT = FirebaseStorage.getInstance().reference
     CURRENT_UID = AUTH.currentUser?.uid.toString()

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/mainBackground"
     android:orientation="vertical"
     tools:context=".ui.fragments.mainFragment.MainFragment">
 
@@ -53,7 +53,7 @@
             android:layout_width="23dp"
             android:layout_height="22dp"
             android:layout_margin="@dimen/app_margin"
-            android:src="@drawable/ic_baseline_menu"
+            android:src="@drawable/ic_menu_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,7 +63,7 @@
             android:layout_width="23dp"
             android:layout_height="22dp"
             android:layout_margin="@dimen/app_margin"
-            android:src="@drawable/ic_star_outline"
+            android:src="@drawable/ic_baseline_star_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/toolbar_item_lc_delete"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,7 +76,6 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-
             android:id="@+id/rvMainFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -132,20 +131,29 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/float_action_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_margin="@dimen/app_margin"
-            android:background="@drawable/float_btn_color"
+            android:background="@drawable/back_chek"
             android:clickable="@bool/is_iconics_content_provider_enabled"
-            android:elevation="@dimen/margin_10_dp"
-            android:theme="@style/FloatingButton"
-            android:src="@drawable/ic_baseline_add_24"
+            android:elevation="5dp"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:padding="7dp"
+                android:background="@drawable/float_btn_color"
+                android:src="@drawable/ic_add"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </LinearLayout>

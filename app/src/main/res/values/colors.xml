@@ -15,4 +15,6 @@
     <color name="pale_violet_red">#EB6A9F</color>
     <color name="background">#F2F2F2</color>
     <color name="colorToolbar">#31D19E</color>
+    <color name="mainBackground">#FCFCFF</color>
+    <color name="dateColor">#7556CC</color>
 </resources>

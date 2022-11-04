@@ -51,6 +51,8 @@ fun clearSelectedList(holderList: HashMap<MainAdapter.PhonesHolder, PhoneDataMod
     if (holderList.isNotEmpty()) {
         holderList.forEach { (it, _) ->
             it.checkImage.visibility = View.GONE
+            it.star_off.isClickable=true
+            it.star_on.isClickable=true
         }
         holderList.clear()
     }

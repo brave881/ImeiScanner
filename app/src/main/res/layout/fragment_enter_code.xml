@@ -7,15 +7,14 @@
     android:background="@color/background"
     tools:context=".ui.fragments.register.EnterCodeFragment">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/enter_code_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/transparent_top_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
         app:navigationIcon="@drawable/ic_arrow_back"
         tools:ignore="MissingConstraints" />
 
@@ -28,7 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
         <TextView
             android:id="@+id/textView"
@@ -138,8 +136,8 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_marginTop="20dp"
             style="@style/text_imei_scanner"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/karla_bold"
             android:text="Enter your fullname"
             android:textColor="@color/black"
@@ -150,8 +148,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/editext_style"
-            android:hint="@string/name"
             android:layout_marginTop="75dp"
+            android:hint="@string/name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView2">
