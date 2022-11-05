@@ -201,10 +201,9 @@ class MainAdapter(
             holder.star_off.isClickable = false
             selectedItemsList[holder] = model
         }
-        if (holdersList.size != selectedItemsList.size) {
-            count = selectedItemsList.size
+            count = holdersList.size
             countTextView.text = count.toString()
-        }
+
     }
 }
 

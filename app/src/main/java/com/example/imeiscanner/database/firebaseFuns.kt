@@ -73,7 +73,7 @@ fun setValuesToFireBase(
             reference
                 .child(id)
                 .setValue(dateMap)
-                .addOnSuccessListener { replaceFragment(MainFragment()) }
+                .addOnSuccessListener { replaceFragment(MainFragment(),false) }
                 .addOnFailureListener { showToast(it.toString()) }
         else {
             for (i in it.children) {
@@ -85,7 +85,7 @@ fun setValuesToFireBase(
             reference
                 .child(id)
                 .setValue(dateMap)
-                .addOnSuccessListener { replaceFragment(MainFragment()) }
+                .addOnSuccessListener { replaceFragment(MainFragment(),false) }
                 .addOnFailureListener { showToast(it.toString()) }
         }
     })

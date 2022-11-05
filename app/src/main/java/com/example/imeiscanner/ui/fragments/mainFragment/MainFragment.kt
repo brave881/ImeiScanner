@@ -1,5 +1,6 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
+
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -19,21 +20,18 @@ import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.SearchFragment
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneAddFragment
 import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
-import com.example.imeiscanner.ui.fragments.settings.SettingsFragment
 import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-
-class MainFragment : Fragment() {
+class MainFragment() : Fragment() {
 
     private lateinit var oldestBtn: MenuItem
     private lateinit var newestBtn: MenuItem
+    private lateinit var searchItem: MenuItem
     private lateinit var searchWithQRCode: MenuItem
     private lateinit var binding: FragmentMainBinding
     private lateinit var rv: RecyclerView
@@ -62,11 +60,16 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     override fun onResume() {
         super.onResume()
 
-        MAIN_ACTIVITY.title = getString(R.string.app_name)
         setHasOptionsMenu(true)
+        MAIN_ACTIVITY.title = getString(R.string.app_name)
         MAIN_ACTIVITY.supportFragmentManager.popBackStack()// orqaga qaytishni o'chiradi
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initSort()
@@ -74,11 +77,11 @@ class MainFragment : Fragment() {
         hideKeyboard()
         initRecyclerView()
         checkDataExists()
-        initPopupMenu()
         listenerToolbar()
         binding.floatActionBtn.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
+        initPopupMenu()
     }
 
     private fun initPopupMenu() {
@@ -202,10 +205,12 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear() // replace fragment bo'lganda eski menuni o'chiradi
+
         inflater.inflate(R.menu.search_menu, menu)
         newestBtn = menu.findItem(R.id.menu_first_newest)
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
-        val searchItem = menu.findItem(R.id.menu_search_btn)
+        searchItem = menu.findItem(R.id.menu_search_btn)
         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
         searchWithQRCode.isVisible = true
         scannerButton = searchWithQRCode.actionView as ImageView
@@ -214,6 +219,7 @@ class MainFragment : Fragment() {
         searchInit()
         scannerButton.setOnClickListener {
             barcodeLauncher.launch(scanOptions)
+
         }
     }
 
@@ -225,9 +231,6 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_search_btn -> {
-                replaceFragment(SearchFragment())
-            }
             R.id.menu_first_newest -> {
                 editor.putBoolean(STATE, true)
                 editor.apply()
