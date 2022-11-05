@@ -3,7 +3,7 @@
 
     <style name="register_edit_text_style">
         <item name="maxLines">1</item>
-        <item name="android:layout_marginTop">60dp</item>
+        <item name="android:layout_marginTop">80dp</item>
         <item name="android:inputType">phone</item>
         <item name="android:textColorHint">#8A72787A</item>
         <item name="android:layout_marginBottom">@dimen/margin_10_dp</item>

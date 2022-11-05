@@ -71,7 +71,7 @@
     <string name="done">Done!</string>
     <string name="verification_code">Verification code</string>
     <string name="please_enter_the_6_digit_code_sent_to_you">Please enter the 6-digit code sent to you</string>
-    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it  </string>
+    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code in</string>
     <string name="_60">60</string>
     <string name="label">label</string>
     <string name="name">Name</string>
@@ -85,5 +85,10 @@
     <string name="number_text">Number</string>
     <string name="phone_number_empty">Phone Number is Empty</string>
     <string name="send_code_txt">Send Code</string>
+    <string name="seconds">seconds</string>
+    <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
+    <string name="enter_your_fullname">Enter your fullname</string>
+    <string name="continue_text">Continue</string>
+    <string name="at_905519920410">at +905519920410</string>
 
 </resources>

@@ -37,6 +37,7 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
     override fun onResume() {
         super.onResume()
         MAIN_ACTIVITY.title=getString(R.string.favourites_text)
+        MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initRecyclerView()
     }
 
