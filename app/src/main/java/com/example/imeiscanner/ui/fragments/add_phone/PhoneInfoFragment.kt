@@ -29,7 +29,7 @@ class PhoneInfoFragment : BaseFragment(R.layout.fragment_phone_data) {
 
     override fun onResume() {
         super.onResume()
-        MAIN_ACTIVITY.title="Phone Information"
+        MAIN_ACTIVITY.title=getString(R.string.phone_information)
         installData()
         changeToEdit()
     }

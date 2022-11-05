@@ -24,14 +24,14 @@
             app:layout_constraintTop_toTopOf="parent"
             style="@style/style_top_back_btn" />
 
-        <SearchView
-            android:id="@+id/search_input_text"
-            android:layout_width="268dp"
-            android:layout_height="match_parent"
-            style="@style/style_top_back_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/search_back_btn"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <SearchView-->
+<!--            android:id="@+id/search_input_text"-->
+<!--            android:layout_width="268dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            style="@style/style_top_back_btn"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/search_back_btn"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <ImageView
             style="@style/style_top_back_btn"
@@ -40,7 +40,6 @@
             android:layout_marginEnd="@dimen/app_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/search_input_text"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

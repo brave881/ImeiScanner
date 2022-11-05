@@ -80,4 +80,16 @@
     <string name="surname">Soyisim</string>
     <string name="your_name">Adınız</string>
     <string name="edit_phone_frg">Edit Phone Information</string>
+    <string name="phone_information">Phone Information</string>
+    <string name="add_phone_information">Add Phone Information</string>\
+    <string name="_60">60</string>
+    <string name="what_is_your_phone_number">What is your phone number?</string>
+    <string name="label">label</string>
+    <string name="send_code_txt">Send Code</string>
+    <string name="seconds">seconds</string>
+    <string name="continue_text">Continue</string>
+    <string name="at">at</string>
+    <string name="email">Email</string>
+    <string name="pohone">Phone</string>
+    <string name="english">English</string>
 </resources>

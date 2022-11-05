@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.imeiscanner.R
@@ -57,7 +56,7 @@ class EnterCodeFragment(
         binding.enterCodeToolbar.setNavigationOnClickListener { MAIN_ACTIVITY.supportFragmentManager.popBackStack() }
         tvTimer = binding.textViewCountdownTime
         MAIN_ACTIVITY.title = phoneNumber
-        binding.tvPhoneNumber.text = "at $phoneNumber"
+        binding.tvPhoneNumber.text = "${getString(R.string.at)} $phoneNumber"
     }
 
     @SuppressLint("SuspiciousIndentation")

@@ -267,7 +267,7 @@
         android:background="@drawable/button_shape"
         android:fontFamily="@font/karla_bold"
         android:gravity="center"
-        android:text="Edit"
+        android:text="@string/edit_text"
         android:textColor="@color/white"
         android:textSize="@dimen/_22sdp"
         app:layout_constraintBottom_toBottomOf="parent"
