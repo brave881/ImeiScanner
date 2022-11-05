@@ -1,12 +1,14 @@
 package com.example.imeiscanner.utilits
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -157,7 +159,7 @@ fun changeLanguage() {
 
 fun showAlertDialog(items: Array<String>, itemState: Int) {
     var language = sharedPreferences.getString(LANG, "")
-    DIALOG_BUILDER
+    AlertDialog.Builder(MAIN_ACTIVITY)
         .setTitle(MAIN_ACTIVITY.getString(R.string.choice_language_text))
         .setSingleChoiceItems(items, itemState) { dialog, it ->
             when (it) {

@@ -74,7 +74,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             binding.settingsEmailOrPhoneText.text = USER.email
             binding.settingsEmailText.text = getString(R.string.email)
         } else {
-            binding.settingsEmailText.text = getString(R.string.pohone)
+            binding.settingsEmailText.text = getString(R.string.register_text_phoneNumber)
             binding.settingsEmailOrPhoneText.text = USER.phone
         }
         binding.settingsUserNameChange.setOnClickListener { replaceFragment(ChangeUserNameFragment()) }
