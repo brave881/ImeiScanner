@@ -98,38 +98,81 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/english_timer_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toTopOf="@+id/resend_code_btn"
-                app:layout_constraintEnd_toStartOf="@id/textView_countdown_time"
                 app:layout_constraintStart_toStartOf="@+id/register_input_code"
                 app:layout_constraintTop_toTopOf="@+id/view2">
 
-                <TextView
-                    android:id="@+id/resend_code_info"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/resend_code_text_container"
                     android:layout_width="wrap_content"
-                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:text="@string/if_you_don_t_receive_the_code_tap_below_resend_it"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/resend_code_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/if_you_don_t_receive_the_code_tap_below"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/resend_code_info_uz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:gravity="center"
+                        android:text="@string/if_you_don_t_receive_uz"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/textView_countdown_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" 30 sexcond"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/resend_code_text_container"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                     android:id="@+id/textView_countdown_time"
+                    android:id="@+id/tap_to_bellow_uz"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/resend_code_info"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tap_bellow_to_resend_it"
+                    android:gravity="center"
+                    android:maxEms="16"
+                    android:text="@string/tap_bellow_to_resend_it_uz"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/resend_code_info" />
+                    app:layout_constraintTop_toBottomOf="@id/resend_code_text_container" />
+
+                <TextView
+                    android:id="@+id/tap_to_bellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tap_bellow_to_resend_it"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/resend_code_text_container" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -140,6 +183,7 @@
                 android:background="@drawable/button_shape"
                 android:fontFamily="@font/karla_bold"
                 android:gravity="center"
+                android:maxEms="5"
                 android:text="@string/resend_code_text"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/large_text_size" />

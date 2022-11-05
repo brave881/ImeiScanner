@@ -203,11 +203,11 @@ fun startTimer(tvTimer: TextView): CountDownTimer {
     return object : CountDownTimer(60000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             tvTimer.text =
-                (" ${(millisUntilFinished / 1000)} ${MAIN_ACTIVITY.getString(R.string.seconds)}")
+                (" ${(millisUntilFinished / 1000)} ${MAIN_ACTIVITY.getString(R.string.seconds)} ")
         }
 
         override fun onFinish() {
-            tvTimer.text = " ${MAIN_ACTIVITY.getString(R.string.seconds)}"
+            tvTimer.text = " 0 ${MAIN_ACTIVITY.getString(R.string.seconds)} "
         }
     }
 }

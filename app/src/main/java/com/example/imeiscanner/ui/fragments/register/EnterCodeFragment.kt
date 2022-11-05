@@ -39,6 +39,7 @@ class EnterCodeFragment(
         initFields()
         startTimer(tvTimer).start()
 
+        initTextTimer()
         binding.resendCodeBtn.setOnClickListener {
             if (tvTimer.text.toString().isEmpty()) {
                 startTimer(tvTimer).start()
@@ -49,6 +50,25 @@ class EnterCodeFragment(
             if (it.length == 6) {
                 checkCode()
             }
+        }
+    }
+
+    private fun initTextTimer() {
+        if (sharedPreferences.getString(LANG, "") == "uz") {
+            binding.resendCodeInfoUz.visibility = View.VISIBLE
+            binding.tapToBellowUz.visibility=View.VISIBLE
+            binding.resendCodeInfo.visibility=View.GONE
+            binding.tapToBellow.visibility=View.GONE
+        } else if (sharedPreferences.getString(LANG, "") == "tr") {
+            binding.resendCodeInfoUz.visibility = View.VISIBLE
+            binding.tapToBellowUz.visibility=View.VISIBLE
+            binding.resendCodeInfo.visibility=View.GONE
+            binding.tapToBellow.visibility=View.GONE
+        } else {
+            binding.resendCodeInfoUz.visibility = View.GONE
+            binding.tapToBellowUz.visibility=View.GONE
+            binding.resendCodeInfo.visibility=View.VISIBLE
+            binding.tapToBellow.visibility=View.VISIBLE
         }
     }
 
@@ -68,25 +88,25 @@ class EnterCodeFragment(
             val uid = AUTH.currentUser?.uid.toString()
             signAndCheckUserHasExist(uid)
         }.addOnFailureListener {
-           binding.registerInputCode.triggerErrorAnimation()
+            binding.registerInputCode.triggerErrorAnimation()
         }
     }
 
     private fun signAndCheckUserHasExist(uid: String) {
         REF_DATABASE_ROOT.child(NODE_USERS).addListenerForSingleValueEvent(AppValueEventListener {
-                if (it.hasChild(uid)) {
-                    signInWithPhone(uid, phoneNumber)
-                } else {
-                    binding.enterCodeContainer.visibility = View.GONE
-                    binding.enterNameContainer.visibility = View.VISIBLE
-                    binding.enterNameNextBtn.setOnClickListener {
-                        val name = binding.enterCodeName.text.toString()
-                        val surname = binding.enterCodeName.text.toString()
-                        if (name.isNotEmpty()) {
-                            signInWithPhone(uid, phoneNumber, "$name $surname")
-                        } else showToast(getString(R.string.fullname_is_empty))
-                    }
+            if (it.hasChild(uid)) {
+                signInWithPhone(uid, phoneNumber)
+            } else {
+                binding.enterCodeContainer.visibility = View.GONE
+                binding.enterNameContainer.visibility = View.VISIBLE
+                binding.enterNameNextBtn.setOnClickListener {
+                    val name = binding.enterCodeName.text.toString()
+                    val surname = binding.enterCodeName.text.toString()
+                    if (name.isNotEmpty()) {
+                        signInWithPhone(uid, phoneNumber, "$name $surname")
+                    } else showToast(getString(R.string.fullname_is_empty))
                 }
-            })
+            }
+        })
     }
 }

@@ -70,7 +70,7 @@
     <string name="done">Done!</string>
     <string name="verification_code">Verification code</string>
     <string name="please_enter_the_6_digit_code_sent_to_you">Please enter the 6-digit code sent to you</string>
-    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code in</string>
+    <string name="if_you_don_t_receive_the_code_tap_below" translatable="false">If you don\'t receive the code in</string>
     <string name="name">Name</string>
     <string name="surname">Surname(optional)</string>
     <string name="delete_data">Delete Data!</string>
@@ -86,7 +86,7 @@
     <string name="email">Email</string>
     <string name="english">English</string>
     <string name="phone_number_empty">The Phone Number is Empty</string>
-    <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
+    <string name="tap_bellow_to_resend_it" translatable="false">tap bellow to resend it</string>
     <string name="enter_your_fullname">Enter your fullname</string>
     <string name="at_905519920410">at +905519920410</string>
     <string name="you_don_t_have_set_any_phone_data_create_one_in_seconds">You don’t have set any phone data.Create one in seconds.</string>
@@ -94,5 +94,9 @@
     <string name="phone_information">Phone Information</string>
     <string name="add_phone_information">Add Phone Information</string>
 
+
+    <string name="if_you_don_t_receive_uz" translatable="false">Agar siz</string>
+    <string name="tap_bellow_to_resend_it_uz" translatable="false">ichida kodni olmasangiz uni qayta
+        yuborish uchun pastdagi tugmani bosing</string>
 
 </resources>

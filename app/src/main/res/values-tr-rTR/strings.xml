@@ -67,7 +67,7 @@
     <string name="done">Bitti!</string>
     <string name="verification_code">Doğrulama kodu</string>
     <string name="please_enter_the_6_digit_code_sent_to_you">Lütfen size gönderilen 6 haneli kodu giriniz</string>
-    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">içinde kodu almazsanız</string>
+    <string name="if_you_don_t_receive_the_code_tap_below">içinde kodu almazsanız</string>
     <string name="delete_data">Verileri Sil!</string>
     <string name="delete_item_message">Emin misiniz? Bu bilgiler silinecek</string>
 
@@ -91,4 +91,7 @@
     <string name="at" />
     <string name="email">E-posta</string>
     <string name="english">English</string>
+
+    <string name="if_you_don_t_receive_uz">Eğer siz kodu</string>
+    <string name="tap_bellow_to_resend_it_uz">içinde almazsanız, tekrar göndermek için aşağıdaki düğmeyi tıklayın.</string>
 </resources>

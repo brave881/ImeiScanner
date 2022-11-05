@@ -65,11 +65,9 @@
     <string name="done">Bajarildi!</string>
     <string name="verification_code">Tasdiqlash kodi</string>
     <string name="please_enter_the_6_digit_code_sent_to_you">Sizga yuborilgan 6 xonali kodni kiriting</string>
-    <string name="if_you_don_t_receive_the_code_tap_below_resend_it">If you don\'t receive the code tap below resend it</string>
-    <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
     <string name="at_905519920410">+905519920410</string>
+    <string name="at" />
     <string name="seconds">soniya</string>
-    <string name="at">at</string>
 
     <string name="select_all_text">Hammasini belgilash</string>
     <string name="unselect_all_text">Belgidan chiqarish</string>
