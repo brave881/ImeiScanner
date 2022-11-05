@@ -4,10 +4,10 @@
         <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">#31D19E</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorBlueBcBLue</item>
         <item name="colorPrimaryDark">#24A67D</item>
         <!-- Secondary brand color. -->
-        <!--        <item name="colorSecondary">@color/colorSecondary</item>-->
+<!--        <item name="colorSecondary">@color/colorSecondary</item>-->
         <item name="popupTheme">@style/actionMenu</item>
         <!--popuptheme action menuni olyabdi yani action menu chap tepadagi 3 ta nuqta temasi-->
         <!-- Status bar color. -->
@@ -17,6 +17,7 @@
     <style name="Theme.ImeiScanner.Dark" parent="ThemeOverlay.MaterialComponents.Dark">
 
     </style>
+
 
     <style name="actionMenu" parent="Theme.AppCompat.Light">
         <item name="background">@color/colorAccent</item>

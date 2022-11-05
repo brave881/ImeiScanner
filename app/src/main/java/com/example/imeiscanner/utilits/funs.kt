@@ -125,7 +125,7 @@ fun accountDeleteDialog() {
         .setNegativeButton(R.string.cancel) { dialogIntereface, it ->
             dialogIntereface.cancel()
         }
-        .setPositiveButton(R.string.delete_text) { dialogInterface, it ->
+        .setPositiveButton(R.string.delete_text) { _, _ ->
             deleteUserFromDatabase()
             deleteUser()
         }.show()
@@ -134,7 +134,7 @@ fun accountDeleteDialog() {
 fun logOutDialog() {
     DIALOG_BUILDER.setTitle(R.string.log_out_dialog_text)
         .setMessage(R.string.log_out_dialog_message)
-        .setPositiveButton(R.string.log_out_text) { dialogInterFace, it ->
+        .setPositiveButton(R.string.log_out_text) { _, _ ->
             logOut()
         }
         .setNegativeButton(R.string.cancel) { dialogInterFace, it ->
@@ -171,7 +171,7 @@ fun showAlertDialog(items: Array<String>, itemState: Int) {
                     language = "uz"
                 }
             }
-        }.setPositiveButton(MAIN_ACTIVITY.getString(R.string.ok_text)) { dialogInterface, it ->
+        }.setPositiveButton(MAIN_ACTIVITY.getString(R.string.ok_text)) { _, _ ->
             setLocale(language!!)
             restartActivity()
         }.setNegativeButton(MAIN_ACTIVITY.getString(R.string.cancel)) { dialogInterface, it ->

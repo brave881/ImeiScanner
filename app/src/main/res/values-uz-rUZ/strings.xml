@@ -49,7 +49,7 @@
     <string name="serial_number_text">Seria raqami</string>
     <string name="imei1_text">Imei 1</string>
     <string name="imei2_text">Imei 2</string>
-    <string name="memory_text">Hotira</string>
+    <string name="memory_text">Xotira</string>
     <string name="added_date_text">Qo\'shilgan vaqti</string>
     <string name="price_text">Narxi</string>
     <string name="battery_state_text">Batareya holati</string>
@@ -76,4 +76,9 @@
     <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
     <string name="enter_your_fullname">Enter your fullname</string>
     <string name="at_905519920410">at +905519920410</string>
+    <string name="you_don_t_have_set_any_phone_data_create_one_in_seconds">Sizda telefon maʼlumotlari oʻrnatilmagan. Bir soniyada bittasini yarating.</string>
+    <string name="name">Ism</string>
+    <string name="surname">Familiya</string>
+    <string name="your_name">Ismingiz</string>
+    <string name="edit_phone_frg">Edit Phone Information</string>
 </resources>

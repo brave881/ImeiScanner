@@ -122,7 +122,7 @@
                     android:fontFamily="@font/karla_regular"
                     android:gravity="center"
                     android:maxEms="12"
-                    android:text="You don’t have set any phone data.Create one in seconds."
+                    android:text="@string/you_don_t_have_set_any_phone_data_create_one_in_seconds"
                     android:textColor="@color/black"
                     android:textSize="@dimen/top_margin_20dp"
                     app:layout_constraintEnd_toEndOf="parent"

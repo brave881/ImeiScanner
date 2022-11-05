@@ -119,9 +119,9 @@ class MainAdapter(
     fun deleteSelectedItem() {
         DIALOG_BUILDER.setTitle(MAIN_ACTIVITY.getString(R.string.delete_data))
             .setMessage(MAIN_ACTIVITY.getString(R.string.delete_item_message))
-            .setPositiveButton(MAIN_ACTIVITY.getString(R.string.delete_text)) { dialogInterFace, it ->
+            .setPositiveButton(MAIN_ACTIVITY.getString(R.string.delete_text)) { _, _ ->
                 deleteItems()
-            }.setNegativeButton(MAIN_ACTIVITY.getString(R.string.cancel)) { dialogInterFace, it ->
+            }.setNegativeButton(MAIN_ACTIVITY.getString(R.string.cancel)) { dialogInterFace, _ ->
                 dialogInterFace.cancel()
                 cancelItemSelecting()
             }.show()
@@ -170,7 +170,7 @@ class MainAdapter(
 
     private fun selectedItemsIsVisible() {
         if (selectedItemsList.isNotEmpty()) {
-            selectedItemsList.forEach { (it, model) ->
+            selectedItemsList.forEach { (_, model) ->
                 if (model.favourite_state) selectedVisibleItemsSize++
             }
         }

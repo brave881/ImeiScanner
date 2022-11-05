@@ -60,11 +60,6 @@ class MainFragment() : Fragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-    }
-
     override fun onResume() {
         super.onResume()
 
@@ -250,5 +245,10 @@ class MainFragment() : Fragment() {
 
     private fun showItemToolbar(show: Boolean) {
         binding.toolbarItem.isVisible = show
+    }
+
+    override fun onStop() {
+        super.onStop()
+        cancel()
     }
 }

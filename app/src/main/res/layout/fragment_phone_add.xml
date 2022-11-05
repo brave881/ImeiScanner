@@ -25,9 +25,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_15sdp"
                 android:hint="Phone name"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_phone_information">
+                app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_add_phone_name"
@@ -207,7 +207,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/karla_bold"
-                android:inputType="number"
+                android:inputType="text"
                 android:maxLines="1" />
 
         </com.google.android.material.textfield.TextInputLayout>

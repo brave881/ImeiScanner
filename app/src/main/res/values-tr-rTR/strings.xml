@@ -75,4 +75,9 @@
     <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
     <string name="enter_your_fullname">Enter your fullname</string>
     <string name="at_905519920410">at +905519920410</string>
+    <string name="you_don_t_have_set_any_phone_data_create_one_in_seconds">Herhangi bir telefon verisi ayarlamadınız. Saniyeler içinde bir tane oluşturun.</string>
+    <string name="name">Isim</string>
+    <string name="surname">Soyisim</string>
+    <string name="your_name">Adınız</string>
+    <string name="edit_phone_frg">Edit Phone Information</string>
 </resources>
