@@ -72,4 +72,7 @@
     <string name="delete_item_message">Are you sure? This information will be deleted</string>
     <string name="number_text">Number</string>
     <string name="phone_number_empty">Phone Number is Empty</string>
+    <string name="tap_bellow_to_resend_it">tap bellow to resend it</string>
+    <string name="enter_your_fullname">Enter your fullname</string>
+    <string name="at_905519920410">at +905519920410</string>
 </resources>

@@ -196,19 +196,21 @@ fun loadLanguage() {
     val language = sharedPreferences.getString(LANG, "")
     setLocale(language!!)
 }
-fun startTimer(tvTimer:TextView):CountDownTimer {
+
+fun startTimer(tvTimer: TextView): CountDownTimer {
     return object : CountDownTimer(60000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            tvTimer.text = (millisUntilFinished / 1000).toString()
+            tvTimer.text =
+                (" ${(millisUntilFinished / 1000)} ${MAIN_ACTIVITY.getString(R.string.seconds)}")
         }
 
         override fun onFinish() {
-            tvTimer.text = ""
+            tvTimer.text = " ${MAIN_ACTIVITY.getString(R.string.seconds)}"
         }
     }
 }
 
- fun resendCode(phoneNumber:String,token:PhoneAuthProvider.ForceResendingToken) {
+fun resendCode(phoneNumber: String, token: PhoneAuthProvider.ForceResendingToken) {
     val options = PhoneAuthOptions.newBuilder(AUTH)
         .setPhoneNumber(phoneNumber)
         .setTimeout(60L, TimeUnit.SECONDS)

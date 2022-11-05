@@ -26,6 +26,9 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
 
 class MainFragment : Fragment() {
 
@@ -62,7 +65,7 @@ class MainFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        MAIN_ACTIVITY.title=getString(R.string.app_name)
+        MAIN_ACTIVITY.title = getString(R.string.app_name)
         setHasOptionsMenu(true)
         MAIN_ACTIVITY.supportFragmentManager.popBackStack()// orqaga qaytishni o'chiradi
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()

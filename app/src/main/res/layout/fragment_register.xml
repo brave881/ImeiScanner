@@ -74,6 +74,7 @@
         android:id="@+id/register_btn_sign_container"
         style="@style/style_button"
         app:cardCornerRadius="25dp"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/register_input_phone_container"
         app:layout_constraintStart_toStartOf="@+id/register_input_phone_container"
         app:layout_constraintTop_toBottomOf="@+id/register_input_phone_container">
@@ -98,12 +99,14 @@
         app:layout_constraintStart_toStartOf="@+id/register_btn_sign_container"
         app:layout_constraintTop_toBottomOf="@+id/register_btn_sign_container" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/register_btn_google_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:src="@drawable/google"
+        android:background="#00FFFFFF"
+        android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/or_text"
         app:layout_constraintStart_toStartOf="@+id/or_text"
         app:layout_constraintTop_toBottomOf="@+id/or_text" />
