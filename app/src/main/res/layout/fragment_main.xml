@@ -146,8 +146,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="46dp"
                 android:layout_height="46dp"
-                android:padding="7dp"
                 android:background="@drawable/float_btn_color"
+                android:padding="7dp"
                 android:src="@drawable/ic_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

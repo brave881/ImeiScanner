@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -258,21 +257,29 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_edit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_20sdp"
+        android:layout_height="50dp"
+        android:layout_margin="26dp"
         android:background="@drawable/button_shape"
-        android:fontFamily="@font/karla_bold"
-        android:gravity="center"
-        android:text="@string/edit_text"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_22sdp"
+        android:focusable="true"
+        app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:selectableItemBackground"
+            android:fontFamily="@font/karla_bold"
+            android:gravity="center"
+            android:text="@string/edit_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_22sdp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,9 +79,11 @@
         app:layout_constraintStart_toStartOf="@+id/register_input_phone_container"
         app:layout_constraintTop_toBottomOf="@+id/register_input_phone_container">
 
-        <TextView
+        <Button
             android:id="@+id/register_btn_sign"
+            android:background="?android:selectableItemBackground"
             style="@style/text_button"
+            android:textSize="@dimen/normal_text_size"
             android:text="@string/send_code_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:src="@drawable/google"
-        android:background="#00FFFFFF"
+        android:background="?android:selectableItemBackground"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="@+id/or_text"
         app:layout_constraintStart_toStartOf="@+id/or_text"
