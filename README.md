@@ -25,12 +25,12 @@ This project is an IMEI scanner app that uses the Firebase Camera to scan IMEI n
 Getting Started
 To run the project, you will need to have the following installed:
 
-Android Studio
-The Firebase SDK
-The Glide library
-The ViewModel library
-The Phone Number Detector library
-The Material Drawer library
++ Android Studio
+ * The Firebase SDK
+ * The Glide library
+ * The ViewModel library
+ * The Phone Number Detector library
+ * The Material Drawer library
 Once you have installed the necessary dependencies, you can open the project in Android Studio and run it.
 
 IMEI Scanning
@@ -38,7 +38,7 @@ The IMEI scanning functionality is implemented using the Firebase Camera. The Fi
 
 The IMEI scanning functionality is a key feature of the app. It allows users to quickly and easily scan their IMEI numbers. The IMEI number is a unique identifier for each device. It can be used to track devices and to identify devices that have been lost or stolen.
 
-Image Loading
+-Image Loading
 The image loading functionality is implemented using the Glide library. The Glide library provides a way to load images from the Firebase Storage. The app uses the Glide library to load the image of the IMEI number from the Firebase Storage.
 
 The image loading functionality is another key feature of the app. It allows users to see the image of their IMEI numbers. This can be helpful for users who want to verify that the IMEI number they have scanned is correct.
