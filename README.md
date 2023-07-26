@@ -12,7 +12,6 @@ This project is an IMEI scanner app that uses the Firebase Camera to scan IMEI n
 ![photo_2023-07-25_13-18-14](https://github.com/brave881/ImeiScanner/assets/84896890/3a0780d0-765c-439c-bf7f-b4b23364d38b)
 ![photo_2023-07-25_13-18-12](https://github.com/brave881/ImeiScanner/assets/84896890/361b5704-2908-4993-9027-67cf841662cd)
 
-![ezgif com-video-to-gif (1)](https://github.com/brave881/ImeiScanner/assets/84896890/68a4799e-f44d-4db4-ace3-a7b0bb9785e2)
 
 
 
