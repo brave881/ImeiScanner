@@ -5,11 +5,6 @@ IMEI Scanner
 This project is an IMEI scanner app that uses the Firebase Camera to scan IMEI numbers. The app also uses Glide to load images from the Firebase Storage, and the ViewModel to manage the app's state. The app also uses the Phone Number Detector to detect phone numbers in the IMEI numbers. Finally, the app uses the Material Drawer to provide navigation between the app's different screens.
 
 ![photo_2023-07-25_13-19-22](https://github.com/brave881/ImeiScanner/assets/84896890/652b0068-b1e3-4e8f-acc6-f2789508ebdd)
-![photo_2023-07-25_13-19-21](https://github.com/brave881/ImeiScanner/assets/84896890/1f59f2ee-2573-49a3-9b37-ff54b7a46a12)
-![photo_2023-07-25_13-18-23](https://github.com/brave881/ImeiScanner/assets/84896890/fc2b9e2f-189a-4f2c-a13d-5e8eb769b5df)
-![photo_2023-07-25_13-18-22](https://github.com/brave881/ImeiScanner/assets/84896890/a62aa13d-78ba-4b97-a495-5d4a1768cab3)
-![photo_2023-07-25_13-18-21](https://github.com/brave881/ImeiScanner/assets/84896890/b9beb854-93b8-4b75-a530-52c04ae976c7)
-![photo_2023-07-25_13-18-19](https://github.com/brave881/ImeiScanner/assets/84896890/88613714-0924-41ca-b67a-df26edee9adb)
 ![photo_2023-07-25_13-18-19 (2)](https://github.com/brave881/ImeiScanner/assets/84896890/c12cf4b0-a6f2-47e7-b23d-8dd1840d8b93)
 ![photo_2023-07-25_13-18-18](https://github.com/brave881/ImeiScanner/assets/84896890/b8a78006-a2a0-47f0-ade5-8b00b68f30e2)
 ![photo_2023-07-25_13-18-17](https://github.com/brave881/ImeiScanner/assets/84896890/d894fe92-afe1-4767-ab8b-3a3e9c59f5a0)
