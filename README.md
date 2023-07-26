@@ -26,12 +26,6 @@ To run the project, you will need to have the following installed:
  * The Material Drawer library
 Once you have installed the necessary dependencies, you can open the project in Android Studio and run it.
 
-IMEI Scanning
-The IMEI scanning functionality is implemented using the Firebase Camera. The Firebase Camera provides a way to capture images from the device's camera. The app uses the Firebase Camera to capture an image of the IMEI number. The image is then processed by the Phone Number Detector to detect the IMEI number.
-
-The IMEI scanning functionality is a key feature of the app. It allows users to quickly and easily scan their IMEI numbers. The IMEI number is a unique identifier for each device. It can be used to track devices and to identify devices that have been lost or stolen.
-
-
 To Do
 Add more features to the IMEI scanning functionality.
 Improve the visual appearance of the app.
