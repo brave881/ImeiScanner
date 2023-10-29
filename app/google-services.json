@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "200208948655-t270u773t3mrnvukk92hl20bplm9tmje.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.imeiscanner",
-            "certificate_hash": "fd489ec844d981360da2114affe66ec04ed0da1b"
-          }
-        },
-        {
           "client_id": "200208948655-ehtrhqqm7rqnuaprtvjgtq15b92kpgov.apps.googleusercontent.com",
           "client_type": 3
         }

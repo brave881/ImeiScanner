@@ -56,6 +56,7 @@
     <string name="edit_text">Düzenle</string>
     <string name="_26_09_2022_text">26/09/2022</string>
     <string name="save_text">Kaydet</string>
+    <string name="add_photo">Fotoğraf Ekle</string>
     <string name="scan_a_barcode_text">Barkod tarayın</string>
     <string name="please_input_imei_1">Lütfen Imei 1 girin</string>
     <string name="dd_mm_yy_text">dd/MM/yyyy</string>
@@ -94,4 +95,13 @@
 
     <string name="if_you_don_t_receive_uz">Eğer siz kodu</string>
     <string name="tap_bellow_to_resend_it_uz">içinde almazsanız, tekrar göndermek için aşağıdaki düğmeyi tıklayın.</string>
+    <string name="select_picture">Resim Seç</string>
+    <string name="limit_pick_picture_text">En fazla 8 tane resim ekleyebilirsiniz</string>
+    <string name="close">Kapat</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="choose">Seç</string>
+    <string name="deleting">Siliniyor…</string>
+    <string name="loading">Yükleniyor…</string>
+
 </resources>

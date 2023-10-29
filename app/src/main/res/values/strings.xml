@@ -55,6 +55,7 @@
     <string name="edit_text">Edit</string>
     <string name="_26_09_2022_text">26/09/2022</string>
     <string name="save_text">Save</string>
+    <string name="add_photo">Add Photo</string>
     <string name="scan_a_barcode_text">Scan a barcode</string>
     <string name="please_input_imei_1">Please input Imei 1</string>
     <string name="dd_mm_yy_text">dd/MM/yyyy</string>
@@ -98,5 +99,13 @@
     <string name="if_you_don_t_receive_uz" translatable="false">Agar siz</string>
     <string name="tap_bellow_to_resend_it_uz" translatable="false">ichida kodni olmasangiz uni qayta
         yuborish uchun pastdagi tugmani bosing</string>
+    <string name="select_picture">Select Picture</string>
+    <string name="limit_pick_picture_text">Not allowed to pick more than 8 Pictures!</string>
+    <string name="close">Close</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="choose">Choose</string>
+    <string name="deleting">Deleting…</string>
+    <string name="loading">Loading…</string>
 
 </resources>

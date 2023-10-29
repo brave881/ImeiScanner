@@ -1,6 +1,7 @@
 package com.example.imeiscanner.database
 
 import android.net.Uri
+import android.util.Log
 import android.widget.EditText
 import com.example.imeiscanner.R
 import com.example.imeiscanner.models.PhoneDataModel
@@ -11,10 +12,15 @@ import com.example.imeiscanner.utilits.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import java.util.UUID
 
 
 fun addGoogleUserToFirebase(user: FirebaseUser?) {
@@ -61,33 +67,199 @@ fun userGoogleOrPhone(): String {
     }
 }
 
-fun setValuesToFireBase(
-    dateMap: HashMap<String, Any>,
+suspend fun addData(
+    dataMap: HashMap<String, Any>,
+    imageList: List<Uri>? = null,
     id: String,
     imei1: String,
-    boolean: Boolean
+    isEditing: Boolean,
+    isBeforePicturesHave: Boolean,
+    onProgress: (Double) -> Unit,
 ) {
-    val reference = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
-    reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
-        if (boolean)
-            reference
-                .child(id)
-                .setValue(dateMap)
-                .addOnSuccessListener { replaceFragment(MainFragment(),false) }
-                .addOnFailureListener { showToast(it.toString()) }
-        else {
+    coroutineScope {
+
+        var isImeiExist = false
+        val urlList = mutableListOf<String>()
+        val storageReference = REF_STORAGE_ROOT.child(CURRENT_UID).child(id)
+        val reference = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
+
+        reference.addListenerForSingleValueEvent(AppValueEventListener {
             for (i in it.children) {
-                if (i.child(CHILD_IMEI1).value == imei1) {
+                if (i.child(CHILD_IMEI1).value == imei1 && i.child(CHILD_ID).value != id) {
                     showToast(MAIN_ACTIVITY.getString(R.string.imei_already_exists_text))
+                    isImeiExist = true
                     return@AppValueEventListener
                 }
             }
-            reference
-                .child(id)
-                .setValue(dateMap)
-                .addOnSuccessListener { replaceFragment(MainFragment(),false) }
-                .addOnFailureListener { showToast(it.toString()) }
+
+
+            if (!isImeiExist) {
+
+                val arrayList: MutableList<Uri>? = imageList?.toMutableList()
+                if (isEditing) {
+                    if (isBeforePicturesHave) {
+
+                        deleteFile(arrayList, urlList, storageReference) { updatedList ->
+//                REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(id)
+//                    .child(CHILD_PHONE_PHOTOS).removeValue().addOnSuccessListener {
+                            addDataToDatabase(
+                                updatedList,
+                                urlList,
+                                storageReference,
+                                dataMap,
+                                reference,
+                                id,
+                                imageList?.size,
+                                onProgress
+                            )
+//                    }
+                        }
+                    } else {
+                        addDataToDatabase(
+                            imageList,
+                            urlList,
+                            storageReference,
+                            dataMap,
+                            reference,
+                            id,
+                            imageList?.size,
+                            onProgress
+                        )
+                    }
+                } else {
+                    addDataToDatabase(
+                        imageList,
+                        urlList,
+                        storageReference,
+                        dataMap,
+                        reference,
+                        id,
+                        imageList?.size,
+                        onProgress
+                    )
+                }
+            }
+        })
+    }
+}
+
+private fun deleteFile(
+    arrayList: MutableList<Uri>? = null,
+    urlList: MutableList<String>? = null,
+    storageReference: StorageReference,
+    onSuccessListener: (MutableList<Uri>?) -> Unit
+) {
+
+    storageReference.listAll().addOnSuccessListener { result ->
+        for (item in result.items) {
+            if (arrayList != null) {
+                item.downloadUrl.addOnSuccessListener {
+                    if (arrayList.contains(it)) {
+//                            arrayList.remove(it)
+//                            urlList!!.add(it.toString())
+
+                    } else {
+                        item.delete().addOnSuccessListener {
+
+                        }.addOnFailureListener { exception ->
+                            showToast(exception.message.toString())
+                        }
+                    }
+                }
+
+            } else {
+                item.delete().addOnSuccessListener {
+                    if (item == result.items.last()) {
+                        onSuccessListener.invoke(null)
+                    }
+                }.addOnFailureListener { exception ->
+                    showToast(exception.message.toString())
+                }
+            }
         }
+//            if (item == result.items.last()) {
+        onSuccessListener.invoke(arrayList)
+//            }
+    }.addOnFailureListener { exception ->
+        showToast(exception.message.toString())
+    }
+}
+
+private fun addDataToDatabase(
+    imageList: List<Uri>?,
+    urlList: MutableList<String>,
+    storageReference: StorageReference,
+    dataMap: HashMap<String, Any>,
+    reference: DatabaseReference,
+    id: String,
+    allImagesCount: Int? = 0,
+    onProgress: (Double) -> Unit
+) {
+    var counter = 0
+    if (imageList != null) {
+
+        imageList.forEachIndexed { index, uri ->
+
+            val uuid = UUID.randomUUID()
+            storageReference.child(uuid.toString()).putFile(uri).addOnCompleteListener {
+
+                counter++
+                if (counter == imageList.size) {
+                    addUrlsToDatabase(
+                        storageReference, urlList, dataMap, reference, id, allImagesCount
+                    )
+                }
+            }.addOnFailureListener { Log.d(TAG, "f: ${it.message}") }.addOnProgressListener {
+                val progress = (100.0 * it.bytesTransferred / it.totalByteCount)
+                onProgress.invoke(progress)
+            }
+        }
+    } else {
+        addDataToRealtime(
+            reference = reference,
+            id = id,
+            dataMap = dataMap,
+        )
+    }
+}
+
+private fun addUrlsToDatabase(
+    storageReference: StorageReference,
+    urlList: MutableList<String>,
+    dataMap: HashMap<String, Any>,
+    reference: DatabaseReference,
+    id: String,
+    allImagesCount: Int?
+) {
+    var count = 0
+    storageReference.listAll().addOnSuccessListener { result ->
+        for (item in result.items) {
+            item.downloadUrl.addOnSuccessListener {
+                urlList.add(it.toString())
+                count++
+                if (count == allImagesCount) {
+                    dataMap[CHILD_PHONE_PHOTOS] = urlList
+                    addDataToRealtime(
+                        reference = reference,
+                        id = id,
+                        dataMap = dataMap,
+                    )
+                }
+            }
+        }
+    }
+}
+
+
+private fun addDataToRealtime(
+    reference: DatabaseReference,
+    id: String,
+    dataMap: HashMap<String, Any>,
+) {
+    reference.addListenerForSingleValueEvent(AppValueEventListener { it ->
+        reference.child(id).setValue(dataMap).addOnSuccessListener {
+            replaceFragment(MainFragment(), false)
+        }.addOnFailureListener { showToast(it.toString()) }
     })
 }
 
@@ -98,13 +270,12 @@ inline fun putUserPhotoUrlToDatabase(url: String, crossinline function: () -> Un
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID)
-                .child(CHILD_PHOTO_URL)
+            REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID).child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
+
         PHONE_PROVIDER_ID -> {
-            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID)
-                .child(CHILD_PHOTO_URL)
+            REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID).child(CHILD_PHOTO_URL)
                 .setValue(url).addOnFailureListener { showToast(it.message.toString()) }
         }
     }
@@ -127,14 +298,16 @@ inline fun getUrlFromStorage(path: StorageReference, crossinline function: (Stri
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-inline fun putFileToStorage(path: StorageReference, uri: Uri, crossinline function: () -> Unit) {
+inline fun putFileToStorage(
+    path: StorageReference, uri: Uri, crossinline function: () -> Unit
+) {
     path.putFile(uri).addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
 fun updateFullNameFromDatabase(fullname: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
-        .setValue(fullname).addOnSuccessListener {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME).setValue(fullname)
+        .addOnSuccessListener {
             showToast(MAIN_ACTIVITY.getString(R.string.name_changed_text))
             updateUserName(fullname)
             MAIN_ACTIVITY.supportFragmentManager.popBackStack()
@@ -146,6 +319,7 @@ fun updateFullNameFromDatabase(fullname: String) {
             REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
                 .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
         }
+
         PHONE_PROVIDER_ID -> {
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID).child(CHILD_FULLNAME)
                 .setValue(fullname).addOnFailureListener { showToast(it.message.toString()) }
@@ -191,15 +365,51 @@ fun deleteUser() {
     logOut()
 }
 
-fun deleteUserFromDatabase() {
+suspend fun deleteAlLImagesFromStorage(onSuccess: () -> Unit) {
+    coroutineScope {
+        var folderCount = 0
+        var imageCount = 0
+        REF_STORAGE_ROOT.child(CURRENT_UID).listAll()
+            .addOnFailureListener { showToast(it.message.toString()) }
+            .addOnSuccessListener { result ->
+                for (folder in result.prefixes) {
+                    folder.listAll().addOnSuccessListener {
+                        imageCount = 0
+                        for (image in it.items) {
+                            image.delete()
+                            imageCount++
+                        }
+                        folderCount++
+                        if (folderCount == result.prefixes.size && it.items.size == imageCount) {
+                            onSuccess()
+                        }
+                    }.addOnFailureListener { showToast(it.message.toString()) }
+                }
+                if (result.prefixes.size == 0) {
+                    onSuccess()
+                }
+            }
+    }
+}
+
+
+fun deleteUserDatasFromDatabase() {
+    REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+
+    REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID).removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
+
 
     when (userGoogleOrPhone()) {
         GOOGLE_PROVIDER_ID -> {
             REF_DATABASE_ROOT.child(NODE_GOOGLE_USERS).child(CURRENT_UID).removeValue()
                 .addOnFailureListener { showToast(it.message.toString()) }
         }
+
         PHONE_PROVIDER_ID -> {
             REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(CURRENT_UID).removeValue()
         }
@@ -223,12 +433,10 @@ fun signInWithPhone(uid: String, phoneNumber: String, name: String = "") {
 //    REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
 //        .addListenerForSingleValueEvent(AppValueEventListener {
     REF_DATABASE_ROOT.child(NODE_PHONE_USERS).child(uid).updateChildren(dataMap)
-        .addOnFailureListener { showToast(it.message.toString()) }
-        .addOnSuccessListener {
+        .addOnFailureListener { showToast(it.message.toString()) }.addOnSuccessListener {
 
             REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dataMap)
-                .addOnFailureListener { showToast(it.message.toString()) }
-                .addOnSuccessListener {
+                .addOnFailureListener { showToast(it.message.toString()) }.addOnSuccessListener {
                     restartActivity()
                     showToast(MAIN_ACTIVITY.getString(R.string.welcome))
                 }
@@ -251,10 +459,9 @@ fun addFavourites(item: PhoneDataModel) {
 
     val map = hashMapOf<String, Any>()
     map[ref] = dataMap
-    REF_DATABASE_ROOT.updateChildren(map)
-        .addOnFailureListener {
-            showToast(it.message.toString())
-        }
+    REF_DATABASE_ROOT.updateChildren(map).addOnFailureListener {
+        showToast(it.message.toString())
+    }
 
     val newMap = hashMapOf<String, Any>()
     newMap[CHILD_FAVOURITE_STATE] = true
@@ -272,17 +479,22 @@ fun deleteFavouritesValue(value: String) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun getCallbacks(
-    phoneNumber: String,
-    function: () -> Unit
-): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
+fun getCallbacks(phoneNumber: String): PhoneAuthProvider.OnVerificationStateChangedCallbacks {
     val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        var verificationId: String? = null
+        var token: PhoneAuthProvider.ForceResendingToken? = null
 
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
 
-            AUTH.signInWithCredential(credential).addOnSuccessListener {
-                function()
-            }.addOnFailureListener { showToast(it.message.toString()) }
+            replaceFragment(
+                EnterCodeFragment(
+                    phoneNumber,
+                    verificationId!!,
+                    token!!,
+                    credential.smsCode
+                )
+            )
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
@@ -290,16 +502,26 @@ fun getCallbacks(
         }
 
         override fun onCodeSent(
-            verificationId: String,
-            token: PhoneAuthProvider.ForceResendingToken
+            verificationId: String, token: PhoneAuthProvider.ForceResendingToken
         ) {
-                replaceFragment(EnterCodeFragment(phoneNumber, verificationId, token))
+            this.verificationId = verificationId
+            this.token = token
+            Log.d(TAG, "onCodeSent: $verificationId")
+            Log.d(TAG, "t: ${token}")
+            replaceFragment(EnterCodeFragment(phoneNumber, verificationId, token))
         }
     }
     return callbacks
 }
 
 fun deleteSelectedItems(id: String) {
+    val storageReference = REF_STORAGE_ROOT.child(CURRENT_UID).child(id)
+
     REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(id).removeValue()
-        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnFailureListener { showToast(it.message.toString()) }.addOnSuccessListener {
+            deleteFile(storageReference = storageReference) {
+
+            }
+        }
+
 }

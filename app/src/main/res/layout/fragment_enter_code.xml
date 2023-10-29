@@ -175,40 +175,48 @@
                     app:layout_constraintTop_toBottomOf="@id/resend_code_text_container" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
                 android:id="@+id/resend_code_btn"
                 android:layout_width="150dp"
                 android:layout_height="50dp"
                 android:layout_margin="26dp"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/button_shape"
-                android:focusable="true"
                 app:cardCornerRadius="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
 
-                <TextView
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?android:selectableItemBackground"
-                    android:fontFamily="@font/karla_bold"
-                    android:gravity="center"
-                    android:maxEms="5"
-                    android:text="@string/resend_code_text"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/large_text_size" />
+                    android:background="@drawable/button_shape"
+                    android:focusable="true">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?android:selectableItemBackground"
+                        android:fontFamily="@font/karla_bold"
+                        android:gravity="center"
+                        android:maxEms="5"
+                        android:text="@string/resend_code_text"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/large_text_size" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </LinearLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enter_name_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/background"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -263,31 +271,37 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/enter_name_next_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_margin="26dp"
             android:layout_marginBottom="60dp"
-            android:background="@drawable/button_shape"
             android:focusable="true"
             app:cardCornerRadius="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?android:selectableItemBackground"
-                android:fontFamily="@font/karla_bold"
-                android:gravity="center"
-                android:text="@string/continue_text"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_22sdp" />
+                android:background="@drawable/button_shape">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?android:selectableItemBackground"
+                    android:fontFamily="@font/karla_bold"
+                    android:gravity="center"
+                    android:text="@string/continue_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_22sdp" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

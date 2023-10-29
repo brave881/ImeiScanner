@@ -2,6 +2,7 @@ package com.example.imeiscanner.ui.fragments.register
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,31 +21,36 @@ class EnterCodeFragment(
     private val phoneNumber: String,
     val id: String,
     private val token: PhoneAuthProvider.ForceResendingToken,
+    private val smsCode: String? = null
 ) : Fragment() {
 
-    private lateinit var binding: FragmentEnterCodeBinding
-    private lateinit var tvTimer: TextView
+    private var _binding: FragmentEnterCodeBinding? = null
+    private val binding: FragmentEnterCodeBinding get() = _binding!!
+    private var tvTimer: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
+        _binding = FragmentEnterCodeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onStart() {
         super.onStart()
         initFields()
-        startTimer(tvTimer).start()
+        startTimer(tvTimer!!).start()
 
         initTextTimer()
         binding.resendCodeBtn.setOnClickListener {
-            if (tvTimer.text.toString().isEmpty()) {
-                startTimer(tvTimer).start()
+            if (tvTimer!!.text.toString().isEmpty()) {
+                startTimer(tvTimer!!).start()
                 resendCode(phoneNumber, token)
             }
+        }
+        if (smsCode != null) {
+            checkCode(smsCode)
         }
         binding.registerInputCode.setOnCompleteListener {
             if (it.length == 6) {
@@ -56,19 +62,19 @@ class EnterCodeFragment(
     private fun initTextTimer() {
         if (sharedPreferences.getString(LANG, "") == "uz") {
             binding.resendCodeInfoUz.visibility = View.VISIBLE
-            binding.tapToBellowUz.visibility=View.VISIBLE
-            binding.resendCodeInfo.visibility=View.GONE
-            binding.tapToBellow.visibility=View.GONE
+            binding.tapToBellowUz.visibility = View.VISIBLE
+            binding.resendCodeInfo.visibility = View.GONE
+            binding.tapToBellow.visibility = View.GONE
         } else if (sharedPreferences.getString(LANG, "") == "tr") {
             binding.resendCodeInfoUz.visibility = View.VISIBLE
-            binding.tapToBellowUz.visibility=View.VISIBLE
-            binding.resendCodeInfo.visibility=View.GONE
-            binding.tapToBellow.visibility=View.GONE
+            binding.tapToBellowUz.visibility = View.VISIBLE
+            binding.resendCodeInfo.visibility = View.GONE
+            binding.tapToBellow.visibility = View.GONE
         } else {
             binding.resendCodeInfoUz.visibility = View.GONE
-            binding.tapToBellowUz.visibility=View.GONE
-            binding.resendCodeInfo.visibility=View.VISIBLE
-            binding.tapToBellow.visibility=View.VISIBLE
+            binding.tapToBellowUz.visibility = View.GONE
+            binding.resendCodeInfo.visibility = View.VISIBLE
+            binding.tapToBellow.visibility = View.VISIBLE
         }
     }
 
@@ -80,8 +86,11 @@ class EnterCodeFragment(
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private fun checkCode() {
-        val code = binding.registerInputCode.text.toString()
+    private fun checkCode(smsCode: String? = null) {
+        var code = smsCode
+        if (code.isNullOrEmpty()) {
+            code = binding.registerInputCode.text.toString()
+        }
         val credential = PhoneAuthProvider.getCredential(id, code)
 
         AUTH.signInWithCredential(credential).addOnSuccessListener {
@@ -108,5 +117,11 @@ class EnterCodeFragment(
                 }
             }
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        tvTimer = null
     }
 }

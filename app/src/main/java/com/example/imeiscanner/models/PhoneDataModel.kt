@@ -1,6 +1,9 @@
 package com.example.imeiscanner.models
 
+import android.net.Uri
+import androidx.core.net.toUri
 import java.io.Serializable
+import java.net.URL
 
 data class PhoneDataModel(
     var id: String = "",
@@ -13,5 +16,6 @@ data class PhoneDataModel(
     var phone_price: String = "",
     var phone_memory: String = "",
     var favourite_state: Boolean =false,
-    var selected: Boolean =false
+    var selected: Boolean =false,
+    var photoList: List<String> = emptyList()
 ): Serializable

@@ -2,6 +2,7 @@ package com.example.imeiscanner.ui.fragments.mainFragment
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.PopupMenu
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.CHILD_IMEI1
+import com.example.imeiscanner.database.CHILD_PHONE_PHOTOS
 import com.example.imeiscanner.database.CURRENT_UID
 import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.REF_STORAGE_ROOT
+import com.example.imeiscanner.database.getUrlFromStorage
 import com.example.imeiscanner.databinding.FragmentMainBinding
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.ui.fragments.SearchFragment
@@ -23,26 +27,29 @@ import com.example.imeiscanner.ui.fragments.add_phone.PhoneInfoFragment
 import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.firebase.ui.database.SnapshotParser
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.GenericTypeIndicator
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import kotlin.math.log
 
 class MainFragment() : Fragment() {
 
-    private lateinit var oldestBtn: MenuItem
-    private lateinit var newestBtn: MenuItem
-    private lateinit var searchItem: MenuItem
-    private lateinit var searchWithQRCode: MenuItem
-    private lateinit var binding: FragmentMainBinding
-    private lateinit var rv: RecyclerView
-    private lateinit var refPhoneData: DatabaseReference
-    private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>
-    private lateinit var scannerButton: ImageView
-    private lateinit var scanOptions: ScanOptions
-    private lateinit var options: FirebaseRecyclerOptions<PhoneDataModel>
-    private lateinit var searchView: SearchView
-    private lateinit var linerLayoutManager: LinearLayoutManager
-    private lateinit var popupMenu: PopupMenu
+    private var oldestBtn: MenuItem? = null
+    private var newestBtn: MenuItem? = null
+    private var searchItem: MenuItem? = null
+    private var searchWithQRCode: MenuItem? = null
+    private var binding: FragmentMainBinding? = null            //
+    private var rv: RecyclerView? = null
+    private var refPhoneData: DatabaseReference? = null
+    private var adapter: FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>? = null
+    private var scannerButton: ImageView? = null
+    private var scanOptions: ScanOptions? = null                  ///
+    private var options: FirebaseRecyclerOptions<PhoneDataModel>? = null          /////
+    private var searchView: SearchView? = null
+    private var linerLayoutManager: LinearLayoutManager? = null          ////
+    private var popupMenu: PopupMenu? = null
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -57,7 +64,7 @@ class MainFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding!!.root
     }
 
     override fun onResume() {
@@ -73,16 +80,16 @@ class MainFragment() : Fragment() {
         initRecyclerView()
         checkDataExists()
         listenerToolbar()
-        binding.floatActionBtn.setOnClickListener {
+        binding!!.floatActionBtn.setOnClickListener {
             replaceFragment(PhoneAddFragment())
         }
         initPopupMenu()
     }
 
     private fun initPopupMenu() {
-        popupMenu = PopupMenu(MAIN_ACTIVITY, binding.toolbarItemMenu)
-        popupMenu.menuInflater.inflate(R.menu.select_menu, popupMenu.menu)
-        popupMenu.setOnMenuItemClickListener {
+        popupMenu = PopupMenu(MAIN_ACTIVITY, binding?.toolbarItemMenu)
+        popupMenu?.menuInflater?.inflate(R.menu.select_menu, popupMenu?.menu)
+        popupMenu?.setOnMenuItemClickListener {
             val id = it.itemId
             if (id == R.id.select_all) {
                 (adapter as MainAdapter).selectAll()
@@ -91,13 +98,13 @@ class MainFragment() : Fragment() {
             }
             false
         }
-        binding.toolbarItemMenu.setOnClickListener { popupMenu.show() }
+        binding!!.toolbarItemMenu.setOnClickListener { popupMenu?.show() }
     }
 
     private fun listenerToolbar() {
-        binding.toolbarItemLcStar.setOnClickListener { addFavourite() }
-        binding.toolbarItemLcDelete.setOnClickListener { delete() }
-        binding.toolbarItemLcCancel.setOnClickListener { cancel() }
+        binding!!.toolbarItemLcStar.setOnClickListener { addFavourite() }
+        binding!!.toolbarItemLcDelete.setOnClickListener { delete() }
+        binding!!.toolbarItemLcCancel.setOnClickListener { cancel() }
     }
 
     private fun addFavourite() {
@@ -106,7 +113,7 @@ class MainFragment() : Fragment() {
     }
 
     private fun cancelBinding() {
-        binding.toolbarItem.visibility = View.GONE
+        binding!!.toolbarItem.visibility = View.GONE
         MAIN_ACTIVITY.mToolbar.visibility = View.VISIBLE
     }
 
@@ -124,44 +131,54 @@ class MainFragment() : Fragment() {
         linerLayoutManager = LinearLayoutManager(MAIN_ACTIVITY)
         if (sharedPreferences.getBoolean(STATE, false)) {
             //engyangi qo'shilganini birinchi ko'rsatadi
-            linerLayoutManager.reverseLayout = true
-            linerLayoutManager.stackFromEnd = true
+            linerLayoutManager!!.reverseLayout = true
+            linerLayoutManager!!.stackFromEnd = true
         } else {
             //eng ynagi qo'shilganlarini en pasida ko'rsatadi
-            linerLayoutManager.reverseLayout = false
-            linerLayoutManager.stackFromEnd = false
+            linerLayoutManager!!.reverseLayout = false
+            linerLayoutManager!!.stackFromEnd = false
         }
     }
 
     private fun initFields() {
-        rv = binding.rvMainFragment
-        rv.layoutManager = linerLayoutManager
-        rv.setHasFixedSize(true)
+        rv = binding?.rvMainFragment
+        rv?.layoutManager = linerLayoutManager
+        rv?.setHasFixedSize(true)
         scanOptions = ScanOptions()
-        scanOptions(scanOptions)
+        scanOptions(scanOptions!!)
     }
 
     private fun installResultForET(result: String) {
-        searchView.setQuery(result, false)
+        searchView?.setQuery(result, false)
         searchInit()
     }
 
     override fun onPause() {
         super.onPause()
-        adapter.stopListening()
+        adapter?.stopListening()
     }
 
     private fun initRecyclerView() {
         refPhoneData = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
+
         val options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
-            .setQuery(refPhoneData, PhoneDataModel::class.java).build()
+            .setQuery(refPhoneData!!, SnapshotParser { snapshot ->
+                val phoneData = snapshot.getValue(PhoneDataModel::class.java)
+                if (snapshot.child(CHILD_PHONE_PHOTOS).value as? List<*> != null) {
+                    phoneData?.photoList = snapshot.child(CHILD_PHONE_PHOTOS).value as List<String>
+                }
+//                phoneData?.photoList = snapshot.child(CHILD_PHONE_PHOTOS)
+//                    .getValue(object : GenericTypeIndicator<List<String>>() {})
+                phoneData!!
+            }).build()
+
         adapter = MainAdapter(options) { show -> showItemToolbar(show) }
-        adapter.itemCount.toString()
-        rv.adapter = adapter
-        adapter.startListening()
+        adapter!!.itemCount.toString()
+        rv?.adapter = adapter
+        adapter?.startListening()
         clickItem()
-        (adapter as MainAdapter).initCountView(binding.toolbarItemLcCount)
-        (adapter as MainAdapter).initFloatButton(binding.floatActionBtn)
+        (adapter as MainAdapter).initCountView(binding!!.toolbarItemLcCount)
+        (adapter as MainAdapter).initFloatButton(binding!!.floatActionBtn)
     }
 
 
@@ -169,11 +186,11 @@ class MainFragment() : Fragment() {
         val ref = REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID)
         ref.addValueEventListener(AppValueEventListener {
             if (it.childrenCount > 0) {
-                binding.mainEx.visibility = View.GONE
-                rv.visibility = View.VISIBLE
+                binding!!.mainEx.visibility = View.GONE
+                rv?.visibility = View.VISIBLE
             } else {
-                rv.visibility = View.GONE
-                binding.mainEx.visibility = View.VISIBLE
+                rv?.visibility = View.GONE
+                binding!!.mainEx.visibility = View.VISIBLE
             }
         })
     }
@@ -190,12 +207,12 @@ class MainFragment() : Fragment() {
     private fun mySearch(text: String) {
         options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(
-                refPhoneData.orderByChild(CHILD_IMEI1).startAt(text).endAt(text + "\uf8ff"),
+                refPhoneData?.orderByChild(CHILD_IMEI1)!!.startAt(text).endAt(text + "\uf8ff"),
                 PhoneDataModel::class.java
             ).build()
-        adapter = MainAdapter(options) {}
-        adapter.startListening()
-        rv.adapter = adapter
+        adapter = MainAdapter(options!!) {}
+        adapter?.startListening()
+        rv?.adapter = adapter
         clickItem()
     }
 
@@ -207,19 +224,19 @@ class MainFragment() : Fragment() {
         oldestBtn = menu.findItem(R.id.menu_first_oldest)
         searchItem = menu.findItem(R.id.menu_search_btn)
         searchWithQRCode = menu.findItem(R.id.menu_scanner_btn)
-        searchWithQRCode.isVisible = true
-        scannerButton = searchWithQRCode.actionView as ImageView
-        scannerButton.setImageResource(R.drawable.ic_qr_code_scanner)
-        searchView = searchItem.actionView as SearchView
+        searchWithQRCode?.isVisible = true
+        scannerButton = searchWithQRCode?.actionView as ImageView
+        scannerButton?.setImageResource(R.drawable.ic_qr_code_scanner)
+        searchView = searchItem?.actionView as SearchView
         searchInit()
-        scannerButton.setOnClickListener {
+        scannerButton?.setOnClickListener {
             barcodeLauncher.launch(scanOptions)
 
         }
     }
 
     private fun searchInit() {
-        searchView.setOnQueryTextListener(AppSearchView {
+        searchView?.setOnQueryTextListener(AppSearchView {
             mySearch(it)
         })
     }
@@ -229,26 +246,47 @@ class MainFragment() : Fragment() {
             R.id.menu_first_newest -> {
                 editor.putBoolean(STATE, true)
                 editor.apply()
-                newestBtn.isChecked = true
+                newestBtn?.isChecked = true
                 restartActivity()
             }
+
             R.id.menu_first_oldest -> {
                 editor.putBoolean(STATE, false)
                 editor.apply()
-                oldestBtn.isChecked = true
+                oldestBtn?.isChecked = true
                 restartActivity()
             }
         }
-        rv.smoothScrollToPosition(1)     //rv ni eng birinchi positioniga olib chiqadi
+        rv?.smoothScrollToPosition(1)     //rv ni eng birinchi positioniga olib chiqadi
         return true
     }
 
     private fun showItemToolbar(show: Boolean) {
-        binding.toolbarItem.isVisible = show
+        binding!!.toolbarItem.isVisible = show
     }
 
     override fun onStop() {
         super.onStop()
         cancel()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+//        binding = null
+//        oldestBtn = null
+        newestBtn = null
+        searchWithQRCode = null
+//        rv=null
+        searchItem = null
+        refPhoneData = null
+        scannerButton = null
+        searchView = null
+        popupMenu = null
+        adapter = null
+        scanOptions = null
+        options = null
+        linerLayoutManager = null
+
     }
 }

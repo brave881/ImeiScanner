@@ -56,6 +56,7 @@
     <string name="edit_text">O\'zgartirish</string>
     <string name="_26_09_2022_text">26/09/2022</string>
     <string name="save_text">Saqlash</string>
+    <string name="add_photo">Rasm Qo\'shish</string>
     <string name="scan_a_barcode_text">Shtrix-kodni skanerlash</string>
     <string name="please_input_imei_1">Iltimos Imei 1 ni kiriting</string>
     <string name="dd_mm_yy_text">dd/MM/yyyy</string>
@@ -89,4 +90,13 @@
     <string name="continue_text">Davomi</string>
     <string name="email">Email</string>
     <string name="english">English</string>
+    <string name="select_picture">Rasm Tanlang</string>
+    <string name="limit_pick_picture_text">8 tadan ortiq rasm qo\'shish mumkin emas!</string>
+    <string name="close">Yopish</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galareya</string>
+    <string name="choose">Tanlash</string>
+    <string name="deleting">O\'chirilmoqda…</string>
+    <string name="loading">Yuklanmoqda…</string>
+
 </resources>

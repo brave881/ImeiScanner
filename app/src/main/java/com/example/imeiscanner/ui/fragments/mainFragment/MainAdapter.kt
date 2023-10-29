@@ -1,5 +1,6 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +10,16 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.CURRENT_UID
 import com.example.imeiscanner.database.NODE_PHONE_DATA_INFO
 import com.example.imeiscanner.database.REF_DATABASE_ROOT
+import com.example.imeiscanner.database.REF_STORAGE_ROOT
 import com.example.imeiscanner.database.deleteSelectedItems
+import com.example.imeiscanner.database.getUrlFromStorage
 import com.example.imeiscanner.models.PhoneDataModel
-import com.example.imeiscanner.utilits.AppValueEventListener
-import com.example.imeiscanner.utilits.DIALOG_BUILDER
-import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.getPhoneModel
+import com.example.imeiscanner.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import de.hdodenhof.circleimageview.CircleImageView
@@ -27,8 +28,9 @@ class MainAdapter(
     var options: FirebaseRecyclerOptions<PhoneDataModel>, private val showToolbar: (Boolean) -> Unit
 ) : FirebaseRecyclerAdapter<PhoneDataModel, MainAdapter.PhonesHolder>(options) {
 
-    private val selectedItemsList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
-    private val holdersList = hashMapOf<MainAdapter.PhonesHolder, PhoneDataModel>()
+
+    private val selectedItemsList = hashMapOf<PhoneDataModel,MainAdapter.PhonesHolder>()
+    private val holdersList = hashMapOf<PhoneDataModel,MainAdapter.PhonesHolder>()
     private var itemClickListener: ((PhoneDataModel) -> Unit)? = null
     private lateinit var floatingButton: ConstraintLayout
     private lateinit var countTextView: TextView
@@ -44,6 +46,7 @@ class MainAdapter(
         val item: CardView = view.findViewById(R.id.main_list_item_container)
         val checkImage: CircleImageView = view.findViewById(R.id.item_product_check_image)
         val star_on: ImageView = view.findViewById(R.id.item_star_on_btn)
+        val productImage: ImageView = view.findViewById(R.id.img_product_image)
         val star_off: ImageView = view.findViewById(R.id.item_star_off_btn)
     }
 
@@ -56,7 +59,7 @@ class MainAdapter(
     fun itemOnClickListener(v: (PhoneDataModel) -> Unit) {
         itemClickListener = v
     }
-
+    
     override fun onBindViewHolder(
         holder: PhonesHolder, position: Int, model: PhoneDataModel
     ) {
@@ -68,19 +71,24 @@ class MainAdapter(
             holder.star_off.visibility = View.VISIBLE
         }
 
-        if (model.id.isEmpty()) {bool = false}
-        holdersList[holder] = model
+        if (model.id.isEmpty()) {
+            bool = false
+        }
+        if (!holdersList.contains(model)) {
+            holdersList[model] = holder
+        }
         var item = PhoneDataModel()
         val referenceItem =
             REF_DATABASE_ROOT.child(NODE_PHONE_DATA_INFO).child(CURRENT_UID).child(model.id)
         referenceItem.addListenerForSingleValueEvent(AppValueEventListener {
             item = it.getPhoneModel()
-            initItems(holder, item)
+//            initItems(holder, item)
+            initItems(holder, model)
         })
 
         holder.item.setOnClickListener {
             if (holder.checkImage.isVisible) {
-                selectedItemsList.remove(holder)
+                selectedItemsList.remove(model)
                 countTextView.text = (--count).toString()
                 holder.checkImage.visibility = View.GONE
                 if (selectedItemsList.isEmpty()) {
@@ -93,7 +101,7 @@ class MainAdapter(
                 }
             } else if (isEnable) {
                 selectItem(holder, model)
-            } else itemClickListener?.invoke(item)
+            } else itemClickListener?.invoke(model)
         }
 
         holder.item.setOnLongClickListener {
@@ -107,7 +115,7 @@ class MainAdapter(
     private fun selectItem(holder: PhonesHolder, model: PhoneDataModel) {
         floatingButton.visibility = View.GONE
         MAIN_ACTIVITY.mToolbar.visibility = View.GONE
-        selectedItemsList[holder] = model
+        selectedItemsList[model] = holder
         countTextView.text = (++count).toString()
         showToolbar(true)
         isEnable = true
@@ -130,9 +138,9 @@ class MainAdapter(
     private fun deleteItems() {
         count = 0
         selectedItemsList.forEach { (t, u) ->
-            if (u.favourite_state)
-                deleteFavourites(t, u)
-            deleteSelectedItems(u.id)
+            if (t.favourite_state)
+                deleteFavourites(u, t)
+            deleteSelectedItems(t.id)
         }
         clearSelectedList(selectedItemsList)
         showToolbar(false)
@@ -153,12 +161,12 @@ class MainAdapter(
         when (selectedVisibleItemsSize) {
             selectedItemsList.size -> {
                 selectedItemsList.forEach { (t, u) ->
-                    deleteFavourites(t, u)
+                    deleteFavourites(u, t)
                 }
             }
             0 -> {
                 selectedItemsList.forEach { (t, u) ->
-                    commitFavourites(t, u)
+                    commitFavourites(u, t)
                 }
             }
         }
@@ -170,7 +178,7 @@ class MainAdapter(
 
     private fun selectedItemsIsVisible() {
         if (selectedItemsList.isNotEmpty()) {
-            selectedItemsList.forEach { (_, model) ->
+            selectedItemsList.forEach { (model, _) ->
                 if (model.favourite_state) selectedVisibleItemsSize++
             }
         }
@@ -188,7 +196,7 @@ class MainAdapter(
         selectedItemsList.clear()
         count = 0
         countTextView.text = count.toString()
-        holdersList.forEach { (t, _) ->
+        holdersList.forEach { (_, t) ->
             t.checkImage.visibility = View.GONE
             t.star_off.isClickable = true
         }
@@ -196,13 +204,14 @@ class MainAdapter(
 
     fun selectAll() {
         selectedItemsList.clear()
-        holdersList.forEach { (holder, model) ->
+        holdersList.forEach { (model, holder) ->
+            selectedItemsList[model] = holder
             holder.checkImage.visibility = View.VISIBLE
             holder.star_off.isClickable = false
-            selectedItemsList[holder] = model
+            holder.star_on.isClickable = false
         }
-            count = holdersList.size
-            countTextView.text = count.toString()
+        count = holdersList.size
+        countTextView.text = count.toString()
 
     }
 }

@@ -1,17 +1,23 @@
 package com.example.imeiscanner.ui.fragments.mainFragment
 
-import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
-import com.example.imeiscanner.R
+import com.bumptech.glide.Glide
 import com.example.imeiscanner.database.addFavourites
 import com.example.imeiscanner.database.deleteFavouritesValue
 import com.example.imeiscanner.models.PhoneDataModel
 import com.example.imeiscanner.utilits.MAIN_ACTIVITY
-import com.example.imeiscanner.utilits.showToast
+import com.example.imeiscanner.utilits.TAG
 
 fun initItems(
     holder: MainAdapter.PhonesHolder, item: PhoneDataModel
 ) {
+
+    if (item.photoList.isNotEmpty()) {
+        Glide.with(MAIN_ACTIVITY).load(item.photoList.first()).centerCrop()
+            .into(holder.productImage)
+    }
+
     holder.star_off.setOnClickListener {
         commitFavourites(holder, item)
     }
@@ -47,12 +53,12 @@ fun commitFavourites(
     addFavourites(item)
 }
 
-fun clearSelectedList(holderList: HashMap<MainAdapter.PhonesHolder, PhoneDataModel>) {
+fun clearSelectedList(holderList: HashMap<PhoneDataModel, MainAdapter.PhonesHolder>) {
     if (holderList.isNotEmpty()) {
-        holderList.forEach { (it, _) ->
+        holderList.forEach { (_, it) ->
             it.checkImage.visibility = View.GONE
-            it.star_off.isClickable=true
-            it.star_on.isClickable=true
+            it.star_off.isClickable = true
+            it.star_on.isClickable = true
         }
         holderList.clear()
     }

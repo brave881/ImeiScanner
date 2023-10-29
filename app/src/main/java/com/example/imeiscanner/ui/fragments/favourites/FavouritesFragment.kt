@@ -1,10 +1,10 @@
 package com.example.imeiscanner.ui.fragments.favourites
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.CURRENT_UID
@@ -22,34 +22,36 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 
 class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
-    private lateinit var binding: FragmentFavouritesBinding
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: FirebaseRecyclerAdapter<PhoneDataModel, FavouritesAdapter.Holder>
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding: FragmentFavouritesBinding get() = _binding!!
+    private var _recyclerView: RecyclerView? = null
+    private val recyclerView: RecyclerView get() = _recyclerView!!
+    private var adapter: FirebaseRecyclerAdapter<PhoneDataModel, FavouritesAdapter.Holder>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        MAIN_ACTIVITY.title=getString(R.string.favourites_text)
+        MAIN_ACTIVITY.title = getString(R.string.favourites_text)
         MAIN_ACTIVITY.mAppDrawer.enableDrawer()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
-        recyclerView = requireView().findViewById(R.id.rv_favourites_fragment)
+        _recyclerView = requireView().findViewById(R.id.rv_favourites_fragment)
         val refFavourites = REF_DATABASE_ROOT.child(NODE_FAVOURITES).child(CURRENT_UID)
         val options = FirebaseRecyclerOptions.Builder<PhoneDataModel>()
             .setQuery(refFavourites, PhoneDataModel::class.java).build()
 
         adapter = FavouritesAdapter(options)
         recyclerView.adapter = adapter
-        adapter.startListening()
+        adapter?.startListening()
         (adapter as FavouritesAdapter).itemOnCLickListener { item ->
             val bundle = Bundle()
             bundle.putSerializable(POSITION_ITEM, item)
@@ -60,6 +62,9 @@ class FavouritesFragment : Fragment(R.layout.fragment_favourites) {
 
     override fun onPause() {
         super.onPause()
-        adapter.stopListening()
+        adapter = null
+        _recyclerView?.adapter = null
+        _recyclerView = null
+        _binding = null
     }
 }

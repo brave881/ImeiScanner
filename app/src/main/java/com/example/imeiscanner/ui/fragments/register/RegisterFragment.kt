@@ -2,7 +2,6 @@ package com.example.imeiscanner.ui.fragments.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,17 +24,18 @@ import java.util.concurrent.TimeUnit
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
-    private lateinit var binding: FragmentRegisterBinding
+    private var _binding: FragmentRegisterBinding?=null
+    private val binding: FragmentRegisterBinding get() = _binding!!
     private lateinit var mPhoneNumber: String
-    private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var countryCodePicker: CountryCodePicker
+    private var googleSignInClient: GoogleSignInClient?=null
+    private  var countryCodePicker: CountryCodePicker?=null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,7 +54,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun signIn() {
-        val signInIntent = googleSignInClient.signInIntent
+        val signInIntent = googleSignInClient?.signInIntent
         startActivityForResult(signInIntent, RC_SiGN_IN)
     }
 
@@ -91,19 +91,21 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private fun options() {
         mPhoneNumber =
-            "${countryCodePicker.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text}"
+            "${countryCodePicker!!.textView_selectedCountry.text}${binding.registerInputPhoneNumber.text}"
 
         val options = PhoneAuthOptions.newBuilder(AUTH)
             .setPhoneNumber(mPhoneNumber)                // Phone number to verify
             .setTimeout(60L, TimeUnit.SECONDS)   // Timeout and unit
             .setActivity(MAIN_ACTIVITY)                 // Activity (for callback binding)
-            .setCallbacks(getCallbacks(mPhoneNumber) {
-                showToast(MAIN_ACTIVITY.getString(R.string.welcome))
-                restartActivity()
-            })                    // OnVerificationStateChangedCallbacks
+            .setCallbacks(getCallbacks(mPhoneNumber) )                    // OnVerificationStateChangedCallbacks
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        countryCodePicker=null
+        googleSignInClient=null
+        _binding=null
+    }
 }

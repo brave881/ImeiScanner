@@ -138,29 +138,34 @@
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/settings_log_out_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="@dimen/app_margin"
-        android:background="@drawable/button_shape_red"
-        android:focusable="true"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:fontFamily="@font/karla_bold"
-            android:gravity="center"
-            android:text="@string/log_out_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_22sdp" />
+            android:background="@drawable/button_shape_red"
+            android:focusable="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:fontFamily="@font/karla_bold"
+                android:gravity="center"
+                android:text="@string/log_out_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sdp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

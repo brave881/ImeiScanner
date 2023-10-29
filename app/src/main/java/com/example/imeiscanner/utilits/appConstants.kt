@@ -14,7 +14,7 @@ lateinit var check:ImageView
 const val LANG = "Lang"
 const val STATE = "state"
 const val RC_SiGN_IN = 1
-const val TAG = "TAG"
+const val TAG = "TAG1212"
 const val GOOGLE_PROVIDER_ID = "google"
 const val PHONE_PROVIDER_ID = "phone"
 const val DATA_FROM_MAIN_FRAGMENT = "data_from_main_fragment"

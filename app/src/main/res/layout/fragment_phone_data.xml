@@ -6,20 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.add_phone.PhoneInfoFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/info_rv_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_images_info" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/info_rv_images">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_name"
             style="@style/card_style"
             android:background="@drawable/stroke_cardview"
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +62,7 @@
             style="@style/card_style"
             android:layout_marginTop="12dp"
             android:background="@drawable/stroke_cardview"
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_name">
@@ -78,7 +90,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_imei2"
             style="@style/card_style"
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_imei1">
@@ -106,8 +118,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card_serial_number"
             style="@style/card_style"
-
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_imei2">
@@ -138,7 +149,7 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toStartOf="@+id/card_state"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_serial_number">
@@ -169,8 +180,7 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-
-            app:cardCornerRadius="@dimen/_11sdp"
+            app:cardCornerRadius="@dimen/corner_radius_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/card_price"
             app:layout_constraintTop_toBottomOf="@+id/card_serial_number">
@@ -199,7 +209,9 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_15sdp"
             android:layout_marginEnd="@dimen/_5sdp"
-            app:cardCornerRadius="@dimen/_11sdp"
+            android:layout_marginBottom="@dimen/transparent_top_margin"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/card_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/card_price">
@@ -230,10 +242,11 @@
             style="@style/mini_card_style"
             android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_15sdp"
-
-            app:cardCornerRadius="@dimen/_11sdp"
+            android:layout_marginBottom="@dimen/transparent_top_margin"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/card_memory"
+            app:layout_constraintStart_toEndOf="@id/card_price"
             app:layout_constraintTop_toBottomOf="@+id/card_state">
 
             <LinearLayout
@@ -257,29 +270,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_edit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="26dp"
-        android:background="@drawable/button_shape"
-        android:focusable="true"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:fontFamily="@font/karla_bold"
-            android:gravity="center"
-            android:text="@string/edit_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_22sdp" />
+            android:background="@drawable/button_shape"
+            android:focusable="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:fontFamily="@font/karla_bold"
+                android:gravity="center"
+                android:text="@string/edit_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sdp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

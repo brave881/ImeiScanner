@@ -14,9 +14,10 @@
         android:background="@drawable/verification_view_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout1"
@@ -54,8 +55,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_add_imei1"
                 android:layout_width="match_parent"
-                android:layout_height="49dp"
-                android:editable="false"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/karla_bold"
                 android:inputType="number"
                 android:maxLines="1" />
@@ -67,8 +67,8 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/margin_10_dp"
-            android:src="@drawable/qr_new_icon"
             android:background="?android:selectableItemBackground"
+            android:src="@drawable/qr_new_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout2" />
@@ -136,8 +136,8 @@
             android:layout_width="@dimen/_17sdp"
             android:layout_height="@dimen/_17sdp"
             android:layout_marginEnd="@dimen/margin_10_dp"
-            android:src="@drawable/qr_new_icon"
             android:background="?android:selectableItemBackground"
+            android:src="@drawable/qr_new_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
             app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
@@ -250,29 +250,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="26dp"
-        android:background="@drawable/button_shape"
-        android:focusable="true"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?android:selectableItemBackground"
-            android:fontFamily="@font/karla_bold"
-            android:gravity="center"
-            android:text="@string/save_text"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_22sdp" />
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:focusable="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:selectableItemBackground"
+                android:fontFamily="@font/karla_bold"
+                android:gravity="center"
+                android:text="@string/save_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_22sdp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

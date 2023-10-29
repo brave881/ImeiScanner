@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
@@ -18,8 +17,9 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.imeiscanner.R
 import com.example.imeiscanner.database.AUTH
+import com.example.imeiscanner.database.deleteAlLImagesFromStorage
 import com.example.imeiscanner.database.deleteUser
-import com.example.imeiscanner.database.deleteUserFromDatabase
+import com.example.imeiscanner.database.deleteUserDatasFromDatabase
 import com.example.imeiscanner.database.getCallbacks
 import com.example.imeiscanner.models.PhoneDataModel
 import com.google.firebase.auth.PhoneAuthOptions
@@ -121,15 +121,14 @@ fun hideKeyboard() {
     imm.hideSoftInputFromWindow(MAIN_ACTIVITY.window.decorView.windowToken, 0)
 }
 
-fun accountDeleteDialog() {
+ fun accountDeleteDialog(onPositiveButton:()->Unit) {
     DIALOG_BUILDER.setTitle(R.string.delete_account_dialog)
         .setMessage(R.string.alert_dialog_message)
-        .setNegativeButton(R.string.cancel) { dialogIntereface, it ->
-            dialogIntereface.cancel()
+        .setNegativeButton(R.string.cancel) { dialogInterface, it ->
+            dialogInterface.cancel()
         }
         .setPositiveButton(R.string.delete_text) { _, _ ->
-            deleteUserFromDatabase()
-            deleteUser()
+           onPositiveButton()
         }.show()
 }
 
@@ -166,9 +165,11 @@ fun showAlertDialog(items: Array<String>, itemState: Int) {
                 0 -> {
                     language = "en"
                 }
+
                 1 -> {
                     language = "tr"
                 }
+
                 2 -> {
                     language = "uz"
                 }
@@ -217,7 +218,7 @@ fun resendCode(phoneNumber: String, token: PhoneAuthProvider.ForceResendingToken
         .setPhoneNumber(phoneNumber)
         .setTimeout(60L, TimeUnit.SECONDS)
         .setActivity(MAIN_ACTIVITY)
-        .setCallbacks(getCallbacks(phoneNumber) {})
+        .setCallbacks(getCallbacks(phoneNumber) )
         .setForceResendingToken(token)
         .build()
     PhoneAuthProvider.verifyPhoneNumber(options)

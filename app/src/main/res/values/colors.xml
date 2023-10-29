@@ -11,10 +11,13 @@
     <color name="button_color">#30C896</color>
     <color name="background_all">#FCFCFF</color>
     <color name="gray_icon">#D8D8D8</color>
+    <color name="dark_gray">#575555</color>
     <color name="sundown">#FFB1B1</color>
     <color name="pale_violet_red">#EB6A9F</color>
     <color name="background">#F2F2F2</color>
     <color name="colorToolbar">#31D19E</color>
     <color name="mainBackground">#FCFCFF</color>
     <color name="dateColor">#7556CC</color>
+    <color name="green_image_box_content_color">#7EF192</color>
+
 </resources>
